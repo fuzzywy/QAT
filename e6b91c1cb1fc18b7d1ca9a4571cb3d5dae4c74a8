@@ -1,0 +1,1245 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "91d90c27_da743ff8",
+        "filename": "app/Http/Controllers/CityController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "delete this file as controller will be developed by guoli",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8cdf5dba_7add2d23",
+        "filename": "app/Http/Controllers/DataController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "delete this file as controller will be developed by guoli",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "469c6b49_b56e7a41",
+        "filename": "app/Http/Controllers/HomeController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "delete this file as controller will be developed by guoli",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fac224fc_f6f9a9e2",
+        "filename": "app/Http/Controllers/LocationController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "delete this file as controller will be developed by guoli",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6b9943a4_1f186c61",
+        "filename": "app/Http/Controllers/MobanController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "delete this file as controller will be developed by guoli",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "23b15cd4_3743682b",
+        "filename": "app/Http/Controllers/NavController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "delete this file as controller will be developed by guoli",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed631a91_6347c283",
+        "filename": "app/Http/Controllers/SubnetController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "delete this file as controller will be developed by guoli",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4c015061_eced0156",
+        "filename": "app/Http/Controllers/TimeController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "delete this file as controller will be developed by guoli",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cf202ff7_bca58909",
+        "filename": "app/Http/Controllers/UploadController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "delete this file as controller will be developed by guoli",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "65263be7_1a06a7d4",
+        "filename": "public/icon/demo.css",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "remove if not used",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62bcb91f_6a6bdb26",
+        "filename": "public/icon/demo_fontclass.html",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "remove if not used",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fcb8ba65_ed145dc1",
+        "filename": "public/icon/demo_symbol.html",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "remove if not used",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "45df4448_8ba947d7",
+        "filename": "public/icon/demo_unicode.html",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "remove if not used",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2cbf4842_53322519",
+        "filename": "public/icon/iconfont.css",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "remove if not used",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e972ec37_24d86ef7",
+        "filename": "resources/assets/js/api/getBKpiCard.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "remove if not used",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "256ca81b_606ae7ba",
+        "filename": "resources/assets/js/api/getBLineChart.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "remove if not used",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0475a670_2905922f",
+        "filename": "resources/assets/js/api/getBirdSideBar.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "remove if not used",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "30866144_62daa5fd",
+        "filename": "resources/assets/js/api/getCity.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "remove if not used",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bf0fcbc0_c20fb583",
+        "filename": "resources/assets/js/api/qat/getQatData.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "delete unnecessary tab",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8502e458_494a987d",
+        "filename": "resources/assets/js/api/qat/getQatData.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "delete all blank",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8ecc2af4_0d40b837",
+        "filename": "resources/assets/js/api/qat/getQatMoban.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "use Template instead of Moban",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68c104a3_82987317",
+        "filename": "resources/assets/js/api/qat/getQatSubnet.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "delete all comment code",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3d8625af_bf709461",
+        "filename": "resources/assets/js/api/qat/getQatSubnet.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "delete all blank",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f74eae2b_e23d141d",
+        "filename": "resources/assets/js/api/uploadCog.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "remove all comment code",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a420619_bedf2b57",
+        "filename": "resources/assets/js/components/qatOverview/QatComponent.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "remove all comment lines",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "683c7d6c_e2fda843",
+        "filename": "resources/assets/js/components/qatOverview/QatComponent.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "we need full tiled. use 100 instead of 80",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "adccccea_8fa3ad55",
+        "filename": "resources/assets/js/components/qatOverview/qats/FormGroup.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "remove comment code",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ef1427c7_0c0d3fd1",
+        "filename": "resources/assets/js/components/qatOverview/qats/FormGroup.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "please use laravel language instead of fixed label.check it in all vue components",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "87e55e36_565b7763",
+        "filename": "resources/assets/js/components/qatOverview/qats/FormGroup.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "delete empty line",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "aabf8ace_749d4220",
+        "filename": "resources/assets/js/components/qatOverview/qats/FormGroup.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "delete empty line",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8613f103_818b5d5e",
+        "filename": "resources/assets/js/components/qatOverview/qats/FormGroup.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "delete empty line",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "44b0ce8f_c36d5714",
+        "filename": "resources/assets/js/components/qatOverview/qats/FormGroup.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "what\u0027s it?",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9d2a5fc6_ac1d8500",
+        "filename": "resources/assets/js/components/qatOverview/qats/FormGroup.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "delete all blank",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "49c75172_f3acfd0e",
+        "filename": "resources/assets/js/components/qatOverview/qats/Formgroupfdd.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "remove unused style element",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "622bcf03_f948adb3",
+        "filename": "resources/assets/js/components/qatOverview/qats/TableGroup.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "remove empty style element",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "23f0f6fd_7be6b43a",
+        "filename": "resources/assets/js/components/qatOverview/qats/TableGroup.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "must set an fixed height?",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "aca4d9a6_884c4c16",
+        "filename": "resources/assets/js/components/qatOverview/qats/TableGroup.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "delete comment code",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "306d512e_336e394c",
+        "filename": "resources/assets/js/components/qatOverview/qats/TableGroup.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "delete comment code",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9338bd4c_14fc6179",
+        "filename": "resources/assets/js/components/qatOverview/qats/TableGroup.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "delete comment code",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a8aabd64_6acc2e3a",
+        "filename": "resources/assets/js/components/qatOverview/qats/TableGroup.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "delete comment code",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b0ba4f0_7c913dfd",
+        "filename": "resources/assets/js/components/scaleOverview/BCogFormBackComponent.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "delete empty lines",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "50b55262_cb68aaa9",
+        "filename": "resources/assets/js/components/scaleOverview/BCogFormComponent.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "remove comment code",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8b43b1b5_03427ab9",
+        "filename": "resources/assets/js/components/scaleOverview/BCogFormTableComponent.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "delete all comment lines",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a292095f_f303a4bb",
+        "filename": "resources/assets/js/components/scaleOverview/BCogFormTableComponent.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "delete blank",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "95ccec6e_b1ef5c62",
+        "filename": "resources/assets/js/components/scaleOverview/BCogFormTableComponent.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "delete blank",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5df6a103_c66f2e67",
+        "filename": "resources/assets/js/components/scaleOverview/BCogFormTableComponent.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "delete comment lines",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "04d6433b_a5199f52",
+        "filename": "resources/assets/js/components/scaleOverview/BCogFormTableComponent.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "delete comment lines",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c9eb6860_0e5a761d",
+        "filename": "resources/assets/js/components/scaleOverview/BCogFormTableComponent.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "delete empty line",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ebd3df8_6fdc5a9f",
+        "filename": "resources/assets/js/components/scaleOverview/BCogFormTableComponent.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "delete empty lines",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68032e96_21ca2173",
+        "filename": "resources/assets/js/components/scaleOverview/BKpiCardComponent.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "remove if not used",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "095be1f9_8f372e06",
+        "filename": "resources/assets/js/components/scaleOverview/BLineChartComponent.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "remove if not used",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8087a4a9_93906876",
+        "filename": "resources/assets/js/components/scaleOverview/BLocationNavComponent.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "remove if not used",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a4c8126_41e95168",
+        "filename": "resources/assets/js/components/scaleOverview/BPieChartComponent.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "remove if not used",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "96e0d83c_1a36316c",
+        "filename": "resources/assets/js/components/scaleOverview/BirdSideBarComponent.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "remove if not used",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0c460a6_b05f12d8",
+        "filename": "resources/assets/js/components/scaleOverview/HomeComponent.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "remove if not used",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "90ad94df_bdbbb7f4",
+        "filename": "resources/assets/js/components/scaleOverview/QQatComponent.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "remove if not used",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0371d46a_9046d346",
+        "filename": "resources/assets/js/mixin/common/Common.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "remove if not used",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "391efd9b_17136df0",
+        "filename": "resources/assets/js/modules/getBKpiCard.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "remove if not used",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "56f296ee_104acb66",
+        "filename": "resources/assets/js/modules/getBLineChart.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "remove if not used",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "86c7ebc8_64b47f8d",
+        "filename": "resources/assets/js/modules/getBirdSideBar.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "remove it if not used",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "95195069_66eade66",
+        "filename": "resources/assets/js/modules/getBirdSideBar.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "delete blank",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2b4c9389_6ceb4631",
+        "filename": "resources/assets/js/modules/getBirdSideBar.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "delete empty line",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ce08e8c9_94a75d10",
+        "filename": "resources/assets/js/modules/getCity.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "delete blank",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b6330888_ca99e926",
+        "filename": "resources/assets/js/modules/qat/getQatCity.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "delete blank",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a37598de_ffeeda0d",
+        "filename": "resources/assets/js/modules/qat/getQatData.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "delete blank",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e90643f7_092e3208",
+        "filename": "resources/assets/js/modules/qat/getQatLocation.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "delete blank",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ca1d399_9c3ec11a",
+        "filename": "resources/assets/js/modules/qat/getQatMoban.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "delete blank",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "73a48682_b38bcd18",
+        "filename": "resources/assets/js/modules/qat/getQatSubnet.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "delete blank",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5eed62ae_8eef5543",
+        "filename": "resources/assets/js/modules/qat/getQatSubnet.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "delete empty line",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f635be26_f7b1d3f2",
+        "filename": "routes/web.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "remove comment lines",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3d990338_e7734213",
+        "filename": "routes/web.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "remove comment lines",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d6c8545e_e36ec4c8",
+        "filename": "routes/web.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "remove comment lines",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9178f247_0b934f5e",
+        "filename": "routes/web.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-11-27T09:15:48Z",
+      "side": 1,
+      "message": "remove comment lines",
+      "revId": "e6b91c1cb1fc18b7d1ca9a4571cb3d5dae4c74a8",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    }
+  ]
+}
