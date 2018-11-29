@@ -56,8 +56,8 @@ export const Common = {
             return false;
         },
         //根据数据源类型加载模板
-        processLoadMoban(dataSource, dataType) {
-            this.$store.dispatch( 'loadQatMobanStatus', {
+        processLoadTemplate(dataSource, dataType) {
+            this.$store.dispatch( 'loadQatTemplateStatus', {
                 dataSource: dataSource,
                 dataType: dataType
             });
@@ -87,7 +87,7 @@ export const Common = {
         processLoadData( 
                   dataSource,
                   dataType,
-                  moban, 
+                  template, 
                   time, 
                   location, 
                   city, 
@@ -102,7 +102,7 @@ export const Common = {
             this.$store.dispatch( 'loadQatDataStatus', {
                 dataSource: dataSource,
                 dataType: dataType,
-                template: moban,
+                template: template,
                 timeDim: time,
                 locationDim: location,
                 cities: city,

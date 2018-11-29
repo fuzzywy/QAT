@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 
-class MobanController extends Controller 
+class TemplateController extends Controller 
 {
-	public function getMoban() {
+	public function getTemplate() {
 		sleep(1);
 		$dataSource = Input::get('dataSource');
 		$dataType = Input::get('dataType');

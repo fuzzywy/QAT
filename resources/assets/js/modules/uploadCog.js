@@ -5,7 +5,6 @@
  | The Vuex data store for the getBLineChart
  */
 import UploadCogAPI from "../api/uploadCog.js";
-
 export const uploadCog = {
     state: {
         uploadCog: [],

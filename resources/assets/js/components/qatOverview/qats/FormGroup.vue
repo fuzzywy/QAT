@@ -7,8 +7,6 @@
     }
     .form-div {
         display: flex;
-        /*padding-left: 20px;
-        padding-right: 20px;*/
     }
     .select-3 {
         width: 30%;
@@ -26,7 +24,6 @@
         margin: 5.6px 5px 5px 5px;
     }
 </style>
-
 <template>
     <div class="form">
         <!-- {{dataSource}}-{{dataType}} -->
@@ -34,20 +31,20 @@
         <div class="form-div">
             <el-select
                 class="select-3"
-                v-loading="loading.qatMobanStatus"
-                v-model="moban"
-                :showData="getMobanData"
+                v-loading="loading.qatTemplateStatus"
+                v-model="template"
+                :showData="getTemplateData"
                 collapse-tags
                 placeholder="模板">
                 <el-option
-                  v-for="item in mobanGroup"
+                  v-for="item in templateGroup"
                   :key="item.value"
                   :label="item.label"
                   :value="item.value">
                 </el-option>
             </el-select>
             <el-select
-            	v-loading="loading.qatTimeStatus"
+              v-loading="loading.qatTimeStatus"
                 class="select-3"
                 v-model="time"
                 :showData="showTimeData"
@@ -62,7 +59,7 @@
                 </el-option>
             </el-select>
             <el-select
-            	v-loading="loading.qatLocationStatus"
+              v-loading="loading.qatLocationStatus"
                 class="select-3"
                 v-model="location"
                 :showData="showLocationData"
@@ -80,7 +77,7 @@
         <div class="line"></div>
         <div class="form-div">
             <el-select
-            	v-loading="loading.qatCityStatus"
+              v-loading="loading.qatCityStatus"
                 class="select-4"
                 v-model="city"
                 :showData="getCityData"
@@ -128,9 +125,7 @@
             </el-input>
         </div>
         <div class="line"></div>
-
         <div class="form-div">
-            
             <el-date-picker
               class="select-3"
               style="left: -4px;"
@@ -140,9 +135,8 @@
               start-placeholder="开始日期"
               end-placeholder="结束日期">
             </el-date-picker>
-            
             <el-select
-            	:disabled="bool.hour"
+              :disabled="bool.hour"
                 class="select-3"
                 v-model="hour"
                 @change="change_hour"
@@ -156,9 +150,8 @@
                   :value="item.value">
                 </el-option>
             </el-select>
-
             <el-select
-            	:disabled="bool.minute"
+              :disabled="bool.minute"
                 class="select-3"
                 style="right: -4px;"
                 v-model="minute"
@@ -173,9 +166,7 @@
                 </el-option>
             </el-select>
         </div>
-
         <div class="line"></div>
-        
         <div class="form-div">
             <el-select
                 class="select-3"
@@ -190,7 +181,6 @@
                   :value="item.value">
                 </el-option>
             </el-select>
-
             <el-select
                 class="select-3"
                 v-model="notice"
@@ -222,18 +212,9 @@
                 </i>
               </div>
             </div>
-            <!-- <b-button size="sm" @click.stop="row.toggleDetails" @click.top="modifyData(row.item, row.index, $event.target)">
-            {{ row.detailsShowing ? 'Hide' : 'Modify' }} Details
-            </b-button> -->
-            <!-- <el-button style="background-color: white; border: 0px; width: auto; padding: 0; " type="info" class="select-4"><i style="font-size: xx-large; color: #6c757d;" class="icon-ali-cog"></i></el-button> -->
-            <!-- <el-button type="primary" :loading="false" class="select-4">运行</el-button>
-            <el-button type="primary" :loading="false" class="select-4">停止</el-button> -->
-           <!--  <i class="el-icon-caret-right select-4" style="font-size: 50px;"></i>
-            <i class="el-icon-circle-close-outline select-4" style="font-size: 50px;"></i> -->
         </div>
     </div>
 </template>
-
 <script>
     import {Common} from '../../../mixin/common/Common.js'; 
     export default {
@@ -256,14 +237,14 @@
                 startIcon: true
               },
               bool: {
-              	hour: false,
-              	minute: false,
-              	baseStation: false,
-              	cell: false
+                hour: false,
+                minute: false,
+                baseStation: false,
+                cell: false
               },
               loading: {
                 qatSubnetStatus: false,
-                qatMobanStatus: false,
+                qatTemplateStatus: false,
 
                 qatCityStatus: false,
                 qatTimeStatus: false,
@@ -271,7 +252,7 @@
 
                 qatStart:false
               },
-              moban: [],
+              template: [],
               time: [],
               location: [],
               city: [],
@@ -323,7 +304,7 @@
               noticeGroup: [
                 { value: 'lijian', label: 'lijian' }
               ],
-              mobanGroup: [
+              templateGroup: [
                 { value: 'test1', label: 'test1111111111111111111111111111sadddddddddddddddddddaaaaaaaaaaaa' },
                 { value: 'test2', label: 'test2' },
                 { value: 'test3', label: 'test3' },
@@ -374,12 +355,11 @@
             },
             visible_change_city: function(value) {
                 if (!value) {
-                    this.loading.qatSubnetStatus = true;
-                    this.city.length == 0? 
-                      this.loading.qatSubnetStatus = this.processLoadNullCity(this.$message, '城市')
-                     : this.processLoadSubnet(this.city, this.dataSource, this.dataType);
-
-                    this.city.length == 0?this.subnetGroup = []:console.log('不可能走到这里(当选择模式程序清除tag的时候还是会走到这里哦！)');
+                  this.loading.qatSubnetStatus = true;
+                  this.city.length == 0? 
+                    this.loading.qatSubnetStatus = this.processLoadNullCity(this.$message, '城市')
+                   : this.processLoadSubnet(this.city, this.dataSource, this.dataType);
+                  this.city.length == 0?this.subnetGroup = []:console.log('不可能走到这里(当选择模式程序清除tag的时候还是会走到这里哦！)');
                 }    
             },
             remove_tag: function(value) {
@@ -390,68 +370,68 @@
               this.city.length == 0?this.subnetGroup = []:console.log('不可能走到这里');
             },
             visible_change_time: function(value) {
-            	if (!value) {
-            		if (this.time.length != 0) {
-            			switch( this.time ) {
-            				case 'day':
-            				case 'dayGroup':
-            					this.hour = [];
-            					this.minute = [];
-            					this.bool.hour = true;
-            					this.bool.minute = true;
-            				break;
-            				case 'hour':
-            				case 'hourGroup':
-            					this.minute = [];
-            					this.bool.hour = false;
-            					this.bool.minute = true;
-            				break;
-            				case 'quarter':
-            					this.bool.hour = false;
-            					this.bool.minute = false;
-            				break;
-            				default:
-            					this.bool.hour = false;
-            				break;
-            			}
-            		}
-            	}
+              if (!value) {
+                if (this.time.length != 0) {
+                  switch( this.time ) {
+                    case 'day':
+                    case 'dayGroup':
+                      this.hour = [];
+                      this.minute = [];
+                      this.bool.hour = true;
+                      this.bool.minute = true;
+                    break;
+                    case 'hour':
+                    case 'hourGroup':
+                      this.minute = [];
+                      this.bool.hour = false;
+                      this.bool.minute = true;
+                    break;
+                    case 'quarter':
+                      this.bool.hour = false;
+                      this.bool.minute = false;
+                    break;
+                    default:
+                      this.bool.hour = false;
+                    break;
+                  }
+                }
+              }
             },
             visible_change_location: function(value) {
-            	if (!value) {
-            		if ( this.location.length != 0 ) {
-            			switch( this.location ) {
-            				case 'city':
-            				case 'subnet':
-            				case 'subnetGroup':
-            					this.baseStation = '';
-            					this.cell = '';
-            					this.bool.baseStation = true;
-            					this.bool.cell = true;
-            				break;
-            				case 'baseStation':
-            				case 'baseStationGroup':
-            					this.cell = '';
-            					this.bool.baseStation = false;
-            					this.bool.cell = true;
-            				break;
-            				case 'cell':
-            				case 'cellGroup':
-            					this.baseStation = '';
-            					this.bool.baseStation = true;
-            					this.bool.cell = false;
-            				break;
-            				default:
-            					this.bool.baseStation = false;
-            					this.bool.cell = false;
-            				break;
-            			}
-            		}
-            	}
+              if (!value) {
+                if ( this.location.length != 0 ) {
+                  switch( this.location ) {
+                    case 'city':
+                    case 'subnet':
+                    case 'subnetGroup':
+                      this.baseStation = '';
+                      this.cell = '';
+                      this.bool.baseStation = true;
+                      this.bool.cell = true;
+                    break;
+                    case 'baseStation':
+                    case 'baseStationGroup':
+                      this.cell = '';
+                      this.bool.baseStation = false;
+                      this.bool.cell = true;
+                    break;
+                    case 'cell':
+                    case 'cellGroup':
+                      this.baseStation = '';
+                      this.bool.baseStation = true;
+                      this.bool.cell = false;
+                    break;
+                    default:
+                      this.bool.baseStation = false;
+                      this.bool.cell = false;
+                    break;
+                  }
+                }
+              }
             },
             //查询主函数
             toggleStartIcon(event) {
-              if ( !this.moban ) {
+              if ( !this.template ) {
                 this.$message({
                   showClose: true,
                   message: '请选择模板',
@@ -530,7 +510,7 @@
                 this.processLoadData(
                   this.dataSource,
                   this.dataType,
-                  this.moban, 
+                  this.template, 
                   this.time, 
                   this.location, 
                   this.city, 
@@ -542,7 +522,6 @@
                   this.minute, 
                   this.crontab, 
                   this.notice);
-                // console.log(this.moban, this.time, this.location, this.city, this.subnet, this.baseStation, this.cell, this.date, this.hour, this.minute, this.crontab, this.notice)
                 return;
               }
             }
@@ -550,24 +529,22 @@
         computed: {
           //监控数据源/类型
           computedDatasourceType() {
-            this.loading.qatMobanStatus = true;
+            this.loading.qatTemplateStatus = true;
             this.loading.qatCityStatus = true;
             this.loading.qatTimeStatus = true;
             this.loading.qatLocationStatus = true;
-            this.processLoadMoban(this.dataSource, this.dataType);
+            this.processLoadTemplate(this.dataSource, this.dataType);
             this.processLoadCitys(this.dataSource, this.dataType);
             this.processLoadTime(this.dataSource, this.dataType);
             this.processLoadLocation(this.dataSource, this.dataType);
             //同样是select，为啥一个要是数组一个要是字符串。奇怪的elementui
             //清除城市tag模板
             this.city = [];
-            this.moban = "";
-
+            this.template = "";
             this.subnet = [];
             this.time = '';
             this.location = '';
             this.date = [];
-
             this.toogle.startIcon = true;
             this.loading.qatStart = false;
           },
@@ -584,15 +561,15 @@
                   });
               }
           },
-          getMobanData() {
-            if( this.$store.getters.qatMobanStatus == 2 ) {
-              this.loading.qatMobanStatus = false;
+          getTemplateData() {
+            if( this.$store.getters.qatTemplateStatus == 2 ) {
+              this.loading.qatTemplateStatus = false;
               //显示模板
-              this.mobanGroup = this.$store.getters.qatMoban;
-            }else if( this.$store.getters.qatMobanStatus == 3 ) {
+              this.templateGroup = this.$store.getters.qatTemplate;
+            }else if( this.$store.getters.qatTemplateStatus == 3 ) {
               this.$message({
                 showClose: true,
-                message: this.$store.getters.qatMoban,
+                message: this.$store.getters.qatTemplate,
                 type: 'error'
               });
             }
@@ -613,7 +590,7 @@
           },
           //获取时间维度
           showTimeData() {
-          	if( this.$store.getters.qatTimeStatus == 2 ) {
+            if( this.$store.getters.qatTimeStatus == 2 ) {
               this.loading.qatTimeStatus = false;
               //显示时间维度
               this.timeGroup = this.$store.getters.qatTime;
@@ -627,7 +604,7 @@
           },
           //获取地域维度
           showLocationData() {
-          	if( this.$store.getters.qatLocationStatus == 2 ) {
+            if( this.$store.getters.qatLocationStatus == 2 ) {
               this.loading.qatLocationStatus = false;
               //显示地域维度
               this.locationGroup = this.$store.getters.qatLocation;

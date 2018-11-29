@@ -1,6 +1,6 @@
 export default {
-	getQatMoban: function(dataSource, dataType) {
-		return axios.get( 'getQatMoban', {
+	getQatTemplate: function(dataSource, dataType) {
+		return axios.get( 'getQatTemplate', {
 			params: {
 				dataSource: dataSource,
 				dataType: dataType
