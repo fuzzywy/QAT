@@ -10,7 +10,18 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth/login');
 });
+Auth::routes();
+Route::get('localeLang', 'NavController@localeLang');
+Route::get('/home', 'HomeController@index')->name('home');
+Route::post('uploadCog', 'UploadController@uploadCog');
+Route::post('showCog', 'UploadController@showCog');
+Route::post('deleteCog', 'UploadController@deleteCog');
+Route::get('getQatSubnet', 'SubnetController@getSubnet');
+Route::get('getQatTemplate', 'TemplateController@getTemplate');
+Route::get('getQatCity', 'CityController@getCity');
+Route::get('getQatTime', 'TimeController@getTime');
+Route::get('getQatLocation', 'LocationController@getLocation');
+Route::get('getQatData', 'DataController@getQatData');
