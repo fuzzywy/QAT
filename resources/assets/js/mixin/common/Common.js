@@ -113,7 +113,7 @@ export const Common = {
                 hour: hour,
                 minute: minute,
                 crontab: crontab,
-                notice: notice 
+                notice: notice
             });
         }
 	}

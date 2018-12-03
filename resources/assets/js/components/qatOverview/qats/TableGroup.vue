@@ -57,6 +57,11 @@
               this.currentPage = 1;
             }
           }
+        },
+        mounted() {
+          this.bus.$on('loadingQatDataStatus', types=> {
+              this.loading.qatDataStatus = types.loadingQatDataStatus;
+          });
         }
     }
 </script>

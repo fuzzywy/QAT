@@ -1,6 +1,7 @@
 export default {
-    getQatData: function( dataSource, dataType, template, timeDim, locationDim, cities, subnets, baseStation, cell, date, hour,  minute, crontab, notice) {
-        return axios.get( 'getQatData', {
+    getQatData: function( cancelToken, dataSource, dataType, template, timeDim, locationDim, cities, subnets, baseStation, cell, date, hour, minute, crontab, notice ) {
+        return axios.get( "getQatData", {
+            cancelToken: cancelToken.token,
             params: {
                 dataSource: dataSource,
                 dataType: dataType,
@@ -19,6 +20,11 @@ export default {
             }
         })
         .catch(function(error) {
+            if (axios.isCancel(error)) {
+                console.log('Request canceled', error.message);
+            } else {
+                // handle error
+            }
             if (error.response) {
                 if ( error.response.status == '404' ) {
                     return error.response.status + ' Not Found';
