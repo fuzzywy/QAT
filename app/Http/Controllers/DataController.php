@@ -8,11 +8,13 @@ use Illuminate\Support\Facades\Input;
 class DataController extends Controller 
 {
 	public function getQatData() {
-		sleep(1);
+		sleep(10);
 		$dataSource = Input::get('dataSource');
 		$dataType = Input::get('dataType');
+		$cancelToken = Input::get('cancelToken');
+		// print_r(json_decode($cancelToken));
 		$arr = array(
-				array('date'=>'2016-05-03', 'name'=>'1', 'address'=>$dataSource, '这是萨达萨达是啊是大大撒大撒大撒撒打算的阿萨大啊'=>$dataSource ),
+				array('date'=>'2016-05-03', 'name'=>'1', 'address'=>$cancelToken, '这是萨达萨达是啊是大大撒大撒大撒撒打算的阿萨大啊'=>$dataSource ),
 				array('date'=>'2016-05-03', 'name'=>'2', 'address'=>$dataSource, '这是萨达萨达是啊是大大撒大撒大撒撒打算的阿萨大啊'=>$dataSource ),
 				array('date'=>'2016-05-03', 'name'=>'3', 'address'=>$dataSource, '这是萨达萨达是啊是大大撒大撒大撒撒打算的阿萨大啊'=>$dataSource ),
 				array('date'=>'2016-05-03', 'name'=>'4', 'address'=>$dataSource, '这是萨达萨达是啊是大大撒大撒大撒撒打算的阿萨大啊'=>$dataSource ),

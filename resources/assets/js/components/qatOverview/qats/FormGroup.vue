@@ -4,20 +4,14 @@
         top: 10px;
         text-align: center;
         z-index: 999;
+        padding-left: 15px;
+        padding-right: 15px;
     }
-    .form-div {
-        display: flex;
+    .full-width {
+      width: 100%;
     }
-    .select-3 {
-        width: 30%;
-        margin: auto;
-    }
-    .select-4 {
-        width: 22%;
-        margin: auto;
-    }
-    .select-4-input {
-        display: inline;
+    .el-date-editor--daterange.el-input, .el-date-editor--daterange.el-input__inner, .el-date-editor--timerange.el-input, .el-date-editor--timerange.el-input__inner {
+      width: 100%;
     }
     .line {
         border: 0.5px solid #dcdfe6;
@@ -26,176 +20,195 @@
 </style>
 <template>
     <div class="form">
-        <!-- {{dataSource}}-{{dataType}} -->
-        <input style="display: none;" :dataSourceType="computedDatasourceType" :options="getdata">
-        <div class="form-div">
+      <input style="display: none;" :dataSourceType="computedDatasourceType" :options="getdata">
+      <el-row :gutter="20">
+        <el-col :span="8">
+          <el-select 
+            class="full-width"
+            v-loading="loading.qatTemplateStatus"
+            v-model="template"
+            :showData="getTemplateData"
+            collapse-tags
+            placeholder="模板">
+            <el-option
+              v-for="item in templateGroup"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
+        </el-col>
+        <el-col :span="8">
+          <el-select
+            class="full-width"
+            v-loading="loading.qatTimeStatus"
+            v-model="time"
+            :showData="showTimeData"
+            @visible-change="visible_change_time"
+            collapse-tags
+            placeholder="时间维度">
+            <el-option
+              v-for="item in timeGroup"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
+        </el-col>
+        <el-col :span="8">
+          <el-select
+            class="full-width"
+            v-loading="loading.qatLocationStatus"
+            v-model="location"
+            :showData="showLocationData"
+            @visible-change="visible_change_location"
+            collapse-tags
+            placeholder="地域维度">
+            <el-option
+              v-for="item in locationGroup"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
+        </el-col>
+      </el-row>
+      <div class="line"></div>
+      <el-row :gutter="20">
+        <el-col :span="6">
+          <el-select
+            class="full-width"
+            v-loading="loading.qatCityStatus"
+            v-model="city"
+            :showData="getCityData"
+            @change="change_city"
+            @visible-change="visible_change_city"
+            @remove-tag="remove_tag"
+            multiple
+            placeholder="城市">
+            <el-option
+              v-for="item in cityGroup"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
+        </el-col>
+        <el-col :span="6">
+          <el-select
+            class="full-width"
+            v-loading="loading.qatSubnetStatus"
+            v-model="subnet"
+            @change="change_subnet"
+            :showData="getSubnetData"
+            multiple
+            collapse-tags
+            placeholder="子网">
+            <el-option
+              v-for="item in subnetGroup"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
+        </el-col>
+        <el-col :span="6">
+          <el-input
+            class="full-width"
+            :disabled="bool.baseStation"
+            placeholder="请输入基站,英文逗号隔开"
+            v-model="baseStation"
+            clearable>
+          </el-input>
+        </el-col>
+        <el-col :span="6">
+          <el-input
+            class="full-width"
+            :disabled="bool.cell"
+            placeholder="请输入小区,英文逗号隔开"
+            v-model="cell"
+            clearable>
+          </el-input>
+        </el-col>
+      </el-row>
+      <div class="line"></div>
+      <el-row :gutter="20">
+        <el-col :span="12">
+          <el-date-picker
+            v-model="date"
+            type="daterange"
+            range-separator="至"
+            start-placeholder="开始日期"
+            end-placeholder="结束日期">
+          </el-date-picker>
+        </el-col>
+        <el-col :span="6">
+          <el-select
+            :disabled="bool.hour"
+            class="full-width"
+            v-model="hour"
+            @change="change_hour"
+            multiple
+            collapse-tags
+            placeholder="请选择小时">
+            <el-option
+              v-for="item in hourGroup"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
+        </el-col>
+        <el-col :span="6">
+          <el-select
+            :disabled="bool.minute"
+            class="full-width"
+            v-model="minute"
+            @change="change_minute"
+            multiple
+            placeholder="请选择15分钟">
+            <el-option
+              v-for="item in minuteGroup"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
+        </el-col>
+      </el-row>
+      <div class="line"></div>
+        <el-row :gutter="20">
+          <el-col :span="6">
             <el-select
-                class="select-3"
-                v-loading="loading.qatTemplateStatus"
-                v-model="template"
-                :showData="getTemplateData"
-                collapse-tags
-                placeholder="模板">
-                <el-option
-                  v-for="item in templateGroup"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value">
-                </el-option>
+              class="full-width"
+              v-model="crontab"
+              multiple
+              collapse-tags
+              placeholder="定时任务">
+              <el-option
+                v-for="item in crontabGroup"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
             </el-select>
+          </el-col>
+          <el-col :span="6">
             <el-select
-              v-loading="loading.qatTimeStatus"
-                class="select-3"
-                v-model="time"
-                :showData="showTimeData"
-                @visible-change="visible_change_time"
-                collapse-tags
-                placeholder="时间维度">
-                <el-option
-                  v-for="item in timeGroup"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value">
-                </el-option>
+              class="full-width"
+              v-model="notice"
+              multiple
+              collapse-tags
+              placeholder="通知">
+              <el-option
+                v-for="item in noticeGroup"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
             </el-select>
-            <el-select
-              v-loading="loading.qatLocationStatus"
-                class="select-3"
-                v-model="location"
-                :showData="showLocationData"
-                @visible-change="visible_change_location"
-                collapse-tags
-                placeholder="地域维度">
-                <el-option
-                  v-for="item in locationGroup"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value">
-                </el-option>
-            </el-select>
-        </div>
-        <div class="line"></div>
-        <div class="form-div">
-            <el-select
-              v-loading="loading.qatCityStatus"
-                class="select-4"
-                v-model="city"
-                :showData="getCityData"
-                @change="change_city"
-                @visible-change="visible_change_city"
-                @remove-tag="remove_tag"
-                multiple
-                placeholder="城市">
-                <el-option
-                  v-for="item in cityGroup"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value">
-                </el-option>
-            </el-select>
-            <el-select
-                v-loading="loading.qatSubnetStatus"
-                class="select-4"
-                v-model="subnet"
-                @change="change_subnet"
-                :showData="getSubnetData"
-                multiple
-                collapse-tags
-                placeholder="子网">
-                <el-option
-                  v-for="item in subnetGroup"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value">
-                </el-option>
-            </el-select>
-            <el-input
-              :disabled="bool.baseStation"
-              class="select-4 select-4-input"
-              placeholder="请输入基站,英文逗号隔开"
-              v-model="baseStation"
-              clearable>
-            </el-input>
-            <el-input
-              :disabled="bool.cell"
-              class="select-4 select-4-input"
-              placeholder="请输入小区,英文逗号隔开"
-              v-model="cell"
-              clearable>
-            </el-input>
-        </div>
-        <div class="line"></div>
-        <div class="form-div">
-            <el-date-picker
-              class="select-3"
-              style="left: -4px;"
-              v-model="date"
-              type="daterange"
-              range-separator="至"
-              start-placeholder="开始日期"
-              end-placeholder="结束日期">
-            </el-date-picker>
-            <el-select
-              :disabled="bool.hour"
-                class="select-3"
-                v-model="hour"
-                @change="change_hour"
-                multiple
-                collapse-tags
-                placeholder="请选择小时">
-                <el-option
-                  v-for="item in hourGroup"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value">
-                </el-option>
-            </el-select>
-            <el-select
-              :disabled="bool.minute"
-                class="select-3"
-                style="right: -4px;"
-                v-model="minute"
-                @change="change_minute"
-                multiple
-                placeholder="请选择15分钟">
-                <el-option
-                  v-for="item in minuteGroup"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value">
-                </el-option>
-            </el-select>
-        </div>
-        <div class="line"></div>
-        <div class="form-div">
-            <el-select
-                class="select-3"
-                v-model="crontab"
-                multiple
-                collapse-tags
-                placeholder="定时任务">
-                <el-option
-                  v-for="item in crontabGroup"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value">
-                </el-option>
-            </el-select>
-            <el-select
-                class="select-3"
-                v-model="notice"
-                multiple
-                collapse-tags
-                placeholder="通知">
-                <el-option
-                  v-for="item in noticeGroup"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value">
-                </el-option>
-            </el-select>
-            <div class="select-3">
-              <div style="display: inline-block; width: 49%;">
+          </el-col>
+              <el-col :span="6">
                 <el-button 
                   @click.stop="toggleStartIcon($event)"
                   :loading="loading.qatStart"
@@ -205,14 +218,26 @@
                         :class="toogle.startIcon? 'icon-ali-kaishi': 'icon-ali-222'">
                     </i>
                 </el-button>
-              </div>
-              <div style="display: inline-block; width: 49%;">
-                <i style="font-size: xx-large; color: #6c757d;" 
+              </el-col>
+              <!-- </div> -->
+              <!-- <div style="display: inline-block; width: 49%;"> -->
+              <el-col :span="6">
+                <el-button 
+                  @click.stop="cancellation()"
+                  style="background-color: white; border: 0px; width: auto; padding: 0; " 
+                  type="info">
+                    <i style="font-size: xx-large; color: #6c757d;" 
+                        class="icon-ali-stopit">
+                    </i>
+                </el-button>
+                <!-- <i style="font-size: xx-large; color: #6c757d;" 
                     class="icon-ali-stopit select-4">
-                </i>
-              </div>
-            </div>
-        </div>
+                </i> -->
+              </el-col>
+              <!-- </div> -->
+            <!-- </div> -->
+        </el-row>
+        <!-- </div> -->
     </div>
 </template>
 <script>
@@ -494,7 +519,6 @@
                   return;
                 }
               }
-
               if ( this.toogle.startIcon == false ) {
                 this.$message({
                   showClose: true,
@@ -507,6 +531,7 @@
               } else {
                 this.toogle.startIcon = false;
                 this.loading.qatStart = true;
+
                 this.processLoadData(
                   this.dataSource,
                   this.dataType,
@@ -524,6 +549,27 @@
                   this.notice);
                 return;
               }
+            },
+            cancellation() {
+              this.$confirm('此操作将停止当前查询, 是否继续?', '提示', {
+                confirmButtonText: '是',
+                cancelButtonText: '否',
+                type: 'warning'
+              }).then(() => {
+                this.$message({
+                  type: 'success',
+                  message: '已经停止!'
+                });
+                this.$store.dispatch( 'cancel' );
+                this.toogle.startIcon = true;
+                this.loading.qatStart = false;
+                this.bus.$emit('loadingQatDataStatus', {loadingQatDataStatus: false});
+              }).catch(() => {
+                this.$message({
+                  type: 'info',
+                  message: '已取消停止'
+                });          
+              });
             }
         },
         computed: {
