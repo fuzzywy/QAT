@@ -1,0 +1,12 @@
+.vagrant
+tests
+node_modules
+.dockerignore
+.git*
+build.sh
+composer.lock
+composer.phar
+Dockerfile
+Jenkinsfile
+package-lock.json
+Vagrantfile
