@@ -10,18 +10,20 @@
     }
     .qatheader {
         position: relative;
-        height: 50px;
+        /*height: 50px;*/
+        margin-bottom: 5px;
     }
     .qatbody {
         position: relative;
         padding: 0 0 15px 0;
-        width: 80%;
+        width: 100%;
         border: 1px solid #dcdfe6;
         margin: auto;
     }
     .qattable {
         position: relative;
         height: 100%;
+        width: 100%;
     }
 </style>
 <template>

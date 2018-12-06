@@ -6,7 +6,7 @@
             max-height="500"
             border
             :options="getdata"
-            style="width: 80%; margin: auto;">
+            style="margin: auto;">
             <el-table-column v-for="(value, key) in data[0]" width="180" :key="key" :prop="key" :label="key">
             </el-table-column >
         </el-table>
@@ -52,7 +52,9 @@
             }
             if ( this.$store.getters.qatDataStatus == 2 ) {
               this.loading.qatDataStatus = false;
-              this.data = this.$store.getters.qatData;
+              this.data = this.$store.getters.qatData['data'];
+              // var downloadfiles = this.$store.getters.qatData['file'];
+              // this.bus.$emit('downloadfiles', { downloadfiles: downloadfiles });
               this.total = this.$store.getters.qatData.length;
               this.currentPage = 1;
             }

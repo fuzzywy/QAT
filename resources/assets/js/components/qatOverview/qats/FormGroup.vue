@@ -177,7 +177,7 @@
         </el-col>
       </el-row>
       <div class="line"></div>
-        <el-row :gutter="20">
+        <!-- <el-row :gutter="20">
           <el-col :span="6">
             <el-select
               class="full-width"
@@ -207,37 +207,46 @@
                 :value="item.value">
               </el-option>
             </el-select>
-          </el-col>
-              <el-col :span="6">
-                <el-button 
-                  @click.stop="toggleStartIcon($event)"
-                  :loading="loading.qatStart"
-                  style="background-color: white; border: 0px; width: auto; padding: 0; " 
-                  type="info">
-                    <i style="font-size: xx-large; color: #6c757d;" 
-                        :class="toogle.startIcon? 'icon-ali-kaishi': 'icon-ali-222'">
-                    </i>
-                </el-button>
-              </el-col>
-              <!-- </div> -->
-              <!-- <div style="display: inline-block; width: 49%;"> -->
-              <el-col :span="6">
-                <el-button 
-                  @click.stop="cancellation()"
-                  style="background-color: white; border: 0px; width: auto; padding: 0; " 
-                  type="info">
-                    <i style="font-size: xx-large; color: #6c757d;" 
-                        class="icon-ali-stopit">
-                    </i>
-                </el-button>
+          </el-col> -->
+        <el-row :gutter="20">
+          <el-col :span="2" :offset="18">
+            <el-button 
+              style="width: -webkit-fill-available"
+              @click.stop="toggleStartIcon($event)"
+              :loading="loading.qatStart"
+              type="primary">
+                <!-- style="background-color: white; border: 0px; width: auto; padding: 0; " -->  
+                <span :class="toogle.startIcon">开始</span>
                 <!-- <i style="font-size: xx-large; color: #6c757d;" 
-                    class="icon-ali-stopit select-4">
+                    :class="toogle.startIcon? 'icon-ali-kaishi': 'icon-ali-222'">
                 </i> -->
-              </el-col>
-              <!-- </div> -->
-            <!-- </div> -->
+            </el-button>
+          </el-col>
+          <el-col :span="2">
+            <el-button 
+              style="width: -webkit-fill-available"
+              @click.stop="cancellation()"   
+              type="primary">
+                <span>停止</span>
+               <!--  <i style="font-size: xx-large; color: #6c757d;" 
+                    class="icon-ali-stopit">
+                </i> -->
+            </el-button>
+          </el-col>
+          <el-col :span="2">
+            <el-button 
+              style="width: -webkit-fill-available"
+              @click.stop="toggleExportIcon($event)"
+              :loading="loading.qatExport"
+              type="primary">
+                <!-- style="background-color: white; border: 0px; width: auto; padding: 0; " -->  
+                <span>导出</span>
+                <!-- <i style="font-size: xx-large; color: #6c757d;" 
+                    :class="toogle.startIcon? 'icon-ali-kaishi': 'icon-ali-222'">
+                </i> -->
+            </el-button>
+          </el-col>
         </el-row>
-        <!-- </div> -->
     </div>
 </template>
 <script>
@@ -258,6 +267,7 @@
         },
         data () {
             return {
+              downloadfiles: '',
               toogle: {
                 startIcon: true
               },
@@ -531,7 +541,6 @@
               } else {
                 this.toogle.startIcon = false;
                 this.loading.qatStart = true;
-
                 this.processLoadData(
                   this.dataSource,
                   this.dataType,
@@ -551,6 +560,13 @@
               }
             },
             cancellation() {
+              if(this.toogle.startIcon) {
+                this.$message({
+                  type: 'info',
+                  message: '没有正在执行的进程！'
+                });
+                return; 
+              }
               this.$confirm('此操作将停止当前查询, 是否继续?', '提示', {
                 confirmButtonText: '是',
                 cancelButtonText: '否',
@@ -570,6 +586,39 @@
                   message: '已取消停止'
                 });          
               });
+            },
+            //export
+            toggleExportIcon(event) {
+              if (this.downloadfiles == '') {
+                this.$message({
+                  type: 'info',
+                  message: '请查询后导出！'
+                });
+                return;
+              }
+              this.loading.qatExport = true;
+              var uerAgent = navigator.userAgent.toLowerCase();
+              var format = /(msie|firefox|chrome|opera|version).*?([\d.]+)/;
+              var matches = uerAgent.match(format);
+              var browerInfo = matches[1].replace(/version/, "'safari");
+              if (browerInfo == "chrome") {
+                this.download_chrome(this.downloadfiles);
+                this.$notify({
+                  title: '导出成功！',
+                  message: '查询模板:'+this.template,
+                  type: 'success'
+                });
+                this.loading.qatExport = false;
+              } else if (browerInfo == "firefox") {
+                this.download_firefox(this.downloadfiles);
+                this.$notify({
+                  title: '导出成功！',
+                  message: '查询模板:'+this.template,
+                  type: 'success'
+                });
+                this.loading.qatExport = false;
+              }
+              this.downloadfiles = '';
             }
         },
         computed: {
@@ -669,6 +718,7 @@
               case 2:
                 this.toogle.startIcon = true;
                 this.loading.qatStart = false;
+                this.downloadfiles = this.$store.getters.qatData['file'];
                 break;
               case 3:
                 break;

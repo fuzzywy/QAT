@@ -46,75 +46,85 @@ export const Common = {
                 dataType: dataType
             });
 		},
-        //城市为空
-        processLoadNullCity(msg, type, clear) {
-            msg({
-              showClose: true,
-              message: '未选择'+type,
-              type: 'warning'
-            });
-            return false;
-        },
-        //根据数据源类型加载模板
-        processLoadTemplate(dataSource, dataType) {
-            this.$store.dispatch( 'loadQatTemplateStatus', {
-                dataSource: dataSource,
-                dataType: dataType
-            });
-        },
-        //加载城市(根据数据源类型显示)
-        processLoadCitys(dataSource, dataType) {
-            this.$store.dispatch( 'loadQatCityStatus', {
-                dataSource: dataSource,
-                dataType: dataType
-            });
-        },
-        //加载时间维度(根据数据源类型显示)
-        processLoadTime(dataSource, dataType) {
-            this.$store.dispatch( 'loadQatTimeStatus', {
-                dataSource: dataSource,
-                dataType: dataType
-            });
-        },
-        //加载地域维度(根据数据源类型显示)
-        processLoadLocation(dataSource, dataType) {
-            this.$store.dispatch( 'loadQatLocationStatus', {
-                dataSource: dataSource,
-                dataType: dataType
-            });
-        },
-        //查询数据
-        processLoadData( 
-                  dataSource,
-                  dataType,
-                  template, 
-                  time, 
-                  location, 
-                  city, 
-                  subnet, 
-                  baseStation, 
-                  cell, 
-                  date, 
-                  hour, 
-                  minute, 
-                  crontab, 
-                  notice ) {
-            this.$store.dispatch( 'loadQatDataStatus', {
-                dataSource: dataSource,
-                dataType: dataType,
-                template: template,
-                timeDim: time,
-                locationDim: location,
-                cities: city,
-                subnets: subnet,
-                baseStation: baseStation,
-                cell: cell,
-                date: date,
-                hour: hour,
-                minute: minute,
-                crontab: crontab,
-                notice: notice
-            });
-        }
+    //城市为空
+    processLoadNullCity(msg, type, clear) {
+        msg({
+          showClose: true,
+          message: '未选择'+type,
+          type: 'warning'
+        });
+        return false;
+    },
+    //根据数据源类型加载模板
+    processLoadTemplate(dataSource, dataType) {
+        this.$store.dispatch( 'loadQatTemplateStatus', {
+            dataSource: dataSource,
+            dataType: dataType
+        });
+    },
+    //加载城市(根据数据源类型显示)
+    processLoadCitys(dataSource, dataType) {
+        this.$store.dispatch( 'loadQatCityStatus', {
+            dataSource: dataSource,
+            dataType: dataType
+        });
+    },
+    //加载时间维度(根据数据源类型显示)
+    processLoadTime(dataSource, dataType) {
+        this.$store.dispatch( 'loadQatTimeStatus', {
+            dataSource: dataSource,
+            dataType: dataType
+        });
+    },
+    //加载地域维度(根据数据源类型显示)
+    processLoadLocation(dataSource, dataType) {
+        this.$store.dispatch( 'loadQatLocationStatus', {
+            dataSource: dataSource,
+            dataType: dataType
+        });
+    },
+    //查询数据
+    processLoadData( 
+              dataSource,
+              dataType,
+              template, 
+              time, 
+              location, 
+              city, 
+              subnet, 
+              baseStation, 
+              cell, 
+              date, 
+              hour, 
+              minute, 
+              crontab, 
+              notice ) {
+        this.$store.dispatch( 'loadQatDataStatus', {
+            dataSource: dataSource,
+            dataType: dataType,
+            template: template,
+            timeDim: time,
+            locationDim: location,
+            cities: city,
+            subnets: subnet,
+            baseStation: baseStation,
+            cell: cell,
+            date: date,
+            hour: hour,
+            minute: minute,
+            crontab: crontab,
+            notice: notice
+        });
+    },
+    download_chrome(url) {
+      var aLink = document.createElement("a");
+      aLink.href = url;
+      aLink.download = url;
+      document.body.appendChild(aLink);
+      aLink.click();
+    },
+    download_firefox(url) {
+      window.open(url);
+    }
 	}
 }

@@ -1,88 +1,54 @@
 <style>
     .dropdown {
-        top: 5px;
+        /*top: 5px;*/
         text-align: center;
     }
 </style>
 
 <template>
     <div id="dropdown" class="dropdown">
-        <el-dropdown @command="handleCommand">
-            <el-button type="primary" size="medium">
-                {{eniqkpi}}<i class="el-icon-arrow-down el-icon--right"></i>
-            </el-button>
-            <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item disabled>KPI</el-dropdown-item>
-                <el-dropdown-item divided command="ENIQ-TDD">TDD</el-dropdown-item>
-                <el-dropdown-item command="ENIQ-FDD">FDD</el-dropdown-item>
-                <el-dropdown-item command="ENIQ-GSM">GSM</el-dropdown-item>
-                <el-dropdown-item command="ENIQ-NBIOT">NBIOT</el-dropdown-item>
-                <el-dropdown-item disabled command="ENIQ-ALARM">ALARM</el-dropdown-item>
-            </el-dropdown-menu>
-        </el-dropdown>
-        <el-dropdown @command="handleCommand">
-            <el-button type="primary" size="medium">
-                {{nbmkpi}}<i class="el-icon-arrow-down el-icon--right"></i>
-            </el-button>
-            <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item disabled>KPI</el-dropdown-item>
-                <el-dropdown-item divided command="NBM-TDD">TDD</el-dropdown-item>
-                <el-dropdown-item command="NBM-FDD">FDD</el-dropdown-item>
-                <el-dropdown-item command="NBM-NBIOT">NBIOT</el-dropdown-item>
-            </el-dropdown-menu>
-        </el-dropdown>
-        <el-dropdown @command="handleCommand">
-            <el-button type="primary" size="medium">
-                {{kgetkpi}}<i class="el-icon-arrow-down el-icon--right"></i>
-            </el-button>
-            <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item disabled>KPI</el-dropdown-item>
-                <el-dropdown-item divided command="KGET-">KGET</el-dropdown-item>
-            </el-dropdown-menu>
-        </el-dropdown>
-        <el-dropdown @command="handleCommand">
-            <el-button type="primary" size="medium">
-                {{mrkpi}}<i class="el-icon-arrow-down el-icon--right"></i>
-            </el-button>
-            <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item disabled>KPI</el-dropdown-item>
-                <el-dropdown-item divided command="MR-">MR</el-dropdown-item>
-            </el-dropdown-menu>
-        </el-dropdown>
-        <el-dropdown @command="handleCommand">
-            <el-button type="primary" size="medium">
-                {{ctrkpi}}<i class="el-icon-arrow-down el-icon--right"></i>
-            </el-button>
-            <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item disabled>KPI</el-dropdown-item>
-                <el-dropdown-item divided command="CTR-">CTR</el-dropdown-item>
-            </el-dropdown-menu>
-        </el-dropdown>
-        <el-dropdown @command="handleCommand">
-            <el-button type="primary" size="medium">
-                {{ctumkpi}}<i class="el-icon-arrow-down el-icon--right"></i>
-            </el-button>
-            <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item disabled>KPI</el-dropdown-item>
-                <el-dropdown-item divided command="CTUM-">CTUM</el-dropdown-item>
-            </el-dropdown-menu>
-        </el-dropdown>
-        <el-dropdown @command="handleCommand">
-            <el-button type="primary" size="medium">
-                {{ebmkpi}}<i class="el-icon-arrow-down el-icon--right"></i>
-            </el-button>
-            <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item disabled>KPI</el-dropdown-item>
-                <el-dropdown-item divided command="EBM-">EBM</el-dropdown-item>
-            </el-dropdown-menu>
-        </el-dropdown>
+        <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
+            <el-submenu index="ENIQ">
+                <template slot="title">{{eniqkpi}}</template>
+                <el-menu-item index="TDD">TDD</el-menu-item>
+                <el-menu-item index="FDD">FDD</el-menu-item>
+                <el-menu-item index="GSM">GSM</el-menu-item>
+                <el-menu-item index="NBIOT">NBIOT</el-menu-item>
+                <el-menu-item index="ALARM" disabled>ALARM</el-menu-item>
+            </el-submenu>
+            <el-submenu index="NBM" disabled>
+                <template slot="title">{{nbmkpi}}</template>
+                <el-menu-item index="TDD">TDD</el-menu-item>
+                <el-menu-item index="FDD">FDD</el-menu-item>
+                <el-menu-item index="NBIOT">NBIOT</el-menu-item>
+            </el-submenu>
+            <el-submenu index="KGET" disabled>
+                <template slot="title">{{kgetkpi}}</template>
+            </el-submenu>
+            <el-submenu index="MR" disabled>
+                <template slot="title">{{mrkpi}}</template>
+            </el-submenu>
+            <el-submenu index="MR" disabled>
+                <template slot="title">{{mrkpi}}</template>
+            </el-submenu>
+            <el-submenu index="CTR" disabled>
+                <template slot="title">{{ctrkpi}}</template>
+            </el-submenu>
+            <el-submenu index="CTUM" disabled>
+                <template slot="title">{{ctumkpi}}</template>
+            </el-submenu>
+            <el-submenu index="EBM" disabled>
+                <template slot="title">{{ebmkpi}}</template>
+            </el-submenu>
+        </el-menu>
     </div>
 </template>
 <script>
     export default {
         data() {
             return {
-                eniqkpi: "ENIQ-TDD",
+                activeIndex: 'ENIQ',
+                eniqkpi: "ENIQ",
                 nbmkpi: "NBM",
                 kgetkpi: "KGET",
                 mrkpi: "MR",
@@ -91,12 +57,9 @@
                 ebmkpi: "EBM"
             }
         },
-        watch: {
-        },
         methods: {
-            handleCommand(command) {
-                var ft = command.split('-')[0], 
-                    st = command.split('-')[1];
+            handleSelect(key, keyPath) {
+                var ft = keyPath.join('-');
                 this.eniqkpi = 'ENIQ';
                 this.nbmkpi = 'NBM';
                 this.kgetkpi = 'KGET';
@@ -104,34 +67,34 @@
                 this.ctrkpi = "CTR";
                 this.ctumkpi = "CTUM";
                 this.ebmkpi = "EBM";
-                switch (ft)
+                switch (key)
                 {
                     case 'ENIQ':
-                        this.eniqkpi = command;
+                        this.eniqkpi = ft;
                         break;
                     case 'NBM':
-                        this.nbmkpi = command;
+                        this.nbmkpi = ft;
                         break;
                     case 'KGET':
-                        this.kgetkpi = command;
+                        this.kgetkpi = ft;
                         break;
                     case 'MR':
-                        this.mrkpi = command;
+                        this.mrkpi = ft;
                         break;
                     case 'CTR':
-                        this.ctrkpi = command;
+                        this.ctrkpi = ft;
                         break;
                     case 'CTUM':
-                        this.ctumkpi = command;
+                        this.ctumkpi = ft;
                         break;
                     case 'EBM':
-                        this.ebmkpi = command;
+                        this.ebmkpi = ft;
                         break;
                     default:
-                        this.eniqkpi = command;
+                        this.eniqkpi = ft;
                         break;
                 }
-                this.bus.$emit('dataTypes', {datasource: ft, datatype: st})
+                this.bus.$emit('dataTypes', {datasource: key, datatype: keyPath[0]});
             }
         }
     }
