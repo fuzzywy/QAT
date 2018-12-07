@@ -11,7 +11,6 @@
             </el-table-column >
         </el-table>
         <el-pagination
-          style="padding-left: 150px;"
           @size-change="size_change"
           @current-change="current_change"
           :current-page="currentPage"

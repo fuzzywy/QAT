@@ -4,7 +4,6 @@
         text-align: center;
     }
 </style>
-
 <template>
     <div id="dropdown" class="dropdown">
         <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
@@ -48,7 +47,7 @@
         data() {
             return {
                 activeIndex: 'ENIQ',
-                eniqkpi: "ENIQ",
+                eniqkpi: "ENIQ-TDD",
                 nbmkpi: "NBM",
                 kgetkpi: "KGET",
                 mrkpi: "MR",

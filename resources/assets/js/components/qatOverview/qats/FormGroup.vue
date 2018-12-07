@@ -14,7 +14,7 @@
       width: 100%;
     }
     .line {
-        border: 0.5px solid #dcdfe6;
+        /*border: 0.5px solid #dcdfe6;*/
         margin: 5.6px 5px 5px 5px;
     }
 </style>
@@ -216,7 +216,7 @@
               :loading="loading.qatStart"
               type="primary">
                 <!-- style="background-color: white; border: 0px; width: auto; padding: 0; " -->  
-                <span :class="toogle.startIcon">开始</span>
+                <span :class="toogle.startIcon">查询</span>
                 <!-- <i style="font-size: xx-large; color: #6c757d;" 
                     :class="toogle.startIcon? 'icon-ali-kaishi': 'icon-ali-222'">
                 </i> -->

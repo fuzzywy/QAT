@@ -77,7 +77,7 @@
                         @section('crontab')
                         @show
 
-                            <li class="nav-item dropdown">
+                            <!-- <li class="nav-item dropdown">
                                 <a id="locale" href="#" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ trans('message.language') }}
                                 </a>
@@ -93,7 +93,7 @@
                                         </a>
                                     </li>
                                 </ul>
-                            </li>
+                            </li> -->
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>

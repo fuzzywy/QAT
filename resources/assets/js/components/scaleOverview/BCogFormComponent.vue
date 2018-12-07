@@ -1,12 +1,3 @@
-<template>
-    <div>
-        <li class="nav-item dropdown">
-            <a id="locale" href="#" class="nav-link cog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                <router-link to="cog" tag="div"><i class="icon-ali-cog"></i></router-link>
-            </a>
-        </li>
-    </div>
-</template>
 <style>
     .cog {
         padding-top: 5px;
@@ -14,14 +5,19 @@
         padding-bottom: 0px;
         padding-right: 0px;
     }
-    .cog-form {
-        width: 800px;
+    .item {
+      margin: 4px;
     }
-    .cog-form > div {
-        padding: 8px 8px 8px 8px;
-    }
-
 </style>
+<template>
+    <el-tooltip class="item" effect="dark" content="连接配置" placement="bottom-end">
+        <li class="nav-item dropdown">
+            <a id="locale" href="#" class="nav-link cog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                <router-link to="cog" tag="div"><i class="el-icon-setting"></i></router-link>
+            </a>
+        </li>
+    </el-tooltip>
+</template>
 <script>
     export default {
         data () {
