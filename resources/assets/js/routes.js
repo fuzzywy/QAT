@@ -23,8 +23,12 @@ import bcogtable from './components/scaleOverview/BCogFormTableComponent.vue';
 import bpie from './components/scaleOverview/BPieChartComponent.vue';
 //模板
 import template from './components/qatOverview/QatTemplateComponent.vue';
+import templateback from './components/qatOverview/template/QatTemplateBackComponent.vue';
+import templateview from './components/qatOverview/template/QatTemplateViewComponent.vue';
 //crontab
 import crontab from './components/qatOverview/QatCrontabComponent.vue';
+import crontabback from './components/qatOverview/crontab/QatCrontabBackComponent.vue';
+import crontabView from './components/qatOverview/crontab/QatCrontabViewComponent.vue';
 //
 /**
  * Makes a new VueRouter that we will use to run all of the routes for the app.
@@ -40,7 +44,7 @@ export default new VueRouter({
                 //配置
                 BCogForm: bcog,
                 //模板
-                TempalteComponent: template,
+                TemplateComponent: template,
                 //crontab
                 CrontabComponent: crontab
             },
@@ -80,13 +84,15 @@ export default new VueRouter({
             path: '/template',
             name: 'template',
             components: {
-                TempalteComponent: template
+                TemplateBackComponent: templateback,
+                TemplateViewComponent: templateview
             }
         },{
             path: '/crontab',
             name: 'crontab',
             components: {
-                CrontabComponent: crontab
+                CrontabBackComponent: crontabback,
+                CrontabViewComponent: crontabView
             } 
         }
     ]

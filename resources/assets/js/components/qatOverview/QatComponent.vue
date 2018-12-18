@@ -66,9 +66,8 @@
             this.bus.$on('dataTypes', types=> {
                 this.datasource = types.datasource
                 this.datatype = types.datatype
-                // console.log(this.datasource, this.datatype)
+                // console.log(types.datasource, types.datatype)
             });
-            // console.log(this.$router)
         }
     }
 </script>
