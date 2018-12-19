@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d5a10184_53176548",
+        "filename": "resources/assets/js/components/qatOverview/template/TableData.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-12-19T10:10:42Z",
+      "side": 1,
+      "message": "Change component name to FormulaManage",
+      "revId": "136d7312e4766ca6288dd65983ccf0c4397ea55e",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c88e2357_855537f2",
+        "filename": "resources/assets/js/components/qatOverview/template/TableElement.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-12-19T10:10:42Z",
+      "side": 1,
+      "message": "change component name to KpiList",
+      "revId": "136d7312e4766ca6288dd65983ccf0c4397ea55e",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "abfc652e_be26c6b8",
+        "filename": "resources/assets/js/components/qatOverview/template/TableElement.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-12-19T10:10:42Z",
+      "side": 1,
+      "message": "这个component用list就OK了，不需要用tree.\n只有模板被选择，这个component才会刷新",
+      "revId": "136d7312e4766ca6288dd65983ccf0c4397ea55e",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c377c60f_975f9ebe",
+        "filename": "resources/assets/js/components/qatOverview/template/TreeData.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2018-12-19T10:10:42Z",
+      "side": 1,
+      "message": "change component name to TemplateManage",
+      "revId": "136d7312e4766ca6288dd65983ccf0c4397ea55e",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    }
+  ]
+}
