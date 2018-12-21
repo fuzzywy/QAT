@@ -224,12 +224,12 @@
       },
       nodeClick(node, data, self) {
         if( !node.hasOwnProperty('children') ) {
-          // this.bus.$emit('templateName', 
-          // { 
-          //   templateName: node.label, 
-          //   parent: data.parent.data.label,
-          //   grandparent: data.parent.parent.data.label 
-          // });
+          this.bus.$emit('templateName', 
+          { 
+            templateName: node.label, 
+            parent: data.parent.data.label,
+            grandparent: data.parent.parent.data.label 
+          });
           this.processloadElementData( node.label, data.parent.data.label, data.parent.parent.data.label, this.$store.getters.qatLoginUser );
         } else {
           this.$message({

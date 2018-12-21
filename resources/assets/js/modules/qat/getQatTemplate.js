@@ -17,7 +17,13 @@ export const qatTemplate = {
         removeTemplateNameStatus: 0,
 
         loadQatElementData: {},
-        loadQatElementDataStatus: 0
+        loadQatElementDataStatus: 0,
+
+        orderQatElementData: {},
+        orderQatElementDataStatus: 0,
+
+        loadQatFormulaData: {},
+        loadQatFormulaDataStatus: 0
     },
     actions: {
         loadQatTemplateStatus( {commit}, data ) {
@@ -121,6 +127,40 @@ export const qatTemplate = {
                 commit( 'loadQatElementData', [ 'Connection failed' ] );
                 commit( 'loadQatElementDataStatus', 3 );
             });
+        },
+        orderQatElementData( {commit}, data ) {
+            commit( 'orderQatElementDataStatus', 1 );
+            QatTemplateAPI.orderQatElementData( data.element, data.templateName, data.parent, data.grandparent, data.auth )
+            .then( function( response ){
+                if ( response.data != undefined ) {
+                    commit( 'orderQatElementData', response.data );
+                    commit( 'orderQatElementDataStatus', 2 );
+                }else {
+                    commit( 'orderQatElementData', [ response ] );
+                    commit( 'orderQatElementDataStatus' , 3 ); 
+                }
+            })
+            .catch( function(){
+                commit( 'orderQatElementData', [ 'Connection failed' ] );
+                commit( 'orderQatElementDataStatus', 3 );
+            });
+        },
+        loadQatFormulaData(  {commit}, data ) {
+            commit( 'loadQatFormulaDataStatus', 1 );
+            QatTemplateAPI.loadQatFormulaData( /*data.id, data.label, data.templateName, data.parent, data.grandparent, *//*data.auth*/ )
+            .then( function( response ){
+                if ( response.data != undefined ) {
+                    commit( 'loadQatFormulaData', response.data );
+                    commit( 'loadQatFormulaDataStatus', 2 );
+                }else {
+                    commit( 'loadQatFormulaData', [ response ] );
+                    commit( 'loadQatFormulaDataStatus' , 3 ); 
+                }
+            })
+            .catch( function(){
+                commit( 'loadQatFormulaData', [ 'Connection failed' ] );
+                commit( 'loadQatFormulaDataStatus', 3 );
+            });
         }
     },
     mutations: {
@@ -159,6 +199,18 @@ export const qatTemplate = {
         },
         loadQatElementData( state, loadQatElementData ){
             state.loadQatElementData = loadQatElementData;
+        },
+        orderQatElementDataStatus( state, status ){
+            state.orderQatElementDataStatus = status;
+        },
+        orderQatElementData( state, orderQatElementData ){
+            state.orderQatElementData = orderQatElementData;
+        },
+        loadQatFormulaDataStatus( state, status ){
+            state.loadQatFormulaDataStatus = status;
+        },
+        loadQatFormulaData( state, loadQatFormulaData ){
+            state.loadQatFormulaData = loadQatFormulaData;
         }
     },
     getters: {
@@ -197,6 +249,18 @@ export const qatTemplate = {
         },
         loadQatElementData( state ){
             return state.loadQatElementData;
+        },
+        orderQatElementDataStatus( state ){
+            return state.orderQatElementDataStatus;
+        },
+        orderQatElementData( state ){
+            return state.orderQatElementData;
+        },
+        loadQatFormulaDataStatus( state ){
+            return state.loadQatFormulaDataStatus;
+        },
+        loadQatFormulaData( state ){
+            return state.loadQatFormulaData;
         }
     }
 }

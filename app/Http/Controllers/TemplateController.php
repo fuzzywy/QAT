@@ -418,20 +418,188 @@ class TemplateController extends Controller
 		$parent = Input::get('parent');
 		$grandparent = Input::get('grandparent');
 		$auth = Input::get('auth');
+          if( $grandparent === $auth ) {
+               $showRemove = true;
+          }else {
+               $showRemove = false;
+          }
 		$arr = array(
 			array(
-				'label'=>$templateName
+                    'id'=>1,
+				'label'=>$templateName,
+                    'showRemove'=>$showRemove
 			),
 			array(
-				'label'=>$parent
+                    'id'=>2,
+				'label'=>$parent,
+                    'showRemove'=>$showRemove
 			),
 			array(
-				'label'=>$grandparent
+                    'id'=>3,
+				'label'=>$grandparent,
+                    'showRemove'=>$showRemove
 			),
 			array(
-				'label'=>$auth
+                    'id'=>4,
+				'label'=>$auth,
+                    'showRemove'=>$showRemove
 			)
 		);
 		print_r(json_encode($arr));
 	}
+     public function orderQatElementData(){
+          //这些参数不知道有没有用，先传进来。防止需要
+          $templateName = Input::get('templateName');
+          $parent = Input::get('parent');
+          $grandparent = Input::get('grandparent');
+          $auth = Input::get('auth');
+
+          $element = Input::get('element');
+          $elements = [];
+          foreach ($element as $value) {
+               array_push($elements, json_decode($value));
+          }
+          print_r(json_encode($elements));
+     }
+     public function loadQatFormulaData(){
+          //elemrnt id/name
+          // $id = Input::get('id');
+          // $label = Input::get('label');
+          // $templateName = Input::get('templateName');
+          // $parent = Input::get('parent');
+          // $grandparent = Input::get('grandparent');
+          // $auth = Input::get('auth');
+          // print_r($id.$label.$templateName.$parent.$grandparent.$auth);
+          $arr = array(
+                    /*'name'=>array(*/
+                         array(
+                              'id'=>0,
+                              'name'=>'通用模板',
+                              'type'=>array(
+                                   array(
+                                        'id'=>0,
+                                        'name'=>'TDD0',
+                                        'formula'=>array(
+                                             array(
+                                                  "id"=>1000,
+                                                  "name"=>"无线接通率1",
+                                                  "formula"=>"1+1",
+                                                  "precision"=>"2"
+                                             ),
+                                             array(
+                                                  "id"=>1001,
+                                                  "name"=>"无线掉线率1",
+                                                  "formula"=>"sdaf+asdad/asda",
+                                                  "precision"=>"5"
+                                             )
+                                        )
+
+                                   ),
+                                   array(
+                                        'id'=>1,
+                                        'name'=>'FDD0',
+                                        'formula'=>array(
+                                             array(
+                                                  "id"=>1002,
+                                                  "name"=>"无线接通率2",
+                                                  "formula"=>"1+1",
+                                                  "precision"=>"2"
+                                             ),
+                                             array(
+                                                  "id"=>1003,
+                                                  "name"=>"无线掉线率2",
+                                                  "formula"=>"sdaf+asdad/asda",
+                                                  "precision"=>"5"
+                                             )
+                                        )
+                                   )
+                              )
+                                   
+                         ),
+                         array(
+                              'id'=>1,
+                              'name'=>'系统模板',
+                              'type'=>array(
+                                   array(
+                                        'id'=>5,
+                                        'name'=>'TDD1',
+                                        'formula'=>array(
+                                             array(
+                                                  "id"=>1004,
+                                                  "name"=>"无线接通率3",
+                                                  "formula"=>"1+1",
+                                                  "precision"=>"2"
+                                             ),
+                                             array(
+                                                  "id"=>1005,
+                                                  "name"=>"无线掉线率3",
+                                                  "formula"=>"sdaf+asdad/asda",
+                                                  "precision"=>"5"
+                                             )
+                                        )
+                                   ),
+                                   array(
+                                        'id'=>6,
+                                        'name'=>'FDD1',
+                                        'formula'=>array(
+                                             array(
+                                                  "id"=>1006,
+                                                  "name"=>"无线接通率4",
+                                                  "formula"=>"1+1",
+                                                  "precision"=>"2"
+                                             ),
+                                             array(
+                                                  "id"=>1007,
+                                                  "name"=>"无线掉线率4",
+                                                  "formula"=>"sdaf+asdad/asda",
+                                                  "precision"=>"5"
+                                             )
+                                        )
+                                   )
+                              )
+                         ),
+                         array(
+                              'id'=>2,
+                              'name'=>Auth::user()->name,
+                              'type'=>array(
+                                   array(
+                                        'id'=>7,
+                                        'name'=>'TDD2',
+                                        'formula'=>array(
+                                             array(
+                                                  "id"=>1008,
+                                                  "name"=>"无线接通率5",
+                                                  "formula"=>"1+1",
+                                                  "precision"=>"2"
+                                             ),
+                                             array(
+                                                  "id"=>1009,
+                                                  "name"=>"无线掉线率5",
+                                                  "formula"=>"sdaf+asdad/asda",
+                                                  "precision"=>"5"
+                                             )
+                                        )
+                                   ),
+                                   array(
+                                        'id'=>8,
+                                        'name'=>'FDD2'
+                                   )
+                              )
+                         )
+                   /* )*/
+              /* ,
+               "type"=>array(
+                    array(
+                         'name'=>'TDD'
+                    ),
+                    array(
+                         'name'=>'FDD'
+                    ),
+                    array(
+                         'name'=>'FDD'
+                    )
+               )*/
+          );
+          print_r(json_encode($arr));
+     }
 }

@@ -121,5 +121,54 @@ export default {
                 return 'Other errors'
             }
         });
+    },
+    orderQatElementData: function(element, templateName, parent, grandparent, auth) {
+        return axios.get( 'orderQatElementData', {
+            params: {
+                element: element,
+                templateName: templateName,
+                parent: parent,
+                grandparent: grandparent,
+                auth: auth
+            }
+        })
+        .catch(function(error){
+            if (error.response) {
+                if ( error.response.status == '404' ) {
+                    return error.response.status + ' Not Found';
+                }else {
+                    return error.response.status;
+                }
+            } else if (error.request) {
+                return 'Request failed'
+            } else {
+                return 'Other errors'
+            }
+        });
+    },
+    loadQatFormulaData: function(/*id, label, templateName, parent, grandparent,*/ /*auth*/) {
+        return axios.get( 'loadQatFormulaData', {
+            params: {
+                /*id: id,
+                label: label,
+                templateName: templateName,
+                parent: parent,
+                grandparent: grandparent,*/
+                /*auth: auth*/
+            }
+        })
+        .catch(function(error){
+            if (error.response) {
+                if ( error.response.status == '404' ) {
+                    return error.response.status + ' Not Found';
+                }else {
+                    return error.response.status;
+                }
+            } else if (error.request) {
+                return 'Request failed'
+            } else {
+                return 'Other errors'
+            }
+        });
     }
 }

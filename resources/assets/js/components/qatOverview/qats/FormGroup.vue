@@ -135,6 +135,7 @@
       <el-row :gutter="20">
         <el-col :span="12">
           <el-date-picker
+            value-format="yyyy-MM-dd"
             v-model="date"
             type="daterange"
             range-separator="至"

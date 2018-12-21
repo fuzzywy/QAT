@@ -7,21 +7,21 @@
     <div>
         <el-row :gutter="20"  class="top">
             <el-col :span="6">
-                <tree-data :datasource="datasource" :datatype="datatype"></tree-data>
+                <template-manage :datasource="datasource" :datatype="datatype"></template-manage>
             </el-col>
             <el-col :span="6">
-                <table-element></table-element>
+                <kpi-list></kpi-list>
             </el-col>
             <el-col :span="12">
-                <table-data></table-data>
+                <formula-manage></formula-manage>
             </el-col>   
         </el-row>
     </div>
 </template>
 <script>
-    import TreeData from './TreeData.vue';
-    import TableElement from './TableElement.vue';
-    import TableData from './TableData.vue';
+    import TemplateManage from './TemplateManage.vue';
+    import KpiList from './KpiList.vue';
+    import FormulaManage from './FormulaManage.vue';
     export default {
         data() {
             return {
@@ -33,9 +33,9 @@
             }
         },
         components: {
-            TreeData,
-            TableElement,
-            TableData
+            TemplateManage,
+            KpiList,
+            FormulaManage
         },
         mounted() {
             // this.bus.$on('templateName', type=>{

@@ -30,3 +30,5 @@ Route::get('getQatTemplateData', 'TemplateController@getQatTemplateData');
 Route::get('insertQatTemplateName', 'TemplateController@insertQatTemplateName');
 Route::get('removeQatTemplateName', 'TemplateController@removeQatTemplateName');
 Route::get('loadQatElementData', 'TemplateController@loadQatElementData');
+Route::get('orderQatElementData', 'TemplateController@orderQatElementData');
+Route::get('loadQatFormulaData', 'TemplateController@loadQatFormulaData');
