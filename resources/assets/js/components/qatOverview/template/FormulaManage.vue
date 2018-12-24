@@ -14,14 +14,19 @@
 </style>
 <template>
     <div>
-        <input style="display: none;" :getFormulaData="loadQatFormulaData">
+        <input style="display: none;" id="input" :getFormulaData="loadQatFormulaData" :filterFormula="filterFormula">
         <el-card class="box-card" shadow="hover">
             <div slot="header" class="clearfix">
                 <span>公式</span>
-                <el-button style="float: right; padding: 3px 0" type="text">新建</el-button>
+                <el-button style="float: right; padding: 3px 0" type="text" @click="newFormula">新建</el-button>
             </div>
+                <!-- .filter(data => !search || 
+                        (
+                            data.name.toLowerCase().includes(search.toLowerCase())
+                        )
+                    ) -->
             <el-table
-                :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
+                :data="tableData"
                 style="width: 100%"
                 
                 :row-key="getRowKeys" 
@@ -39,16 +44,27 @@
                     >
                         <el-table-column type="expand">
                             <el-table
+                                ref="multipleTable"
+                                tooltip-effect="dark"
+                                @selection-change="handleSelectionChange"
                                 :show-header=false
                                 :data="formulaData"
+                                @cell-mouse-enter="cellMouseEnter"
+                                @cell-mouse-leave="cellMouseLeave"
+                                :row-key="getDetailedKeys" 
+                                :expand-row-keys="expandsDetailed" 
                             >
+                                <el-table-column
+                                    type="selection"
+                                    width="55">
+                                </el-table-column>
                                 <el-table-column
                                     label="Type"
                                     prop="name">
                                 </el-table-column>
                                 <el-table-column type="expand">
                                     <template slot-scope="props">
-                                        <el-form label-position="left" inline class="demo-table-expand">
+                                        <el-form label-position="left" inline class="demo-table-expand" v-show="showColumn">
                                             <el-form-item label="Id">
                                                 <span>{{ props.row.id }}</span>
                                             </el-form-item>
@@ -62,15 +78,35 @@
                                                 <span>{{ props.row.precision }}</span>
                                             </el-form-item>
                                         </el-form>
+                                        <el-form label-position="left" inline class="demo-table-expand" v-show="showModifyColumn">
+                                            <el-form-item label="Id">
+                                                <span>{{ props.row.id }} 123</span>
+                                            </el-form-item>
+                                            <el-form-item label="Name">
+                                                <span>{{ props.row.name }} 456</span>
+                                            </el-form-item>
+                                            <el-form-item label="Formula">
+                                                <span>{{ props.row.formula }} 779</span>
+                                            </el-form-item>
+                                            <el-form-item label="Precision">
+                                                <span>{{ props.row.precision }}</span>
+                                            </el-form-item>
+                                        </el-form>
                                     </template>
                                 </el-table-column>
-                                <!-- <template slot-scope="props">
-                                    <el-form label-position="left" inline class="demo-table-expand">
-                                        <el-form-item label="商品名称">
-                                            <span>{{ props.row.name }}</span>
-                                        </el-form-item>
-                                    </el-form>
-                                </template> -->
+                                <el-table-column label="操作">
+                                    <template slot-scope="scope">
+                                        <el-button 
+                                            v-show="showEdit"
+                                            size="mini"
+                                            @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+                                        <el-button
+                                            v-show="showDelete"
+                                            size="mini"
+                                            type="danger"
+                                            @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+                                    </template>
+                                </el-table-column>
                             </el-table>
                         </el-table-column>
                         <el-table-column
@@ -79,18 +115,6 @@
                         </el-table-column>
                     </el-table>
                 </el-table-column>
-
-               <!--  <el-table-column type="expand" :row-key="test">
-                    <el-table
-                        :show-header="false"
-                        :data="tableData.type"
-                        style="width: 100%"
-                    >
-                        <el-table-column
-                            prop="name">
-                        </el-table-column>
-                    </el-table>
-                </el-table-column> -->
                 <el-table-column
                     label="Name"
                     prop="name">
@@ -136,16 +160,25 @@
                     }
                 ],
                 formulaData: [],
+                multipleSelection: [],
                 getRowKeys(row) {
                     return row.id;
                 },
                 getFormulaKeys(row) {
                     return row.id;
                 },
+                getDetailedKeys(row) {
+                    return row.id;
+                },
                 expands: [],
                 expandsFormula: [],
+                expandsDetailed: [],
                 id: '',
-                name: ''
+                name: '',
+                showEdit: false,
+                showDelete: false,
+                showColumn: true,
+                showModifyColumn: false
             }
         },
         computed: {
@@ -161,7 +194,35 @@
                     default:
                         break;
                 }
-                // console.log(this.$store.getters.loadQatFormulaDataStatus, this.$store.getters.loadQatFormulaData);
+            },
+            filterFormula() {
+                let str = this.search.toLowerCase().trim();
+                this.expands = [];
+                this.expandsFormula = [];
+                if ( str === '' ) {
+                    this.tableData = [];
+                    if (this.$store.getters.loadQatFormulaDataStatus == 2) {
+                        this.tableData = this.$store.getters.loadQatFormulaData;
+                    }
+                } else {
+                    let f = item => {
+                        if ( item['children'] ) {
+                            item['children'] = item['children'].filter(f);
+                            return true;
+                        }  else if ( item['name'] || item['formula'] ) {
+                            return (item['name'].toLowerCase().indexOf(str) !== -1) 
+                                || (item['formula'].toLowerCase().indexOf(str) !== -1);
+                        } else {
+                            return false;
+                        }
+                    }
+                    this.tableData  = this.tableData.filter(f);
+                }
+            }
+        },
+        watch: {
+            search() {
+                this.processLoadFormulaData();
             }
         },
         mounted() {
@@ -185,7 +246,7 @@
                         if( typeof(arr[i]) !== "undefined" ){
                             this.id = arr[i].id;
                             this.name = arr[i].name;
-                            this.typeData = arr[i].type.map(type=> {
+                            this.typeData = arr[i].children.map(type=> {
                                 return {id: type.id, type: type.name};
                             });
                         }
@@ -193,7 +254,6 @@
                 }
             },
             expandFormulaChange(row, expandedRows) {
-                console.log(this.id, this.name)
                 let temp = this.expandsFormula;
                 this.expandsFormula = [];
                 this.formulaData = [];
@@ -213,7 +273,7 @@
                         }
                     }
 
-                    let arrs = filter.type.map(item=> {
+                    let arrs = filter.children.map(item=> {
                         if( row.id === item.id ) {
                             return item;
                         }
@@ -221,12 +281,71 @@
 
                     for (var i = arrs.length - 1; i >= 0; i--) {
                         if( typeof(arrs[i]) !== "undefined" ){
-                            this.formulaData = arrs[i].formula.map(formula=> {
+                            this.formulaData = arrs[i].children.map(formula=> {
                                 return {id: formula.id, name: formula.name, formula: formula.formula, precision:formula.precision};
                             });
                         }
                     }
                 }
+            },
+            cellMouseEnter( row, column, cell, event ) {
+                this.showEdit = false;
+                this.showDelete = false;
+                let name = this.tableData.map(name=>{
+                    if( name.id === this.expands[0] ) {
+                        return name.name;
+                    }
+                }).filter(function(val){
+                    return !(!val || val === "");
+                });
+                if ( this.$store.getters.qatLoginUserStatus == 2 && this.$store.getters.qatLoginUser == name[0] ) {
+                    this.showEdit = true;
+                    this.showDelete = true;
+                }
+            },
+            cellMouseLeave( row, column, cell, event ) {
+                this.showEdit = false;
+                this.showDelete = false;
+            },
+            handleEdit(index, row) {
+                this.expandsDetailed = [];
+                this.showColumn = false;
+                this.showModifyColumn = true;
+                this.expandsDetailed.push(row.id);
+            },
+            handleDelete(index, row) {
+                //删除公式
+            },
+            newFormula() {
+                //新建公式
+                // this.$prompt('请输入邮箱', '提示', {
+                //     confirmButtonText: '确定',
+                //     cancelButtonText: '取消',
+                //     inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
+                //     inputErrorMessage: '邮箱格式不正确'
+                // }).then(({ value }) => {
+                //     this.$message({
+                //         type: 'success',
+                //         message: '你的邮箱是: ' + value
+                //     });
+                // }).catch(() => {
+                //     this.$message({
+                //         type: 'info',
+                //         message: '取消输入'
+                //     });       
+                // });
+            },
+            // toggleSelection(rows) {
+            //     if (rows) {
+            //         rows.forEach(row => {
+            //             this.$refs.multipleTable.toggleRowSelection(row);
+            //         });
+            //     } else {
+            //         this.$refs.multipleTable.clearSelection();
+            //     }
+            // },
+            handleSelectionChange(val) {
+                this.multipleSelection = val;
             }
         }
     }
