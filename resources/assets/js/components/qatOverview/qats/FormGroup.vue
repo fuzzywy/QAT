@@ -259,11 +259,11 @@
         props: {
             dataSource: {
                 type: String,
-                default: "ENIQ"
+                default: "TDD"
             },
             dataType: {
                 type: String,
-                default: "TDD"
+                default: "ENIQ"
             }
         },
         data () {

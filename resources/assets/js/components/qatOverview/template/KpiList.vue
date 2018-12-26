@@ -44,12 +44,25 @@
                 parent: '',
                 grandparent: '',
                 showRemove: false,
-                draggable: true
+                draggable: true,
+                multipleSelection: [],
+                multipleSelectionFlag: 0
             };
         },
         methods: {
           handleNodeClick(data) {
             // console.log(this.$store.getters.qatLoginUser);
+            // console.log(data.id, data.label, this.templateName, this.parent, this.grandparent, this.$store.getters.qatLoginUser)
+            this.bus.$emit('kpiFormulaName', {
+                formulaId: data.id,
+                formulaName: data.label,
+                templateName: this.templateName,
+                parent: this.parent,
+                grandparent: this.grandparent,
+                loginUser: this.$store.getters.qatLoginUser,
+                preventRepeatedExecution: 1
+            });
+
             // this.processLoadFormulaData(data.id, data.label, this.templateName, this.parent, this.grandparent, this.$store.getters.qatLoginUser);
           },
           remove(node, data) {
@@ -98,12 +111,14 @@
                             break;
                     }
                 }
-
                 switch(this.$store.getters.loadQatElementDataStatus) {
                     case 1:
                         break;
                     case 2:
                         this.elementData = this.$store.getters.loadQatElementData;
+                        this.bus.$emit('elementData', {
+                            element: this.elementData
+                        })
                         break;
                     case 3:
                         break;
@@ -117,6 +132,33 @@
                 }else {
                     this.draggable = true;
                 }
+
+                //添加删除kpi list
+                // if ( this.grandparent === this.$store.getters.qatLoginUser ) {
+                    let arr = [];
+                    this.elementData = [];
+                    for (var i = 0; i < this.multipleSelection.length; i++) {
+                        if( this.parent != this.$store.getters.qatLoginUser ) {
+                            arr = { id: this.multipleSelection[i]['id'], label: this.multipleSelection[i]['name'], showRemove: false };
+                        }else{
+                            arr = { id: this.multipleSelection[i]['id'], label: this.multipleSelection[i]['name'], showRemove: true };
+                        }
+                        this.elementData.push(arr);
+                    }
+                // }else {
+                //     this.$message({
+                //         message: '你没有权限修改'+this.grandparent,
+                //         type: 'warning'
+                //     });
+                // }
+            }
+        },
+        watch: {
+            elementData() {
+                if(this.multipleSelectionFlag == 1) {
+                    console.log(this.multipleSelection, this.elementData)
+                    this.multipleSelectionFlag = 0;
+                }
             }
         },
         mounted() {
@@ -124,7 +166,12 @@
             type=>{ 
                 this.templateName = type.templateName, 
                 this.parent = type.parent,
-                this.grandparent = type.grandparent 
+                this.grandparent = type.grandparent
+            });
+            this.bus.$on('multipleSelection', 
+            type=>{
+                this.multipleSelection = type.multipleSelection
+                this.multipleSelectionFlag = type.multipleSelectionFlag
             });
         }
     }

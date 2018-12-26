@@ -445,6 +445,18 @@ class TemplateController extends Controller
                     'showRemove'=>$showRemove
 			)
 		);
+          $arr = array(
+               array(
+                    "id"=>1000,
+                    "label"=>'无线接通率1',
+                    'showRemove'=>$showRemove
+               ),
+               array(
+                    "id"=>1001,
+                    "label"=>'无线掉线率1',
+                    'showRemove'=>$showRemove
+               )
+          );
 		print_r(json_encode($arr));
 	}
      public function orderQatElementData(){
@@ -479,7 +491,7 @@ class TemplateController extends Controller
                     'children'=>array(
                          array(
                               'id'=>0,
-                              'name'=>'TDD0',
+                              'name'=>'TDD',
                               'children'=>array(
                                    array(
                                         "id"=>1000,
@@ -492,13 +504,19 @@ class TemplateController extends Controller
                                         "name"=>"无线掉线率1",
                                         "formula"=>"sdaf+asdad/asda",
                                         "precision"=>"5"
+                                   ),
+                                   array(
+                                        "id"=>1002,
+                                        "name"=>"无线掉线率2",
+                                        "formula"=>"sdaf+asdad/asda",
+                                        "precision"=>"5"
                                    )
                               )
 
                          ),
                          array(
                               'id'=>1,
-                              'name'=>'FDD0',
+                              'name'=>'FDD',
                               'children'=>array(
                                    array(
                                         "id"=>1002,
@@ -525,7 +543,7 @@ class TemplateController extends Controller
                     'children'=>array(
                          array(
                               'id'=>5,
-                              'name'=>'TDD1',
+                              'name'=>'TDD',
                               'children'=>array(
                                    array(
                                         "id"=>1004,
@@ -543,7 +561,7 @@ class TemplateController extends Controller
                          ),
                          array(
                               'id'=>6,
-                              'name'=>'FDD1',
+                              'name'=>'FDD',
                               'children'=>array(
                                    array(
                                         "id"=>1006,
@@ -569,7 +587,7 @@ class TemplateController extends Controller
                     'children'=>array(
                          array(
                               'id'=>7,
-                              'name'=>'TDD2',
+                              'name'=>'TDD',
                               'children'=>array(
                                    array(
                                         "id"=>1008,
@@ -587,7 +605,7 @@ class TemplateController extends Controller
                          ),
                          array(
                               'id'=>8,
-                              'name'=>'FDD2',
+                              'name'=>'FDD',
                               'children'=>array(
                                    array(
                                         "id"=>1009,

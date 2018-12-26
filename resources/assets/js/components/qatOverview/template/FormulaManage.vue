@@ -130,6 +130,10 @@
                 </el-table-column>
             </el-table>
         </el-card>
+        <!-- <div style="margin-top: 20px">
+            <el-button @click="toggleSelection([formulaData[0], formulaData[1]])">切换第二、第三行的选中状态</el-button>
+            <el-button @click="toggleSelection()">取消选择</el-button>
+        </div> -->
     </div>
 </template>
 <script>
@@ -178,7 +182,18 @@
                 showEdit: false,
                 showDelete: false,
                 showColumn: true,
-                showModifyColumn: false
+                showModifyColumn: false,
+
+                formulaId: '',
+                formulaName: '',
+                templateName: '',
+                parent: '',
+                grandparent: '',
+                loginUser: '',
+                preventRepeatedExecution: 0,
+                handleFormulaTableOpen: 0,
+
+                elementData: []
             }
         },
         computed: {
@@ -223,13 +238,166 @@
         watch: {
             search() {
                 this.processLoadFormulaData();
+            },
+            formulaId() {
+                if(this.preventRepeatedExecution==1) {
+                    this.preventRepeatedExecution = 0;
+                    this.handleFormulaTable(this.formulaId, this.formulaName, this.templateName, this.parent, this.grandparent, this.loginUser);
+                }
+            },
+            formulaName() {
+                if(this.preventRepeatedExecution==1) {
+                    this.preventRepeatedExecution = 0;
+                    this.handleFormulaTable(this.formulaId, this.formulaName, this.templateName, this.parent, this.grandparent, this.loginUser);
+                }
+            },
+            // templateName() {
+            //     if(this.preventRepeatedExecution==1) {
+            //         this.preventRepeatedExecution = 0;
+            //         this.handleFormulaTable(this.formulaId, this.formulaName, this.templateName, this.parent, this.grandparent, this.loginUser);
+            //     }
+            // }, 
+            // parent() {
+            //     if(this.preventRepeatedExecution==1) {
+            //         this.preventRepeatedExecution = 0;
+            //         // this.preventRepeatedExecution = 'parent';
+            //         this.handleFormulaTable(this.formulaId, this.formulaName, this.templateName, this.parent, this.grandparent, this.loginUser);
+            //     }
+            // },
+            // grandparent() {
+            //     if(this.preventRepeatedExecution==1) {
+            //         this.preventRepeatedExecution = 0;
+            //         this.handleFormulaTable(this.formulaId, this.formulaName, this.templateName, this.parent, this.grandparent, this.loginUser);
+            //     }
+            // },
+            // loginUser() {
+            //     if(this.preventRepeatedExecution==1) {
+            //         this.preventRepeatedExecution = 0;
+            //         this.handleFormulaTable(this.formulaId, this.formulaName, this.templateName, this.parent, this.grandparent, this.loginUser);
+            //     }
+            // },
+            elementData() {
+                this.expands = [];
+                this.expandsFormula = [];
+                let expandsId = this.tableData.map(item=>{
+                    if ( item.name === this.grandparent ) {
+                        return item.id;
+                    }
+                }).filter(function(val){
+                    return !(val === undefined || val === "");
+                });
+                this.expands = [expandsId[0]];
+                let expandsFormulaId = this.tableData[expandsId[0]].children.map(item=>{
+                    if ( item.name === this.parent ) {
+                        return item.id;
+                    }
+                }).filter(function(val){
+                    return !(val === undefined || val === "");
+                });
+                this.expandsFormula = [expandsFormulaId[0]];
+                this.formulaData = this.tableData[expandsId[0]].children[expandsFormulaId[0]].children.map(formula=> {
+                    return {id: formula.id, name: formula.name, formula: formula.formula, precision:formula.precision};
+                });
+                let elementData = this.elementData;
+                let data = this.formulaData;
+                let f = this.toggleSelection;
+                setTimeout( function(){
+                    f(data.map(item=>{
+                        for(var i=0; i<elementData.length; i++) {
+                            if( item.name == elementData[i].label && item.id == elementData[i].id ) {
+                                return item;
+                            }
+                        }
+                    }).filter(function(val){
+                        return !(val === undefined || val === "");
+                    }));
+                }, 0);
+            },
+            multipleSelection() {
+                this.bus.$emit('multipleSelection', {
+                    multipleSelection: this.multipleSelection,
+                    templateName: this.templateName,
+                    parent: this.parent,
+                    grandparent: this.grandparent,
+                    multipleSelectionFlag: 1
+                });
             }
         },
         mounted() {
             this.processLoadFormulaData();
+            //获取kpilist点击数据
+            this.bus.$on('kpiFormulaName', type=>{
+                this.formulaId = type.formulaId,
+                this.formulaName = type.formulaName,
+                // this.templateName = type.templateName,
+                // this.parent = type.parent,
+                // this.grandparent = type.grandparent,
+                this.loginUser = type.loginUser,
+                this.preventRepeatedExecution = type.preventRepeatedExecution
+            });
+            //获取template点击数据
+            this.bus.$on('templateName', type=>{ 
+                this.templateName = type.templateName, 
+                this.parent = type.parent,
+                this.grandparent = type.grandparent 
+            });
+            //获取all kpilist
+            this.bus.$on('elementData', type=>{
+                this.elementData = type.element
+            })
         },
         methods: {
+            handleFormulaTable(formulaId, formulaName, templateName, parent, grandparent, loginUser){
+                this.handleFormulaTableOpen = 1;
+                this.expands = [];
+                this.expandsFormula = [];
+                let expandsId = this.tableData.map(item=>{
+                    if ( item.name === grandparent ) {
+                        return item.id;
+                    }
+                }).filter(function(val){
+                    return !(val === undefined || val === "");
+                });
+                this.expands = [expandsId[0]];
+                let expandsFormulaId = this.tableData[expandsId[0]].children.map(item=>{
+                    if ( item.name === parent ) {
+                        return item.id;
+                    }
+                }).filter(function(val){
+                    return !(val === undefined || val === "");
+                });
+                this.expandsFormula = [expandsFormulaId[0]];
+                this.formulaData = this.tableData[expandsId[0]].children[expandsFormulaId[0]].children.map(formula=> {
+                    return {id: formula.id, name: formula.name, formula: formula.formula, precision:formula.precision};
+                });
+                // var data = this.formulaData;
+                // var f = this.toggleSelection;
+                // setTimeout( function(){
+                //     f(data.map(item=>{return item;}))
+                // }, 0 );
+                this.expandsDetailed = [formulaId];
+                let elementData = this.elementData;
+                let data = this.formulaData;
+                let f = this.toggleSelection;
+                setTimeout( function(){
+                    f(data.map(item=>{
+                        for(var i=0; i<elementData.length; i++) {
+                            if( item.name == elementData[i].label && item.id == elementData[i].id ) {
+                                return item;
+                            }
+                        }
+                    }).filter(function(val){
+                        return !(val === undefined || val === "");
+                    }))
+                }, 0);
+            },
             expandChange(row, expandedRows) {
+                if( this.handleFormulaTableOpen == 1 ) {
+                    this.expands = [];
+                    this.expandsFormula = [];
+                    this.handleFormulaTableOpen = 0;
+                    return;
+                }
                 let temp = this.expands;
                 this.expands = [];
                 this.typeData = [];
@@ -254,6 +422,12 @@
                 }
             },
             expandFormulaChange(row, expandedRows) {
+                if( this.handleFormulaTableOpen == 1 ) {
+                    this.expands = [];
+                    this.expandsFormula = [];
+                    this.handleFormulaTableOpen = 0;
+                    return;
+                }
                 let temp = this.expandsFormula;
                 this.expandsFormula = [];
                 this.formulaData = [];
@@ -335,15 +509,15 @@
                 //     });       
                 // });
             },
-            // toggleSelection(rows) {
-            //     if (rows) {
-            //         rows.forEach(row => {
-            //             this.$refs.multipleTable.toggleRowSelection(row);
-            //         });
-            //     } else {
-            //         this.$refs.multipleTable.clearSelection();
-            //     }
-            // },
+            toggleSelection(rows) {
+                if (rows) {
+                    rows.forEach(row => {
+                        this.$refs.multipleTable.toggleRowSelection(row);
+                    });
+                } else {
+                    this.$refs.multipleTable.clearSelection();
+                }
+            },
             handleSelectionChange(val) {
                 this.multipleSelection = val;
             }
