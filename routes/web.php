@@ -32,3 +32,14 @@ Route::get('removeQatTemplateName', 'TemplateController@removeQatTemplateName');
 Route::get('loadQatElementData', 'TemplateController@loadQatElementData');
 Route::get('orderQatElementData', 'TemplateController@orderQatElementData');
 Route::get('loadQatFormulaData', 'TemplateController@loadQatFormulaData');
+
+// [ReportManage routes]
+Route::prefix('report')->namespace('ReportManage')->group(function () {
+    Route::post('add', 'ReportController@add');
+    Route::post('del', 'ReportController@del');
+    Route::post('mod', 'ReportController@mod');
+    Route::post('run', 'ReportController@run');
+    Route::post('stop', 'ReportController@stop');
+    Route::get('list', 'ReportController@list');
+    Route::get('list', 'ReportController@list');
+});
