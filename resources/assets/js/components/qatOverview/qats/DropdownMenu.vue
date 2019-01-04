@@ -93,7 +93,7 @@
                         this.eniqkpi = ft;
                         break;
                 }
-                this.bus.$emit('dataTypes', {datasource: key, datatype: keyPath[0]});
+                this.bus.$emit('dataTypes', {datatype: key, datasource: keyPath[0]});
             }
         }
     }
