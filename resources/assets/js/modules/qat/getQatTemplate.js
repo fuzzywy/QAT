@@ -23,7 +23,21 @@ export const qatTemplate = {
         orderQatElementDataStatus: 0,
 
         loadQatFormulaData: {},
-        loadQatFormulaDataStatus: 0
+        loadQatFormulaDataStatus: 0,
+
+        selectKpiFormula: {},
+        selectKpiFormulaStatus: 0,
+
+        addQatFormula: {},
+        addQatFormulaStatus: 0,
+
+        deleteQatFormulaStatus: 0,
+
+        modifyQatFormulaStatus: 0,
+        modifyQatFormula: {},
+
+        insertQatElementStatus: 0
+
     },
     actions: {
         loadQatTemplateStatus( {commit}, data ) {
@@ -79,7 +93,7 @@ export const qatTemplate = {
         },
         insertTemplateName( {commit}, data ) {
             commit( 'insertTemplateNameStatus', 1 );
-            QatTemplateAPI.insertQatTemplateName( data.auth, data.templateName )
+            QatTemplateAPI.insertQatTemplateName( data.auth, data.templateName, data.parent )
             .then( function( response ){
                 if ( response.data != undefined ) {
                     commit( 'insertTemplateName', response.data );
@@ -96,7 +110,7 @@ export const qatTemplate = {
         },
         removeTemplateName( {commit}, data ) {
             commit( 'removeTemplateNameStatus', 1 );
-            QatTemplateAPI.removeQatTemplateName( data.auth, data.templateName )
+            QatTemplateAPI.removeQatTemplateName( data.auth, data.templateName, data.id )
             .then( function( response ){
                 if ( response.data != undefined ) {
                     commit( 'removeTemplateName', response.data );
@@ -161,6 +175,91 @@ export const qatTemplate = {
                 commit( 'loadQatFormulaData', [ 'Connection failed' ] );
                 commit( 'loadQatFormulaDataStatus', 3 );
             });
+        },
+        selectKpiFormula( {commit}, data ) {
+            commit( 'selectKpiFormulaStatus', 1 );
+            QatTemplateAPI.selectKpiFormula( data.clickElement, data.elements )
+            .then( function( response ){
+                if ( response.data != undefined ) {
+                    commit( 'selectKpiFormula', response.data );
+                    commit( 'selectKpiFormulaStatus', 2 );
+                }else {
+                    commit( 'selectKpiFormula', [ response ] );
+                    commit( 'selectKpiFormulaStatus' , 3 ); 
+                }
+            })
+            .catch( function(){
+                commit( 'selectKpiFormula', [ 'Connection failed' ] );
+                commit( 'selectKpiFormulaStatus', 3 );
+            });
+        },
+        addQatFormula( {commit}, data ) {
+            commit( 'addQatFormulaStatus', 1 );
+            QatTemplateAPI.addQatFormula( data.kpiName, data.kpiFormula, data.kpiPrecision, data.format )
+            .then( function( response ){
+                if ( response.data != undefined ) {
+                    commit( 'addQatFormula', response.data );
+                    commit( 'addQatFormulaStatus', 2 );
+                }else {
+                    commit( 'addQatFormula', [ response ] );
+                    commit( 'addQatFormulaStatus' , 3 ); 
+                }
+            })
+            .catch( function(){
+                commit( 'addQatFormula', [ 'Connection failed' ] );
+                commit( 'addQatFormulaStatus', 3 );
+            });
+        },
+        deleteQatFormula( {commit}, data ) {
+            commit( 'deleteQatFormulaStatus', 1 );
+            QatTemplateAPI.deleteQatFormula( data.id )
+            .then( function( response ){
+                if ( response.data != undefined ) {
+                    // commit( 'addQatFormula', response.data );
+                    commit( 'deleteQatFormulaStatus', 2 );
+                }else {
+                    // commit( 'addQatFormula', [ response ] );
+                    commit( 'deleteQatFormulaStatus' , 3 ); 
+                }
+            })
+            .catch( function(){
+                // commit( 'addQatFormula', [ 'Connection failed' ] );
+                commit( 'deleteQatFormulaStatus', 3 );
+            });
+        },
+        modifyQatFormula( {commit}, data ) {
+            commit( 'modifyQatFormulaStatus', 1 );
+            QatTemplateAPI.modifyQatFormula( data.id, data.kpiName, data.kpiFormula, data.kpiPrecision )
+            .then( function( response ){
+                if ( response.data != undefined ) {
+                    commit( 'modifyQatFormula', response.data );
+                    commit( 'modifyQatFormulaStatus', 2 );
+                }else {
+                    commit( 'modifyQatFormula', [ response ] );
+                    commit( 'modifyQatFormulaStatus' , 3 ); 
+                }
+            })
+            .catch( function(){
+                commit( 'modifyQatFormula', [ 'Connection failed' ] );
+                commit( 'modifyQatFormulaStatus', 3 );
+            });
+        },
+        insertQatElement( {commit}, data ) {
+            commit( 'insertQatElementStatus', 1 );
+            QatTemplateAPI.insertQatElement( data.templateName, data.parent, data.grandparent, data.ids )
+            .then( function( response ){
+                if ( response.data != undefined ) {
+                    // commit( 'modifyQatFormula', response.data );
+                    commit( 'insertQatElementStatus', 2 );
+                }else {
+                    // commit( 'modifyQatFormula', [ response ] );
+                    commit( 'insertQatElementStatus' , 3 ); 
+                }
+            })
+            .catch( function(){
+                // commit( 'modifyQatFormula', [ 'Connection failed' ] );
+                commit( 'insertQatElementStatus', 3 );
+            });
         }
     },
     mutations: {
@@ -211,6 +310,30 @@ export const qatTemplate = {
         },
         loadQatFormulaData( state, loadQatFormulaData ){
             state.loadQatFormulaData = loadQatFormulaData;
+        },
+        selectKpiFormulaStatus( state, status ){
+            state.selectKpiFormulaStatus = status;
+        },
+        selectKpiFormula( state, selectKpiFormula ){
+            state.selectKpiFormula = selectKpiFormula;
+        },
+        addQatFormulaStatus( state, status ){
+            state.addQatFormulaStatus = status;
+        },
+        addQatFormula( state, addQatFormula ){
+            state.addQatFormula = addQatFormula;
+        },
+        deleteQatFormulaStatus( state, status ){
+            state.deleteQatFormulaStatus = status;
+        },
+        modifyQatFormulaStatus( state, status ){
+            state.modifyQatFormulaStatus = status;
+        },
+        modifyQatFormula( state, modifyQatFormula ){
+            state.modifyQatFormula = modifyQatFormula;
+        },
+        insertQatElementStatus( state, status ){
+            state.insertQatElementStatus = status;
         }
     },
     getters: {
@@ -261,6 +384,30 @@ export const qatTemplate = {
         },
         loadQatFormulaData( state ){
             return state.loadQatFormulaData;
+        },
+        selectKpiFormulaStatus( state ){
+            return state.selectKpiFormulaStatus;
+        },
+        selectKpiFormula( state ){
+            return state.selectKpiFormula;
+        },
+        addQatFormulaStatus( state ){
+            return state.addQatFormulaStatus;
+        },
+        addQatFormula( state ){
+            return state.addQatFormula;
+        },
+        deleteQatFormulaStatus( state ){
+            return state.deleteQatFormulaStatus;
+        },
+        modifyQatFormulaStatus( state ){
+            return state.modifyQatFormulaStatus;
+        },
+        modifyQatFormula( state ){
+            return state.modifyQatFormula;
+        },
+        insertQatElementStatus( state ){
+            return state.insertQatElementStatus;
         }
     }
 }

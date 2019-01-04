@@ -38,13 +38,16 @@
           >
           <span class="custom-tree-node" slot-scope="{ node, data }">
             <span>{{ node.label }}</span>
-            <span>
+            <span class="test">
               <el-button v-show="data.showAppend" type="text" size="mini" @click="() => append(data)">
-                Append
+                <i class="el-icon-circle-plus"></i>
               </el-button>
               <el-button v-show="data.showRemove" type="text" size="mini" @click="() => remove(node, data)">
-                Delete
+                <i class="el-icon-remove"></i>
               </el-button>
+              <!-- <i class="el-icon-circle-plus" v-show="data.showAppend" size="mini" @click="() => append(data)"></i>
+              <i class="el-icon-remove" v-show="data.showAppend" size="mini" @click="() => remove(node, data)"></i> -->
+
             </span>
           </span>
         </el-tree>
@@ -190,16 +193,16 @@
           });
           //processload
           for (var i = 0; i < data.children.length; i++) {
-                if(data.children[i].label === value) {
-                    this.$message({
-                        type: 'warning',
-                        message: '该模板已存在,请重新命名！'
-                    });
-                    return;
-                }
+            if(data.children[i].label === value) {
+                this.$message({
+                    type: 'warning',
+                    message: '该模板已存在,请重新命名！'
+                });
+                return;
+            }
           }
           //这里需要进一步优化代码
-          this.processinsertTemplateName(this.$store.getters.qatLoginUser, value);
+          this.processinsertTemplateName(this.$store.getters.qatLoginUser, value, data.label);
           const newChild = { id: id--, label: value, children: [], showAppend: false, showRemove: true };
           if (!data.children) {
             this.$set(data, 'children', []);
@@ -216,7 +219,7 @@
         const parent = node.parent;
         const children = parent.data.children || parent.data;
         const index = children.findIndex(d => d.id === data.id);
-        this.processremoveTemplateName(this.$store.getters.qatLoginUser, data.label);
+        this.processremoveTemplateName(this.$store.getters.qatLoginUser, data.label, data.id);
         children.splice(index, 1);
         if ( this.treeData.length <= 2 ) {
           this.treeData[0]['showAppend'] = true

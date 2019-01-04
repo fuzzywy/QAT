@@ -57,11 +57,12 @@ export default {
             }
         });
     },
-    insertQatTemplateName: function(auth, templateName) {
+    insertQatTemplateName: function(auth, templateName, parent) {
         return axios.get( 'insertQatTemplateName', {
             params: {
                 auth: auth,
-                templateName: templateName
+                templateName: templateName,
+                parent: parent
             }
         })
         .catch(function(error){
@@ -78,11 +79,12 @@ export default {
             }
         });
     },
-    removeQatTemplateName: function(auth, templateName) {
+    removeQatTemplateName: function(auth, templateName, id) {
         return axios.get( 'removeQatTemplateName', {
             params: {
                 auth: auth,
-                templateName: templateName
+                templateName: templateName,
+                id: id
             }
         })
         .catch(function(error){
@@ -155,6 +157,116 @@ export default {
                 parent: parent,
                 grandparent: grandparent,*/
                 /*auth: auth*/
+            }
+        })
+        .catch(function(error){
+            if (error.response) {
+                if ( error.response.status == '404' ) {
+                    return error.response.status + ' Not Found';
+                }else {
+                    return error.response.status;
+                }
+            } else if (error.request) {
+                return 'Request failed'
+            } else {
+                return 'Other errors'
+            }
+        });
+    },
+    selectKpiFormula: function(clickElement, elements) {
+        return axios.get( 'selectKpiFormula', {
+            params: {
+                clickElement: clickElement,
+                elements: elements
+            }
+        })
+        .catch(function(error){
+            if (error.response) {
+                if ( error.response.status == '404' ) {
+                    return error.response.status + ' Not Found';
+                }else {
+                    return error.response.status;
+                }
+            } else if (error.request) {
+                return 'Request failed'
+            } else {
+                return 'Other errors'
+            }
+        });
+    },
+    addQatFormula: function(kpiName, kpiFormula, kpiPrecision, format) {
+        return axios.get( 'addQatFormula', {
+            params: {
+                kpiName: kpiName,
+                kpiFormula: kpiFormula,
+                kpiPrecision: kpiPrecision,
+                format: format
+            }
+        })
+        .catch(function(error){
+            if (error.response) {
+                if ( error.response.status == '404' ) {
+                    return error.response.status + ' Not Found';
+                }else {
+                    return error.response.status;
+                }
+            } else if (error.request) {
+                return 'Request failed'
+            } else {
+                return 'Other errors'
+            }
+        });
+    },
+    deleteQatFormula: function(id) {
+        return axios.get( 'deleteQatFormula', {
+            params: {
+                id: id
+            }
+        })
+        .catch(function(error){
+            if (error.response) {
+                if ( error.response.status == '404' ) {
+                    return error.response.status + ' Not Found';
+                }else {
+                    return error.response.status;
+                }
+            } else if (error.request) {
+                return 'Request failed'
+            } else {
+                return 'Other errors'
+            }
+        });
+    },
+    modifyQatFormula: function(id, kpiName, kpiFormula, kpiPrecision) {
+        return axios.get( 'modifyQatFormula', {
+            params: {
+                id: id,
+                kpiName: kpiName,
+                kpiFormula: kpiFormula,
+                kpiPrecision: kpiPrecision
+            }
+        })
+        .catch(function(error){
+            if (error.response) {
+                if ( error.response.status == '404' ) {
+                    return error.response.status + ' Not Found';
+                }else {
+                    return error.response.status;
+                }
+            } else if (error.request) {
+                return 'Request failed'
+            } else {
+                return 'Other errors'
+            }
+        });
+    },
+    insertQatElement: function(templateName, parent, grandparent, ids) {
+        return axios.get( 'insertQatElement', {
+            params: {
+                templateName: templateName,
+                parent: parent,
+                grandparent: grandparent,
+                ids: ids
             }
         })
         .catch(function(error){

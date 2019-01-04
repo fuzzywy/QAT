@@ -32,6 +32,11 @@ Route::get('removeQatTemplateName', 'TemplateController@removeQatTemplateName');
 Route::get('loadQatElementData', 'TemplateController@loadQatElementData');
 Route::get('orderQatElementData', 'TemplateController@orderQatElementData');
 Route::get('loadQatFormulaData', 'TemplateController@loadQatFormulaData');
+Route::get('selectKpiFormula', 'TemplateController@selectKpiFormula');
+Route::get('addQatFormula', 'TemplateController@addQatFormula');
+Route::get('deleteQatFormula', 'TemplateController@deleteQatFormula');
+Route::get('modifyQatFormula', 'TemplateController@modifyQatFormula');
+Route::get('insertQatElement', 'TemplateController@insertQatElement');
 
 // [ReportManage routes]
 Route::prefix('report')->namespace('ReportManage')->group(function () {
