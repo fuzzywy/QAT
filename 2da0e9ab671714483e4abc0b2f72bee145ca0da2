@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7ff68476_332b20d7",
+        "filename": "app/Http/Controllers/TemplateController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-01-08T02:15:10Z",
+      "side": 1,
+      "message": "Add comment for class and each function",
+      "revId": "2da0e9ab671714483e4abc0b2f72bee145ca0da2",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9e82698e_eb4e77fe",
+        "filename": "database/migrations/2018_12_27_150227_create_kpiformula_table.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-01-08T02:15:10Z",
+      "side": 1,
+      "message": "It\u0027s better to use text instead of varchar.\n\nWhich may reduce a lost of maintenance workload.",
+      "revId": "2da0e9ab671714483e4abc0b2f72bee145ca0da2",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0566748_d8572f47",
+        "filename": "routes/web.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-01-08T02:15:10Z",
+      "side": 1,
+      "message": "Please use function/action pattern for action url.\nFor example:\nuse template/insertQatTemplateName instead of insertQatTemplateName\n\nThis\u0027s more up to standard of restful service.\n\nAnd use prefix and group function provided in Route facade.\nPlease refere to the report section at last of the file.",
+      "revId": "2da0e9ab671714483e4abc0b2f72bee145ca0da2",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c36022ed_1b5aecce",
+        "filename": "routes/web.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-01-08T02:15:10Z",
+      "side": 1,
+      "message": "use post instead of get for add/del/mod/insert",
+      "revId": "2da0e9ab671714483e4abc0b2f72bee145ca0da2",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    }
+  ]
+}
