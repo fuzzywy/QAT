@@ -26,8 +26,6 @@ class TemplateController extends Controller
     * 获取模板列表 
     * 
     * @access public 
-    * @param mixed $dataSource 数据源,例如ENIQ/GSM..
-    * @param mixed $dataType 数据类型,例如TDD/FDD..
     * @return array 模板列表
     */
     public function getTemplate() {
@@ -91,8 +89,6 @@ class TemplateController extends Controller
     * 获取模板管理列表 
     * 
     * @access private 
-    * @param mixed $dataSource 数据源,例如ENIQ/GSM..
-    * @param mixed $dataType 数据类型,例如TDD/FDD..
     * @return array 模板管理列表
     */
     public function getQatTemplateData() {
@@ -133,9 +129,6 @@ class TemplateController extends Controller
     * 新增模板
     * 
     * @access public 
-    * @param mixed $auth 登陆用户/user字段
-    * @param mixed $templateName 模板名称
-    * @param mixed $parent 父节点名称/format字段
     * @return array 模板管理列表
     */
     public function insertQatTemplateName() {
@@ -154,9 +147,6 @@ class TemplateController extends Controller
     * 删除模板
     * 
     * @access public 
-    * @param mixed $auth 登陆用户
-    * @param mixed $templateName 模板名称
-    * @param mixed $id 模板id值
     * @return array 模板管理列表
     */
     public function removeQatTemplateName() {
@@ -170,10 +160,6 @@ class TemplateController extends Controller
     * 加载元素列表
     * 
     * @access public 
-    * @param mixed $auth 登陆用户
-    * @param mixed $templateName 模板名称
-    * @param mixed $grandparent 模板根目录
-    * @param mixed $parent 模板第二级目录
     * @return array 元素列表
     */
     public function loadQatElementData() {
@@ -220,10 +206,6 @@ class TemplateController extends Controller
     * 元素列表排序
     * 
     * @access public 
-    * @param mixed $auth 登陆用户
-    * @param mixed $templateName 模板名称
-    * @param mixed $grandparent 模板根目录
-    * @param mixed $parent 模板第二级目录
     * @return array 元素列表
     */
     public function orderQatElementData(){
@@ -254,12 +236,6 @@ class TemplateController extends Controller
     * 加载公式列表
     * 
     * @access public
-    * @param mixed $id 公式表id 
-    * @param mixed $label 公式表id 
-    * @param mixed $auth 登陆用户
-    * @param mixed $templateName 模板名称
-    * @param mixed $grandparent 模板根目录
-    * @param mixed $parent 模板第二级目录
     * @return array 公式列表
     */
     public function loadQatFormulaData(){
@@ -328,8 +304,6 @@ class TemplateController extends Controller
     * 选择元素更新公式列表
     * 
     * @access public
-    * @param mixed $clickElement 选中/取消选中元素对象
-    * @param mixed $elements 当前元素列表
     * @return array 公式列表
     */
     public function selectKpiFormula() {
@@ -357,11 +331,6 @@ class TemplateController extends Controller
     * 新增公式
     * 
     * @access public
-    * @param mixed $kpiName 公式名称
-    * @param mixed $kpiFormula 公式
-    * @param mixed $kpiPrecision 公式精度
-    * @param mixed $format 公式类型
-    * @param mixed $user 当前用户
     * @return array 当前新增公式名
     */
     public function addQatFormula() {
@@ -389,7 +358,6 @@ class TemplateController extends Controller
     * 删除公式
     * 
     * @access public
-    * @param mixed $id 公式id
     * @return null
     */
     public function deleteQatFormula() {
@@ -402,10 +370,6 @@ class TemplateController extends Controller
     * 修改公式
     * 
     * @access public
-    * @param mixed $id 公式id
-    * @param mixed $kpiName 公式名称
-    * @param mixed $kpiFormula 公式
-    * @param mixed $kpiPrecision 公式精度
     * @return array 当前修改公式名
     */
     public function modifyQatFormula() {
@@ -425,10 +389,6 @@ class TemplateController extends Controller
     * 插入公式名到元素列表
     * 
     * @access public
-    * @param mixed $id 公式id
-    * @param mixed $kpiName 公式名称
-    * @param mixed $kpiFormula 公式
-    * @param mixed $kpiPrecision 公式精度
     * @return array 元素列表
     */
     public function insertQatElement() {
