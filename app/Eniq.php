@@ -6,5 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Eniq extends Model
 {
-    //
+    public 	  $timestamps = false;
+    protected $connection = "Qat";
+    protected $table      = "Eniq";
 }
