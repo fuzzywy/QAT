@@ -1,10 +1,8 @@
 export default {
     getQatTemplate: function(dataSource, dataType) {
-        return axios.get( 'getQatTemplate', {
-            params: {
-                dataSource: dataSource,
-                dataType: dataType
-            }
+        return axios.post( 'template/getQatTemplate', {
+            dataSource: dataSource,
+            dataType: dataType
         })
         .catch(function(error) {
             if (error.response) {
@@ -21,7 +19,7 @@ export default {
         });
     },
     getQatLoginUser: function() {
-        return axios.get( 'getQatLoginUser' )
+        return axios.post( 'template/getQatLoginUser' )
         .catch(function(error){
             if (error.response) {
                 if ( error.response.status == '404' ) {
@@ -37,11 +35,9 @@ export default {
         });
     },
     getQatTemplateData: function(dataSource, dataType) {
-        return axios.get( 'getQatTemplateData', {
-            params: {
-                dataSource: dataSource,
-                dataType: dataType
-            }
+        return axios.post( 'template/getQatTemplateData', {
+            dataSource: dataSource,
+            dataType: dataType
         })
         .catch(function(error){
             if (error.response) {
@@ -58,12 +54,10 @@ export default {
         });
     },
     insertQatTemplateName: function(auth, templateName, parent) {
-        return axios.get( 'insertQatTemplateName', {
-            params: {
-                auth: auth,
-                templateName: templateName,
-                parent: parent
-            }
+        return axios.post( 'template/insertQatTemplateName', {
+            auth: auth,
+            templateName: templateName,
+            parent: parent
         })
         .catch(function(error){
             if (error.response) {
@@ -80,12 +74,10 @@ export default {
         });
     },
     removeQatTemplateName: function(auth, templateName, id) {
-        return axios.get( 'removeQatTemplateName', {
-            params: {
-                auth: auth,
-                templateName: templateName,
-                id: id
-            }
+        return axios.post( 'template/removeQatTemplateName', {
+            auth: auth,
+            templateName: templateName,
+            id: id
         })
         .catch(function(error){
             if (error.response) {
@@ -102,13 +94,11 @@ export default {
         });
     },
     loadQatElementData: function(templateName, parent, grandparent, auth) {
-        return axios.get( 'loadQatElementData', {
-            params: {
-                templateName: templateName,
-                parent: parent,
-                grandparent: grandparent,
-                auth: auth
-            }
+        return axios.post( 'template/loadQatElementData', {
+            templateName: templateName,
+            parent: parent,
+            grandparent: grandparent,
+            auth: auth
         })
         .catch(function(error){
             if (error.response) {
@@ -125,14 +115,12 @@ export default {
         });
     },
     orderQatElementData: function(element, templateName, parent, grandparent, auth) {
-        return axios.get( 'orderQatElementData', {
-            params: {
-                element: element,
-                templateName: templateName,
-                parent: parent,
-                grandparent: grandparent,
-                auth: auth
-            }
+        return axios.post( 'template/orderQatElementData', {
+            element: element,
+            templateName: templateName,
+            parent: parent,
+            grandparent: grandparent,
+            auth: auth 
         })
         .catch(function(error){
             if (error.response) {
@@ -149,15 +137,7 @@ export default {
         });
     },
     loadQatFormulaData: function(/*id, label, templateName, parent, grandparent,*/ /*auth*/) {
-        return axios.get( 'loadQatFormulaData', {
-            params: {
-                /*id: id,
-                label: label,
-                templateName: templateName,
-                parent: parent,
-                grandparent: grandparent,*/
-                /*auth: auth*/
-            }
+        return axios.post( 'template/loadQatFormulaData', {
         })
         .catch(function(error){
             if (error.response) {
@@ -174,7 +154,7 @@ export default {
         });
     },
     selectKpiFormula: function(clickElement, elements) {
-        return axios.get( 'selectKpiFormula', {
+        return axios.get( 'template/selectKpiFormula', {
             params: {
                 clickElement: clickElement,
                 elements: elements
@@ -195,13 +175,11 @@ export default {
         });
     },
     addQatFormula: function(kpiName, kpiFormula, kpiPrecision, format) {
-        return axios.get( 'addQatFormula', {
-            params: {
-                kpiName: kpiName,
-                kpiFormula: kpiFormula,
-                kpiPrecision: kpiPrecision,
-                format: format
-            }
+        return axios.post( 'template/addQatFormula', {
+            kpiName: kpiName,
+            kpiFormula: kpiFormula,
+            kpiPrecision: kpiPrecision,
+            format: format
         })
         .catch(function(error){
             if (error.response) {
@@ -218,10 +196,8 @@ export default {
         });
     },
     deleteQatFormula: function(id) {
-        return axios.get( 'deleteQatFormula', {
-            params: {
-                id: id
-            }
+        return axios.post( 'template/deleteQatFormula', {
+            id: id
         })
         .catch(function(error){
             if (error.response) {
@@ -238,13 +214,11 @@ export default {
         });
     },
     modifyQatFormula: function(id, kpiName, kpiFormula, kpiPrecision) {
-        return axios.get( 'modifyQatFormula', {
-            params: {
-                id: id,
-                kpiName: kpiName,
-                kpiFormula: kpiFormula,
-                kpiPrecision: kpiPrecision
-            }
+        return axios.post( 'template/modifyQatFormula', {
+            id: id,
+            kpiName: kpiName,
+            kpiFormula: kpiFormula,
+            kpiPrecision: kpiPrecision
         })
         .catch(function(error){
             if (error.response) {
@@ -261,13 +235,11 @@ export default {
         });
     },
     insertQatElement: function(templateName, parent, grandparent, ids) {
-        return axios.get( 'insertQatElement', {
-            params: {
-                templateName: templateName,
-                parent: parent,
-                grandparent: grandparent,
-                ids: ids
-            }
+        return axios.post( 'template/insertQatElement', {
+            templateName: templateName,
+            parent: parent,
+            grandparent: grandparent,
+            ids: ids
         })
         .catch(function(error){
             if (error.response) {

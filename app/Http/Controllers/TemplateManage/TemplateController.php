@@ -1,17 +1,36 @@
 <?php
+/** 
+* 模板管理后台代码
+* 
+* @author LiJian
+* @version 0.0   
+*/ 
+namespace App\Http\Controllers\TemplateManage;
 
-namespace App\Http\Controllers;
-
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Template;
 use App\Models\Kpiformula;
 
+/** 
+* 模板管理控制器 
+* 
+* @author LiJian      
+* @version 0.0  
+*/ 
 class TemplateController extends Controller 
 {
+    /**  
+    * 获取模板列表 
+    * 
+    * @access public 
+    * @param mixed $dataSource 数据源,例如ENIQ/GSM..
+    * @param mixed $dataType 数据类型,例如TDD/FDD..
+    * @return array 模板列表
+    */
     public function getTemplate() {
-        // sleep(1);
         $dataSource = Input::get('dataSource');
         $dataType = Input::get('dataType');
         $arr = array(
@@ -20,11 +39,24 @@ class TemplateController extends Controller
                     );
         return $arr;
     }
-
+    /**  
+    * 获取当前登陆用户 
+    * 
+    * @access public 
+    * @return string 当前登陆用户
+    */
     public function getQatLoginUser() {
         return Auth::user()->name;
     }
-
+    /**  
+    * 获取模板列表 
+    * 
+    * @access private 
+    * @param mixed $arrs 所有模板数据
+    * @param mixed $key 键值
+    * @param mixed $datum 单条模板数据
+    * @return array 归类模板列表
+    */
     private function getRootDir($arrs, $key, $datum) {
         if ( !array_key_exists($key, $arrs) ) {
             if ( $datum['user'] == 'admin' ) {
@@ -55,7 +87,14 @@ class TemplateController extends Controller
         }
         return $arrs;
     }
-
+    /**  
+    * 获取模板管理列表 
+    * 
+    * @access private 
+    * @param mixed $dataSource 数据源,例如ENIQ/GSM..
+    * @param mixed $dataType 数据类型,例如TDD/FDD..
+    * @return array 模板管理列表
+    */
     public function getQatTemplateData() {
         $arrs = [];
         $dataSource = Input::get('dataSource');
@@ -90,6 +129,15 @@ class TemplateController extends Controller
         }
         return (json_encode(array_values($arrs)));
     }
+    /**  
+    * 新增模板
+    * 
+    * @access public 
+    * @param mixed $auth 登陆用户/user字段
+    * @param mixed $templateName 模板名称
+    * @param mixed $parent 父节点名称/format字段
+    * @return array 模板管理列表
+    */
     public function insertQatTemplateName() {
         //执行模板插入语句
         $auth = Input::get('auth');
@@ -102,14 +150,32 @@ class TemplateController extends Controller
         $template->save();
         return $this->getQatTemplateData();
     }
+    /**  
+    * 删除模板
+    * 
+    * @access public 
+    * @param mixed $auth 登陆用户
+    * @param mixed $templateName 模板名称
+    * @param mixed $id 模板id值
+    * @return array 模板管理列表
+    */
     public function removeQatTemplateName() {
-        //执行模板删除语句
         $auth = Input::get('auth');
         $templateName = Input::get('templateName');
         $id = Input::get('id');
         template::where('id', $id)->delete();
         return $this->getQatTemplateData();
     }
+    /**  
+    * 加载元素列表
+    * 
+    * @access public 
+    * @param mixed $auth 登陆用户
+    * @param mixed $templateName 模板名称
+    * @param mixed $grandparent 模板根目录
+    * @param mixed $parent 模板第二级目录
+    * @return array 元素列表
+    */
     public function loadQatElementData() {
         $templateName = Input::get('templateName');
         $parent = Input::get('parent');
@@ -150,26 +216,33 @@ class TemplateController extends Controller
         }
         return json_encode($elements);
     }
+    /**  
+    * 元素列表排序
+    * 
+    * @access public 
+    * @param mixed $auth 登陆用户
+    * @param mixed $templateName 模板名称
+    * @param mixed $grandparent 模板根目录
+    * @param mixed $parent 模板第二级目录
+    * @return array 元素列表
+    */
     public function orderQatElementData(){
-        //这些参数不知道有没有用，先传进来。防止需要
         $templateName = Input::get('templateName');
         $parent = Input::get('parent');
         $grandparent = Input::get('grandparent');
         $auth = Input::get('auth');
-
         if( $grandparent == '通用模板' ) {
             $grandparent = 'admin';
         }
         if( $grandparent == '系统模板' ) {
             $grandparent = 'system';
         }
-
         $element = Input::get('element');
         $elements = [];
         $ids = [];
         foreach ($element as $value) {
-            array_push($elements, json_decode($value));
-            array_push($ids, json_decode($value)->id);
+            array_push($elements, $value['label']);
+            array_push($ids, $value['id']);
         }
         template::where('format', $parent)
                 ->where('user', $grandparent)
@@ -177,15 +250,25 @@ class TemplateController extends Controller
                 ->update(['elementId' => implode(',', $ids)]);
         return json_encode($elements);
     }
+    /**  
+    * 加载公式列表
+    * 
+    * @access public
+    * @param mixed $id 公式表id 
+    * @param mixed $label 公式表id 
+    * @param mixed $auth 登陆用户
+    * @param mixed $templateName 模板名称
+    * @param mixed $grandparent 模板根目录
+    * @param mixed $parent 模板第二级目录
+    * @return array 公式列表
+    */
     public function loadQatFormulaData(){
-          //elemrnt id/name
         $id = Input::get('id');
-        $label = Input::get('label');
-        $templateName = Input::get('templateName');
+        // $label = Input::get('label');
+        // $templateName = Input::get('templateName');
         $parent = Input::get('parent');
         $grandparent = Input::get('grandparent');
         $auth = Input::get('auth');
-          // print_r($id.$label.$templateName.$parent.$grandparent.$auth);
         $arrs = [];
         $dataSource = Input::get('grandparent');
         $dataType = Input::get('parent');
@@ -219,24 +302,18 @@ class TemplateController extends Controller
                 }
             }
         }
-
         foreach ($data as $key => $datum) {
             if( !array_key_exists($datum['format'], $arrs[$datum['user']]['children']) ) {
                 $arrs[$datum['user']]['children'][$datum['format']] = array('id'=>$datum['id'], 'name'=>$datum['format'], 'children'=>array());
             }
         }
         foreach ($data as $key => $datum) {
-            // if( $datum['user'] == Auth::user()->name ) {
-            //     $arrs[$datum['user']]['children'][$datum['format']]['children'][$datum['kpiName'].$datum['id']] = array('id'=>$datum['id'], 'label'=>$datum['kpiName'], 'showRemove'=>true );
-            // } else {
             $arrs[$datum['user']]['children'][$datum['format']]['children'][$datum['kpiName'].$datum['id']] = array('id'=>$datum['id'], 'name'=>$datum['kpiName'], 'formula'=>$datum['kpiFormula'], 'precision'=>$datum['kpiPrecision']);
-            // }
             if( $datum['user'] == Auth::user()->name ) {
                 $arrs[$datum['user']]['showEdit'] = true;
                 $arrs[$datum['user']]['showDelete'] = true;
             }
         }
-
         foreach ($arrs as $key => $arr) {
             foreach ($arr['children'] as $k => $v) {
                 $arrs[$key]['children'][$k]['children'] = array_values($v['children']);
@@ -246,7 +323,15 @@ class TemplateController extends Controller
             $arrs[$key]['children'] = array_values($arr['children']);
         }
         return (json_encode(array_values($arrs)));
-     }
+    }
+    /**  
+    * 选择元素更新公式列表
+    * 
+    * @access public
+    * @param mixed $clickElement 选中/取消选中元素对象
+    * @param mixed $elements 当前元素列表
+    * @return array 公式列表
+    */
     public function selectKpiFormula() {
         $clickElement = json_decode(Input::get('clickElement'));
         $elements = Input::get('elements');
@@ -268,6 +353,17 @@ class TemplateController extends Controller
         $return['elements'] = $data;
         return json_encode($return);
     }
+    /**  
+    * 新增公式
+    * 
+    * @access public
+    * @param mixed $kpiName 公式名称
+    * @param mixed $kpiFormula 公式
+    * @param mixed $kpiPrecision 公式精度
+    * @param mixed $format 公式类型
+    * @param mixed $user 当前用户
+    * @return array 当前新增公式名
+    */
     public function addQatFormula() {
         $kpiName = Input::get('kpiName');
         $kpiFormula = Input::get('kpiFormula');
@@ -289,12 +385,29 @@ class TemplateController extends Controller
         }
         return [$kpiName];
     }
+    /**  
+    * 删除公式
+    * 
+    * @access public
+    * @param mixed $id 公式id
+    * @return null
+    */
     public function deleteQatFormula() {
         $id = Input::get('id');
         Kpiformula::where('id', $id)
                     ->where('user', Auth::user()->name)
                     ->delete();
     }
+    /**  
+    * 修改公式
+    * 
+    * @access public
+    * @param mixed $id 公式id
+    * @param mixed $kpiName 公式名称
+    * @param mixed $kpiFormula 公式
+    * @param mixed $kpiPrecision 公式精度
+    * @return array 当前修改公式名
+    */
     public function modifyQatFormula() {
         $id = Input::get('id');
         $kpiName = Input::get('kpiName');
@@ -308,6 +421,16 @@ class TemplateController extends Controller
             return [$kpiName];
         }
     }
+    /**  
+    * 插入公式名到元素列表
+    * 
+    * @access public
+    * @param mixed $id 公式id
+    * @param mixed $kpiName 公式名称
+    * @param mixed $kpiFormula 公式
+    * @param mixed $kpiPrecision 公式精度
+    * @return array 元素列表
+    */
     public function insertQatElement() {
         $templateName = Input::get('templateName');
         $parent = Input::get('parent');
@@ -319,17 +442,63 @@ class TemplateController extends Controller
             $grandparent = 'system';
         }
         $ids = Input::get('ids');
-        if( Auth::user()->name == 'admin' || $grandparent == Auth::user()->name ) {
-            $s = Template::where('templateName', $templateName)
-                    ->where('format', $parent)
-                    ->where('user', $grandparent)
-                    ->get()->toArray();
-            if (count($s) == 1) {
-                Template::where('templateName', $templateName)
-                    ->where('format', $parent)
-                    ->where('user', $grandparent)
-                    ->update(['elementId'=>implode(',', $ids)]);
+        $s = Template::where('templateName', $templateName)
+                ->where('format', $parent)
+                ->where('user', $grandparent)
+                ->get()->toArray();
+        if (count($s) == 1) {
+            $str = '';
+            if( $ids == '' ) {
+                $str = '';
+            }else {
+                $str = implode(',', $ids);
             }
+            Template::where('templateName', $templateName)
+                ->where('format', $parent)
+                ->where('user', $grandparent)
+                ->update(['elementId'=>$str]);
         }
+        return $this->getElement($templateName, $parent, $grandparent);
     }
+    /**  
+    * 获取元素列表
+    * 
+    * @access private
+    * @param mixed $templateName 模板名
+    * @param mixed $parent 字段format/数据源类型
+    * @param mixed $grandparent 字段user/数据源
+    * @return array 元素列表
+    */
+    private function getElement($templateName, $parent, $grandparent) {
+        if( $grandparent == '通用模板' ) {
+            $grandparent = 'admin';
+        }
+        if( $grandparent == '系统模板' ) {
+            $grandparent = 'system';
+        }
+        $showRemove = true;
+        $elementId = template::select('elementId')
+                ->where('templateName', $templateName)
+                ->where('format', $parent)
+                ->where('user', $grandparent)
+                ->get()
+                ->first()
+                ->elementId;
+        $arrId = explode(',', $elementId);
+        $elementId = ',' . $elementId . ',';
+        $arrs = Kpiformula::selectRaw("kpiName, instr('$elementId', CONCAT(',',id,',')) as sort, id, format, user")
+                        ->whereIn('id', $arrId)
+                        ->orderBy('sort')
+                        ->get()
+                        ->toArray();
+        $elements = [];
+        foreach ($arrs as $arr) {
+            $arr['showRemove'] = $showRemove;
+            $arr['label'] = $arr['kpiName'];
+            $arr['parent'] = $arr['format'];
+            $arr['grandparent'] = $arr['user'];;
+            $elements[] = $arr;
+        }
+        return json_encode($elements);
+    } 
 }

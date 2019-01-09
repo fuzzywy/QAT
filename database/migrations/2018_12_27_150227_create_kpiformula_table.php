@@ -15,7 +15,7 @@ class CreateKpiformulaTable extends Migration
     {
         Schema::create('kpiformula', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('kpiName', 50);
+            $table->text('kpiName');
             $table->string('user', 255);
             $table->text('kpiFormula');
             $table->integer('kpiPrecision');

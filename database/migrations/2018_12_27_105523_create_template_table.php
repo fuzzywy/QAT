@@ -16,8 +16,8 @@ class CreateTemplateTable extends Migration
         Schema::create('template', function (Blueprint $table) {
             $table->increments('id');
             $table->text('templateName');
-            $table->string('elementId', 1000)->nullable();
-            $table->string('description', 500)->nullable();
+            $table->text('elementId')->nullable();
+            $table->text('description')->nullable();
             $table->string('user', 255);
             $table->string('format', 10)->nullable();
             // $table->timestamps();
