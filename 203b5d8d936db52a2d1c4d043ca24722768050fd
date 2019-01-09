@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "17b479b8_08fbfb91",
+        "filename": "app/Http/Controllers/TemplateManage/TemplateController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-01-09T08:05:53Z",
+      "side": 1,
+      "message": "Please check the @para comment.\nSome methods have no parameter but parameter declared in the comment",
+      "revId": "203b5d8d936db52a2d1c4d043ca24722768050fd",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "431990df_631f536a",
+        "filename": "app/Http/Controllers/TemplateManage/TemplateController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-01-09T08:05:53Z",
+      "side": 1,
+      "message": "No parameter defined in the function",
+      "revId": "203b5d8d936db52a2d1c4d043ca24722768050fd",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    }
+  ]
+}
