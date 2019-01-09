@@ -22,7 +22,7 @@ class LoadCounter extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = '备份counter到Redis';
 
     /**
      * Create a new command instance.

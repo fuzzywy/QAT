@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use App\Console\Commands\LoadCounter;
+use App\Console\Commands\MongsSiteLte;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -25,9 +26,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
         $schedule->command(LoadCounter::class)->dailyAt('02:00');
+        $schedule->command(MongsSiteLte::class)->dailyAt('02:00');
     }
 
     /**
