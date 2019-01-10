@@ -47,12 +47,12 @@
           handleNodeClick(data) {
             //点击数据/全部element数据
             this.processSelectKpiFormula(data, this.elementData);
-            // this.processLoadTemplateData('ENIQ', 'TDD');
           },
           remove(node, data) {
             const parent = node.parent;
             const children = parent.data.children || parent.data;
             const index = children.findIndex(d => d.id === data.id);
+            this.processDeleteElement(children[index]['id'], this.templateName, this.parent, this.grandparent);
             children.splice(index, 1);
           },
           handleDragEnd(draggingNode, dropNode, dropType, ev) {

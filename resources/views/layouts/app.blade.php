@@ -42,6 +42,10 @@
             max-width: 100%;
           }
         }
+        /*解决滚动条抖动问题*/
+        html {
+          overflow-y: scroll;
+        }
     </style>
 </head>
 <body>

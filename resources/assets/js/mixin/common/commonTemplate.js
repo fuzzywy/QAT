@@ -89,6 +89,22 @@ export const common = {
                 grandparent: grandparent,
                 ids: ids
             })
+        },
+        //kpiList删除
+        processDeleteElement(id, templateName, parent, grandparent) {
+            this.$store.dispatch( 'deleteQatElement', {
+                id: id,
+                templateName: templateName,
+                parent: parent,
+                grandparent: grandparent
+            })
+        },
+        //新建模板
+        processAddTempalte(name, mode) {
+            this.$store.dispatch( 'addQatTemplate', {
+                templateName: name,
+                format: mode
+            })
         }
     }
 }
