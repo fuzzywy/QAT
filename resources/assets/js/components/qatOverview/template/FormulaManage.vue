@@ -18,17 +18,39 @@
         <el-card class="box-card" shadow="hover">
             <div slot="header" class="clearfix">
                 <span>公式</span>
-                <el-button style="float: right; padding: 3px 0" type="text" @click="newFormula">新建</el-button>
+                <el-button 
+                    style="float: right; padding: 3px 0"
+                    type="text" 
+                    @click="dialogFormVisible = true"
+                ><i class="el-icon-plus"></i></el-button>
+                <el-dialog title="新建公式" :visible.sync="dialogFormVisible">
+                    <el-form :model="form">
+                        <el-form-item label="名称" :label-width="formLabelWidth">
+                            <el-input placeholder="请输入公式名" v-model="form.name" autocomplete="off"></el-input>
+                        </el-form-item>
+                        <el-form-item label="公式" :label-width="formLabelWidth">
+                            <el-input type="textarea" :rows="2" placeholder="请输入公式" v-model="form.formula" autocomplete="off"></el-input>
+                        </el-form-item>
+                        <el-form-item label="精度" :label-width="formLabelWidth">
+                            <el-input placeholder="请输入精度" v-model="form.precision" autocomplete="off"></el-input>
+                        </el-form-item>
+                        <el-form-item label="制式" :label-width="formLabelWidth">
+                            <el-select v-model="form.mode" placeholder="请输入制式">
+                                <el-option label="TDD" value="tdd"></el-option>
+                                <el-option label="FDD" value="fdd"></el-option>
+                                <el-option label="NBIOT" value="nbiot"></el-option>
+                            </el-select>
+                        </el-form-item>
+                    </el-form>
+                    <div slot="footer" class="dialog-footer">
+                        <el-button @click="dialogFormVisible = false">取 消</el-button>
+                        <el-button type="primary" @click="newFormula()">确 定</el-button>
+                    </div>
+                </el-dialog>
             </div>
-                <!-- .filter(data => !search || 
-                        (
-                            data.name.toLowerCase().includes(search.toLowerCase())
-                        )
-                    ) -->
             <el-table
                 :data="tableData"
                 style="width: 100%"
-                
                 :row-key="getRowKeys" 
                 :expand-row-keys="expands" 
                 @expand-change="expandChange"
@@ -37,7 +59,6 @@
                     <el-table
                         :show-header=false
                         :data="typeData"
-
                         :row-key="getFormulaKeys" 
                         :expand-row-keys="expandsFormula" 
                         @expand-change="expandFormulaChange"
@@ -53,6 +74,7 @@
                                 @cell-mouse-leave="cellMouseLeave"
                                 :row-key="getDetailedKeys" 
                                 :expand-row-keys="expandsDetailed" 
+                                @select="select"
                             >
                                 <el-table-column
                                     type="selection"
@@ -78,20 +100,48 @@
                                                 <span>{{ props.row.precision }}</span>
                                             </el-form-item>
                                         </el-form>
-                                        <el-form label-position="left" inline class="demo-table-expand" v-show="showModifyColumn">
-                                            <el-form-item label="Id">
-                                                <span>{{ props.row.id }} 123</span>
-                                            </el-form-item>
-                                            <el-form-item label="Name">
-                                                <span>{{ props.row.name }} 456</span>
-                                            </el-form-item>
-                                            <el-form-item label="Formula">
-                                                <span>{{ props.row.formula }} 779</span>
-                                            </el-form-item>
-                                            <el-form-item label="Precision">
-                                                <span>{{ props.row.precision }}</span>
-                                            </el-form-item>
-                                        </el-form>
+                                        <el-row :gutter="10" v-show="showModifyColumn">
+                                            <el-col :span="14">
+                                                <el-input v-model="props.row.name">
+                                                    <template slot="prepend">Name</template>
+                                                </el-input>
+                                            </el-col>
+                                            <el-col :span="10">
+                                                <el-input v-model="props.row.precision">
+                                                    <template slot="prepend">Precision</template>
+                                                </el-input>
+                                            </el-col>
+                                            <el-col :span="24">
+                                                <div style="margin-top: 10px;"> </div>
+                                            </el-col>
+                                            <el-col :span="24">
+                                                <el-input
+                                                  type="textarea"
+                                                  :rows="2"
+                                                  placeholder="请输入公式"
+                                                  v-model="props.row.formula">
+                                                </el-input>
+                                            </el-col>
+                                            <el-col :span="24">
+                                                <div style="margin-top: 10px;"> </div>
+                                            </el-col>
+                                            <el-col :span="8" :offset="8">
+                                                <el-button 
+                                                    style="width: -webkit-fill-available"
+                                                    type="primary"
+                                                    @click="modifyFormula(props.row)">
+                                                    <span>修改</span><!--  :class="toogle.startIcon" -->
+                                                </el-button>
+                                            </el-col>
+                                            <el-col :span="8">
+                                                <el-button 
+                                                    style="width: -webkit-fill-available"
+                                                    type="primary"
+                                                    @click="cancel()">
+                                                    <span>取消</span><!--  :class="toogle.startIcon" -->
+                                                </el-button>
+                                            </el-col>
+                                        </el-row>
                                     </template>
                                 </el-table-column>
                                 <el-table-column label="操作">
@@ -130,10 +180,6 @@
                 </el-table-column>
             </el-table>
         </el-card>
-        <!-- <div style="margin-top: 20px">
-            <el-button @click="toggleSelection([formulaData[0], formulaData[1]])">切换第二、第三行的选中状态</el-button>
-            <el-button @click="toggleSelection()">取消选择</el-button>
-        </div> -->
     </div>
 </template>
 <script>
@@ -149,6 +195,14 @@
                     {
                         id: 0,
                         name: '通用模板'
+                    },
+                    {
+                        id: 1,
+                        name: '系统模板'
+                    },
+                    {
+                        id: 2,
+                        name: ''
                     }
                 ],
                 typeData: [
@@ -191,9 +245,23 @@
                 grandparent: '',
                 loginUser: '',
                 preventRepeatedExecution: 0,
-                handleFormulaTableOpen: 0,
 
-                elementData: []
+                elementData: [],
+
+                dialogFormVisible: false,
+                form: {
+                    name: '',
+                    formula: '',
+                    precision: 0,
+                    mode: 'TDD'
+                },
+                formLabelWidth: '50px',
+
+                selectKpiFormula: [],
+
+                flag: 0,
+
+                templateGrandparent: ''
             }
         },
         computed: {
@@ -209,195 +277,209 @@
                     default:
                         break;
                 }
+                switch(this.$store.getters.selectKpiFormulaStatus) {
+                    case 1:
+                        break;
+                    case 2:
+                        this.selectKpiFormula = this.$store.getters.selectKpiFormula;
+                        break;
+                    case 3:
+                        break;
+                    default:
+                        break;
+                }
+                if( this.search != '' ) {
+                    switch(this.$store.getters.addQatFormulaStatus) {
+                        case 1:
+                            // break;
+                        case 2:
+                            // this.tableData = this.$store.getters.loadQatFormulaData;
+                            this.search = '';
+                            // this.processLoadFormulaData();
+                            break;
+                        case 3:
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                if( this.search != '' ) {
+                    switch(this.$store.getters.deleteQatFormulaStatus) {
+                        case 1:
+                            break;
+                        case 2:
+                            this.search = '';
+                            // this.tableData = this.$store.getters.loadQatFormulaData;
+                            break;
+                        case 3:
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                if( this.search != '' ) {
+                    switch(this.$store.getters.modifyQatFormulaStatus) {
+                        case 1:
+                            break;
+                        case 2:
+                            this.search = '';//this.$store.getters.modifyQatFormula[0];
+                            this.processloadElementData( this.templateName, this.parent, this.grandparent, this.$store.getters.qatLoginUser );
+                            break;
+                        case 3:
+                            break;
+                        default:
+                            break;
+                    }
+                }
             },
             filterFormula() {
-                let str = this.search.toLowerCase().trim();
+                let str = '';
+                // if( this.search == '' ) return;
+                if( typeof this.search == 'string' ) {
+                    str = this.search.trim();
+                } else {
+                    str = this.search[0].trim();
+                }
                 this.expands = [];
                 this.expandsFormula = [];
-                if ( str === '' ) {
-                    this.tableData = [];
-                    if (this.$store.getters.loadQatFormulaDataStatus == 2) {
-                        this.tableData = this.$store.getters.loadQatFormulaData;
-                    }
-                } else {
-                    let f = item => {
-                        if ( item['children'] ) {
-                            item['children'] = item['children'].filter(f);
-                            return true;
-                        }  else if ( item['name'] || item['formula'] ) {
-                            return (item['name'].toLowerCase().indexOf(str) !== -1) 
-                                || (item['formula'].toLowerCase().indexOf(str) !== -1);
-                        } else {
-                            return false;
-                        }
-                    }
-                    this.tableData  = this.tableData.filter(f);
+
+                this.tableData = [];
+                if (this.$store.getters.loadQatFormulaDataStatus == 2) {
+                    this.tableData = this.$store.getters.loadQatFormulaData;
                 }
+                // if ( !str ) {
+                //     this.tableData = [];
+                //     if (this.$store.getters.loadQatFormulaDataStatus == 2) {
+                //         this.tableData = this.$store.getters.loadQatFormulaData;
+                //     }
+                // } else {
+                    // console.log(this.tableData);
+                    // console.log(this.search)
+                let f = item => {
+                    if ( item['children'] ) {
+                        item['children'] = item['children'].filter(f);
+                        return true;
+                    }  else if ( item['name'] || item['formula'] ) {
+                        return (item['name'].indexOf(str) !== -1) 
+                            || (item['formula'].indexOf(str) !== -1);
+                    } else {
+                        return false;
+                    }
+                }
+                this.tableData  = this.tableData.filter(f);
+                // }
             }
         },
         watch: {
             search() {
                 this.processLoadFormulaData();
             },
-            formulaId() {
-                if(this.preventRepeatedExecution==1) {
-                    this.preventRepeatedExecution = 0;
-                    this.handleFormulaTable(this.formulaId, this.formulaName, this.templateName, this.parent, this.grandparent, this.loginUser);
+            selectKpiFormula() {
+                let formulaId = this.selectKpiFormula.click[0].id;
+                let formulaName = this.selectKpiFormula.click[0].kpiName;
+                let parent = this.selectKpiFormula.click[0].format;
+                let grandparent = this.selectKpiFormula.click[0].user;
+                this.parent = this.selectKpiFormula.click[0].format;
+                this.grandparent = this.selectKpiFormula.click[0].user;
+                this.handleFormulaTable(formulaId, formulaName, parent, grandparent);
+            },
+            templateName() {
+                if (this.flag == 1) {
+                    this.expands = [];
+                    this.expandsFormula = [];
+                    this.flag = 0;
+                }
+            }, 
+            parent() {
+                if (this.flag == 1) {
+                    this.expands = [];
+                    this.expandsFormula = [];
+                    this.flag = 0;
                 }
             },
-            formulaName() {
-                if(this.preventRepeatedExecution==1) {
-                    this.preventRepeatedExecution = 0;
-                    this.handleFormulaTable(this.formulaId, this.formulaName, this.templateName, this.parent, this.grandparent, this.loginUser);
+            grandparent() {
+                if (this.flag == 1) {
+                    this.expands = [];
+                    this.expandsFormula = [];
+                    this.flag = 0;
                 }
-            },
-            // templateName() {
-            //     if(this.preventRepeatedExecution==1) {
-            //         this.preventRepeatedExecution = 0;
-            //         this.handleFormulaTable(this.formulaId, this.formulaName, this.templateName, this.parent, this.grandparent, this.loginUser);
-            //     }
-            // }, 
-            // parent() {
-            //     if(this.preventRepeatedExecution==1) {
-            //         this.preventRepeatedExecution = 0;
-            //         // this.preventRepeatedExecution = 'parent';
-            //         this.handleFormulaTable(this.formulaId, this.formulaName, this.templateName, this.parent, this.grandparent, this.loginUser);
-            //     }
-            // },
-            // grandparent() {
-            //     if(this.preventRepeatedExecution==1) {
-            //         this.preventRepeatedExecution = 0;
-            //         this.handleFormulaTable(this.formulaId, this.formulaName, this.templateName, this.parent, this.grandparent, this.loginUser);
-            //     }
-            // },
-            // loginUser() {
-            //     if(this.preventRepeatedExecution==1) {
-            //         this.preventRepeatedExecution = 0;
-            //         this.handleFormulaTable(this.formulaId, this.formulaName, this.templateName, this.parent, this.grandparent, this.loginUser);
-            //     }
-            // },
-            elementData() {
-                this.expands = [];
-                this.expandsFormula = [];
-                let expandsId = this.tableData.map(item=>{
-                    if ( item.name === this.grandparent ) {
-                        return item.id;
-                    }
-                }).filter(function(val){
-                    return !(val === undefined || val === "");
-                });
-                this.expands = [expandsId[0]];
-                let expandsFormulaId = this.tableData[expandsId[0]].children.map(item=>{
-                    if ( item.name === this.parent ) {
-                        return item.id;
-                    }
-                }).filter(function(val){
-                    return !(val === undefined || val === "");
-                });
-                this.expandsFormula = [expandsFormulaId[0]];
-                this.formulaData = this.tableData[expandsId[0]].children[expandsFormulaId[0]].children.map(formula=> {
-                    return {id: formula.id, name: formula.name, formula: formula.formula, precision:formula.precision};
-                });
-                let elementData = this.elementData;
-                let data = this.formulaData;
-                let f = this.toggleSelection;
-                setTimeout( function(){
-                    f(data.map(item=>{
-                        for(var i=0; i<elementData.length; i++) {
-                            if( item.name == elementData[i].label && item.id == elementData[i].id ) {
-                                return item;
-                            }
-                        }
-                    }).filter(function(val){
-                        return !(val === undefined || val === "");
-                    }));
-                }, 0);
-            },
-            multipleSelection() {
-                this.bus.$emit('multipleSelection', {
-                    multipleSelection: this.multipleSelection,
-                    templateName: this.templateName,
-                    parent: this.parent,
-                    grandparent: this.grandparent,
-                    multipleSelectionFlag: 1
-                });
             }
         },
         mounted() {
             this.processLoadFormulaData();
-            //获取kpilist点击数据
-            this.bus.$on('kpiFormulaName', type=>{
-                this.formulaId = type.formulaId,
-                this.formulaName = type.formulaName,
-                // this.templateName = type.templateName,
-                // this.parent = type.parent,
-                // this.grandparent = type.grandparent,
-                this.loginUser = type.loginUser,
-                this.preventRepeatedExecution = type.preventRepeatedExecution
-            });
-            //获取template点击数据
+            //获取template点击数据-暂时不需要，感觉复杂
             this.bus.$on('templateName', type=>{ 
                 this.templateName = type.templateName, 
                 this.parent = type.parent,
-                this.grandparent = type.grandparent 
+                this.grandparent = type.grandparent,
+                this.flag = type.flag
             });
-            //获取all kpilist
-            this.bus.$on('elementData', type=>{
+            this.bus.$on('elementData', type=>{ 
                 this.elementData = type.element
-            })
+            });
+            this.bus.$on('templateName', 
+            type=>{ 
+                this.templateGrandparent = type.grandparent
+            });
         },
         methods: {
-            handleFormulaTable(formulaId, formulaName, templateName, parent, grandparent, loginUser){
-                this.handleFormulaTableOpen = 1;
+            handleFormulaTable(formulaId, formulaName, parent, grandparent){
+                if( grandparent == 'admin' ) {
+                    grandparent = '通用模板';
+                }
+                if ( grandparent == 'system' ) {
+                    grandparent = '系统模板';
+                }
                 this.expands = [];
                 this.expandsFormula = [];
-                let expandsId = this.tableData.map(item=>{
-                    if ( item.name === grandparent ) {
+                this.expandsDetailed = [];
+                //format id/format id/Formula arr/arrs/arrs/key/expandsId
+                let expArr,expandsArr,expandsFormulaArr,arrs, arrs1, key,expandsId;
+                expArr = this.tableData.map(item=>{
+                    if ( item.name === 'admin' || item.name === grandparent ) {
                         return item.id;
+                    }
+                });
+                for( let i=0; i<expArr.length; i++ ) {
+                    if ( typeof expArr[i] != 'undefined' ) {
+                        key = i;
+                        break;
+                    }
+                }
+                expandsArr = this.tableData.map(item=>{
+                    if ( item.name === 'admin' || item.name === grandparent ) {
+                        return item;
                     }
                 }).filter(function(val){
                     return !(val === undefined || val === "");
-                });
-                this.expands = [expandsId[0]];
-                let expandsFormulaId = this.tableData[expandsId[0]].children.map(item=>{
+                })[0];
+                expandsId = expandsArr['id'];
+                this.expandChange(expandsArr, expandsId);
+                expandsFormulaArr = expandsArr.children.map(item=>{
                     if ( item.name === parent ) {
                         return item.id;
                     }
+                });
+                for( let i=0; i<expandsFormulaArr.length; i++ ) {
+                    if ( typeof expandsFormulaArr[i] != 'undefined' ) {
+                        this.expandsFormula = [i];
+                        break;
+                    }
+                }
+                arrs = this.tableData[key].children.map(formula=>{
+                    return formula;
+                });
+                arrs1 = arrs.map(formula=>{
+                    if(formula.id == expandsFormulaArr[this.expandsFormula]) {
+                        return formula;
+                    }
                 }).filter(function(val){
                     return !(val === undefined || val === "");
                 });
-                this.expandsFormula = [expandsFormulaId[0]];
-                this.formulaData = this.tableData[expandsId[0]].children[expandsFormulaId[0]].children.map(formula=> {
-                    return {id: formula.id, name: formula.name, formula: formula.formula, precision:formula.precision};
-                });
-                // var data = this.formulaData;
-                // var f = this.toggleSelection;
-                // setTimeout( function(){
-                //     f(data.map(item=>{return item;}))
-                // }, 0 );
+                this.expandFormulaChange( { 'id': arrs1[0]['id'], 'type': arrs1[0]['name'] }, this.expandsFormula[0] )
                 this.expandsDetailed = [formulaId];
-                let elementData = this.elementData;
-                let data = this.formulaData;
-                let f = this.toggleSelection;
-                setTimeout( function(){
-                    f(data.map(item=>{
-                        for(var i=0; i<elementData.length; i++) {
-                            if( item.name == elementData[i].label && item.id == elementData[i].id ) {
-                                return item;
-                            }
-                        }
-                    }).filter(function(val){
-                        return !(val === undefined || val === "");
-                    }))
-                }, 0);
             },
             expandChange(row, expandedRows) {
-                if( this.handleFormulaTableOpen == 1 ) {
-                    this.expands = [];
-                    this.expandsFormula = [];
-                    this.handleFormulaTableOpen = 0;
-                    return;
-                }
                 let temp = this.expands;
                 this.expands = [];
                 this.typeData = [];
@@ -422,12 +504,6 @@
                 }
             },
             expandFormulaChange(row, expandedRows) {
-                if( this.handleFormulaTableOpen == 1 ) {
-                    this.expands = [];
-                    this.expandsFormula = [];
-                    this.handleFormulaTableOpen = 0;
-                    return;
-                }
                 let temp = this.expandsFormula;
                 this.expandsFormula = [];
                 this.formulaData = [];
@@ -446,13 +522,11 @@
                             filter = arr[i];
                         }
                     }
-
                     let arrs = filter.children.map(item=> {
                         if( row.id === item.id ) {
                             return item;
                         }
                     });
-
                     for (var i = arrs.length - 1; i >= 0; i--) {
                         if( typeof(arrs[i]) !== "undefined" ){
                             this.formulaData = arrs[i].children.map(formula=> {
@@ -461,6 +535,20 @@
                         }
                     }
                 }
+                let elementData = this.elementData;
+                let data = this.formulaData;
+                let f = this.toggleSelection;
+                setTimeout( function(){
+                    f(data.map(item=>{
+                        for(var i=0; i<elementData.length; i++) {
+                            if( item.name == elementData[i].kpiName && item.id == elementData[i].id ) {
+                                return item;
+                            }
+                        }
+                    }).filter(function(val){
+                        return !(val === undefined || val === "");
+                    }))
+                }, 0);
             },
             cellMouseEnter( row, column, cell, event ) {
                 this.showEdit = false;
@@ -472,7 +560,7 @@
                 }).filter(function(val){
                     return !(!val || val === "");
                 });
-                if ( this.$store.getters.qatLoginUserStatus == 2 && this.$store.getters.qatLoginUser == name[0] ) {
+                if ( this.$store.getters.qatLoginUserStatus == 2 && (this.$store.getters.qatLoginUser == name[0] || this.$store.getters.qatLoginUser == 'admin') ) {
                     this.showEdit = true;
                     this.showDelete = true;
                 }
@@ -489,25 +577,44 @@
             },
             handleDelete(index, row) {
                 //删除公式
+                this.$confirm('此操作将永久删除 '+ row.name +' 公式, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    // this.processLoadFormulaData();
+                    this.search = row.id;
+                    this.processDeleteFormula(row.id);
+                    this.$message({
+                        type: 'success',
+                        message: '删除成功!'
+                    });
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });          
+                });
+            },
+            cancel() {
+                //取消编辑
+                this.showColumn = true;
+                this.showModifyColumn = false;
+            },
+            modifyFormula(row) {
+                //修改公式
+                // this.search = '';
+                this.search = row.name;
+                this.processModifyFormula(row.id, row.name, row.formula, row.precision);
+                this.showModifyColumn = false;
+                this.showColumn = true;
             },
             newFormula() {
-                //新建公式
-                // this.$prompt('请输入邮箱', '提示', {
-                //     confirmButtonText: '确定',
-                //     cancelButtonText: '取消',
-                //     inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
-                //     inputErrorMessage: '邮箱格式不正确'
-                // }).then(({ value }) => {
-                //     this.$message({
-                //         type: 'success',
-                //         message: '你的邮箱是: ' + value
-                //     });
-                // }).catch(() => {
-                //     this.$message({
-                //         type: 'info',
-                //         message: '取消输入'
-                //     });       
-                // });
+                // this.search = '';
+                this.dialogFormVisible = false;
+                this.search = this.form.name;
+                this.processAddFormula(this.form.name, this.form.formula, this.form.precision, this.form.mode);
+                // this.processLoadFormulaData();
             },
             toggleSelection(rows) {
                 if (rows) {
@@ -520,6 +627,28 @@
             },
             handleSelectionChange(val) {
                 this.multipleSelection = val;
+            },
+            select(rows) {
+                let p = this.templateGrandparent;
+                if( p == '通用模板' ) {
+                    p = 'admin';
+                }
+                if( p == '系统模板' ) {
+                    p = 'system';
+                }
+                if( p != this.$store.getters.qatLoginUser ) {
+                    this.$message({
+                        message: '警告:没有权限修改 '+this.templateGrandparent+' 下的用户模板！',
+                        type: 'warning'
+                    });
+                    return;
+                }
+                // this.processSelectKpiFormula(data, this.elementData);
+                this.bus.$emit('selectFormulaByClick', {
+                    clickFormulaGrandparent: this.grandparent,
+                    clickFormulaParent: this.parent,
+                    clickFormulaRows: rows
+                });
             }
         }
     }

@@ -9,16 +9,18 @@ export const common = {
                 dataType: datatype
             });
         },
-        processinsertTemplateName(auth, templateName) {
+        processinsertTemplateName(auth, templateName, parent) {
             this.$store.dispatch( 'insertTemplateName', {
                 auth: auth,
-                templateName: templateName
+                templateName: templateName,
+                parent: parent
             });
         },
-        processremoveTemplateName(auth, templateName) {
+        processremoveTemplateName(auth, templateName, id) {
             this.$store.dispatch( 'removeTemplateName', {
                 auth: auth,
-                templateName: templateName
+                templateName: templateName,
+                id: id
             });
         },
         processloadElementData(templateName, parent, grandparent, auth) {
@@ -38,6 +40,13 @@ export const common = {
                 auth: auth
             })
         },
+        processSelectKpiFormula(clickElement, elements) {
+            this.$store.dispatch( 'selectKpiFormula', {
+                clickElement: clickElement,
+                elements: elements
+            })
+        },
+        //查找公式
         processLoadFormulaData(/*id, label, templateName, parent, grandparent,*/ /*auth*/) {
             this.$store.dispatch( 'loadQatFormulaData', {
                 /*id: id,
@@ -46,6 +55,39 @@ export const common = {
                 parent: parent,
                 grandparent: grandparent,*/
                 /*auth: auth*/
+            })
+        },
+        //新建公式
+        processAddFormula(name, formula, precision, mode) {
+            this.$store.dispatch( 'addQatFormula', {
+                kpiName: name,
+                kpiFormula: formula,
+                kpiPrecision: precision,
+                format: mode
+            })
+        },
+        //删除公式
+        processDeleteFormula(id) {
+            this.$store.dispatch( 'deleteQatFormula', {
+                id: id
+            })
+        },
+        //编辑公式
+        processModifyFormula(id, kpiName, kpiFormula, kpiPrecision) {
+            this.$store.dispatch( 'modifyQatFormula', {
+                id: id,
+                kpiName: kpiName,
+                kpiFormula: kpiFormula,
+                kpiPrecision: kpiPrecision
+            })
+        },
+        //插入公式到element
+        processInsertElement(templateName, parent, grandparent, ids) {
+            this.$store.dispatch( 'insertQatElement', {
+                templateName: templateName,
+                parent: parent,
+                grandparent: grandparent,
+                ids: ids
             })
         }
     }

@@ -1,21 +1,5 @@
-<style scoped>
-    .top {
-        /*width: 100%;*/
-        /*min-height: 600px;*/
-        /*background-color: #fff;*/
-        /*border: 1px #000 solid;*/
-    }/*,
-    .custom-tree-node {
-      flex: 1;*/
-      /*display: flex;*/
-      /*align-items: center;
-      justify-content: space-between;
-      font-size: 14px;
-      padding-right: 8px;
-    }*/
-</style>
 <template>
-    <div class="top">
+    <div>
       <input style="display: none;" :loadTemplateData="computedLoadTemplateData">
       <el-card class="box-card" shadow="hover">
         <div slot="header" class="clearfix">
@@ -40,16 +24,15 @@
             <span>{{ node.label }}</span>
             <span>
               <el-button v-show="data.showAppend" type="text" size="mini" @click="() => append(data)">
-                Append
+                <i class="el-icon-circle-plus"></i>
               </el-button>
               <el-button v-show="data.showRemove" type="text" size="mini" @click="() => remove(node, data)">
-                Delete
+                <i class="el-icon-remove"></i>
               </el-button>
             </span>
           </span>
         </el-tree>
       </el-card>
-      <!-- {{this.$router.params.datasource}} -->
     </div>
 </template>
 <script>
@@ -79,19 +62,7 @@
           id: 4,
           label: 'test4'
         }]
-      }/*, {
-        id: 2,
-        label: '用户模板',
-        showAppend: true,
-        showRemove: true,
-        children: [{
-          id: 5,
-          label: 'test5'
-        }, {
-          id: 6,
-          label: 'test6'
-        }]
-      }*/, {
+      }, {
         id: 3,
         label: '系统模板',
         showAppend: false,
@@ -106,7 +77,6 @@
       }];
       return {
         filterText: '',
-        // treeData: JSON.parse(JSON.stringify(data))
         treeData: []
       };
     },
@@ -190,16 +160,16 @@
           });
           //processload
           for (var i = 0; i < data.children.length; i++) {
-                if(data.children[i].label === value) {
-                    this.$message({
-                        type: 'warning',
-                        message: '该模板已存在,请重新命名！'
-                    });
-                    return;
-                }
+            if(data.children[i].label === value) {
+                this.$message({
+                    type: 'warning',
+                    message: '该模板已存在,请重新命名！'
+                });
+                return;
+            }
           }
           //这里需要进一步优化代码
-          this.processinsertTemplateName(this.$store.getters.qatLoginUser, value);
+          this.processinsertTemplateName(this.$store.getters.qatLoginUser, value, data.label);
           const newChild = { id: id--, label: value, children: [], showAppend: false, showRemove: true };
           if (!data.children) {
             this.$set(data, 'children', []);
@@ -216,11 +186,26 @@
         const parent = node.parent;
         const children = parent.data.children || parent.data;
         const index = children.findIndex(d => d.id === data.id);
-        this.processremoveTemplateName(this.$store.getters.qatLoginUser, data.label);
-        children.splice(index, 1);
-        if ( this.treeData.length <= 2 ) {
-          this.treeData[0]['showAppend'] = true
-        }
+        this.$confirm('此操作将永久删除 '+ data.label +' 模板, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.processremoveTemplateName(this.$store.getters.qatLoginUser, data.label, data.id);
+          children.splice(index, 1);
+          if ( this.treeData.length <= 2 ) {
+            this.treeData[0]['showAppend'] = true
+          }
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });          
+        });
       },
       nodeClick(node, data, self) {
         if( !node.hasOwnProperty('children') ) {
@@ -228,7 +213,8 @@
           { 
             templateName: node.label, 
             parent: data.parent.data.label,
-            grandparent: data.parent.parent.data.label
+            grandparent: data.parent.parent.data.label,
+            flag: 1
           });
           this.processloadElementData( node.label, data.parent.data.label, data.parent.parent.data.label, this.$store.getters.qatLoginUser );
         } else {

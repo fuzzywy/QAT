@@ -20,18 +20,28 @@ Route::post('uploadCog', 'UploadController@uploadCog');
 Route::post('showCog', 'UploadController@showCog');
 Route::post('deleteCog', 'UploadController@deleteCog');
 Route::get('getQatSubnet', 'SubnetController@getSubnet');
-Route::get('getQatTemplate', 'TemplateController@getTemplate');
-Route::get('getQatLoginUser', 'TemplateController@getQatLoginUser');
+
 Route::get('getQatCity', 'CityController@getCity');
 Route::get('getQatTime', 'TimeController@getTime');
 Route::get('getQatLocation', 'LocationController@getLocation');
 Route::get('getQatData', 'DataController@getQatData');
-Route::get('getQatTemplateData', 'TemplateController@getQatTemplateData');
-Route::get('insertQatTemplateName', 'TemplateController@insertQatTemplateName');
-Route::get('removeQatTemplateName', 'TemplateController@removeQatTemplateName');
-Route::get('loadQatElementData', 'TemplateController@loadQatElementData');
-Route::get('orderQatElementData', 'TemplateController@orderQatElementData');
-Route::get('loadQatFormulaData', 'TemplateController@loadQatFormulaData');
+
+// [TemplateManage routes]
+Route::prefix('template')->namespace('TemplateManage')->group(function () {
+	Route::post('getQatTemplate', 'TemplateController@getTemplate');
+	Route::post('getQatLoginUser', 'TemplateController@getQatLoginUser');
+	Route::post('getQatTemplateData', 'TemplateController@getQatTemplateData');
+	Route::post('insertQatTemplateName', 'TemplateController@insertQatTemplateName');
+	Route::post('removeQatTemplateName', 'TemplateController@removeQatTemplateName');
+	Route::post('loadQatElementData', 'TemplateController@loadQatElementData');
+	Route::post('orderQatElementData', 'TemplateController@orderQatElementData');
+	Route::post('loadQatFormulaData', 'TemplateController@loadQatFormulaData');
+	Route::get('selectKpiFormula', 'TemplateController@selectKpiFormula');
+	Route::post('addQatFormula', 'TemplateController@addQatFormula');
+	Route::post('deleteQatFormula', 'TemplateController@deleteQatFormula');
+	Route::post('modifyQatFormula', 'TemplateController@modifyQatFormula');
+	Route::post('insertQatElement', 'TemplateController@insertQatElement');
+});
 
 // [ReportManage routes]
 Route::prefix('report')->namespace('ReportManage')->group(function () {
