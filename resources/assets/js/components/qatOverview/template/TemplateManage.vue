@@ -44,11 +44,11 @@
           :filter-node-method="filterNode"
           ref="tree"
           >
-          <span class="custom-tree-node" slot-scope="{ node, data }">
-            <span>{{ node.label }}</span>
-            <span>
+          <span class="custom-tree-node" style="width: -webkit-fill-available" slot-scope="{ node, data }">
+            <span style="float: left;">{{ node.label }}</span>
+            <span style="float: right;">
               <el-button v-show="data.showRemove" type="text" size="mini" @click="() => remove(node, data)">
-                <i class="el-icon-remove"></i>
+                <i class="el-icon-delete"></i>
               </el-button>
             </span>
           </span>

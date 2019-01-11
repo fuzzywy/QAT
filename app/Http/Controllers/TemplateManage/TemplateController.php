@@ -62,7 +62,7 @@ class TemplateController extends Controller
                     'id'=>$datum['id'],
                     'label'=>'通用模板',
                     // 'showAppend'=>false,
-                    'showRemove'=>false,
+                    // 'showRemove'=>false,
                     'children'=>array()
                 );
             }elseif( $datum['user'] == 'system' ) {
@@ -70,7 +70,7 @@ class TemplateController extends Controller
                     'id'=>$datum['id'],
                     'label'=>'系统模板',
                     // 'showAppend'=>false,
-                    'showRemove'=>false,
+                    // 'showRemove'=>false,
                     'children'=>array()
                 );
             }else {
@@ -78,7 +78,7 @@ class TemplateController extends Controller
                     'id'=>$datum['id'],
                     'label'=>$datum['user'],
                     // 'showAppend'=>false,
-                    'showRemove'=>false,
+                    // 'showRemove'=>false,
                     'children'=>array()
                 );
             }
@@ -107,7 +107,7 @@ class TemplateController extends Controller
             if( !array_key_exists($datum['format'], $arrs[$datum['user']]['children']) ) {
                 if( $datum['user'] == Auth::user()->name ) {
                     // $arrs[$datum['user']]['children'][$datum['format']] = array('id'=>$datum['id'], 'label'=>$datum['format'], 'children'=>array(), 'showAppend'=>true, 'showRemove'=>true );
-                    $arrs[$datum['user']]['children'][$datum['format']] = array('id'=>$datum['id'], 'label'=>$datum['format'], 'children'=>array(), 'showRemove'=>true );
+                    $arrs[$datum['user']]['children'][$datum['format']] = array('id'=>$datum['id'], 'label'=>$datum['format'], 'children'=>array(), 'showRemove'=>false );
                 } else {
                     $arrs[$datum['user']]['children'][$datum['format']] = array('id'=>$datum['id'], 'label'=>$datum['format'], 'children'=>array());
                 }
@@ -391,6 +391,8 @@ class TemplateController extends Controller
             Kpiformula::where('id', $id)
                         ->update(['kpiName' => $kpiName, 'kpiFormula' => $kpiFormula, 'kpiPrecision' => $kpiPrecision]);
             return [$kpiName];
+        } else{
+            return ['Permission denied'];
         }
     }
     /**  
@@ -412,7 +414,7 @@ class TemplateController extends Controller
         $ids = Input::get('ids');
         $s = Template::where('templateName', $templateName)
                 ->where('format', $parent)
-                ->where('user', $grandparent)
+                // ->where('user', $grandparent)
                 ->get()->toArray();
         if (count($s) == 1) {
             $str = '';
