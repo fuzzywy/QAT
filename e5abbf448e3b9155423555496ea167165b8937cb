@@ -1,0 +1,225 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "49875f7f_204036b2",
+        "filename": "app/Http/Controllers/KpiQueryHandler.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-01-14T06:45:18Z",
+      "side": 1,
+      "message": "Add comment for class and all functions",
+      "revId": "e5abbf448e3b9155423555496ea167165b8937cb",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "662d30bd_fe9af7b3",
+        "filename": "app/Http/Controllers/KpiQueryHandler.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-01-14T06:45:18Z",
+      "side": 1,
+      "message": "FormulaHandler not used.",
+      "revId": "e5abbf448e3b9155423555496ea167165b8937cb",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f7b8d74b_6257229f",
+        "filename": "app/Http/Controllers/KpiQueryHandler.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-01-14T06:45:18Z",
+      "side": 1,
+      "message": "I think it\u0027s a bad practice to define a constructor for a trait class.",
+      "revId": "e5abbf448e3b9155423555496ea167165b8937cb",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f4422bd1_99fbe686",
+        "filename": "app/Http/Controllers/KpiQueryHandler.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-01-14T06:45:18Z",
+      "side": 1,
+      "message": "Change method name to init if it just handle init job.",
+      "revId": "e5abbf448e3b9155423555496ea167165b8937cb",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "90b44890_eaf1008e",
+        "filename": "app/Http/Controllers/KpiQueryHandler.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-01-14T06:45:18Z",
+      "side": 1,
+      "message": "I thinks this should not be fixed in code.",
+      "revId": "e5abbf448e3b9155423555496ea167165b8937cb",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7f3e5661_c8bcdadc",
+        "filename": "app/Http/Controllers/KpiQueryHandler.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-01-14T06:45:18Z",
+      "side": 1,
+      "message": "Use DB facade instead of DataBaseConnection.\nI think it\u0027s better to abandon the class in future.\n\nDB::connection(\u0027mongs\u0027)-\u003egetPdo() to get PDO instance",
+      "revId": "e5abbf448e3b9155423555496ea167165b8937cb",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "993ae282_06203a82",
+        "filename": "app/Http/Controllers/KpiQueryHandler.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-01-14T06:45:18Z",
+      "side": 1,
+      "message": "Use ORM instead sql",
+      "revId": "e5abbf448e3b9155423555496ea167165b8937cb",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "539c7ebc_71a688e2",
+        "filename": "app/Http/Controllers/KpiQueryHandler.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-01-14T06:45:18Z",
+      "side": 1,
+      "message": "please combine the condition statement\nif ($this-\u003etimeDim\u003d\u003d\"day\" || $this-\u003etimeDim\u003d\u003d\"daygroup\")\n\nAnd it\u0027s highly commended to use switch case",
+      "revId": "e5abbf448e3b9155423555496ea167165b8937cb",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f670590e_e4c9e420",
+        "filename": "app/Http/Controllers/KpiQueryHandler.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-01-14T06:45:18Z",
+      "side": 1,
+      "message": "use DB faced instead of DataBaseConnection",
+      "revId": "e5abbf448e3b9155423555496ea167165b8937cb",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d7be3af_49cbfd6e",
+        "filename": "app/Http/Controllers/KpiQueryHandler.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-01-14T06:45:18Z",
+      "side": 1,
+      "message": "change $hour to $minute",
+      "revId": "e5abbf448e3b9155423555496ea167165b8937cb",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "47739559_4e162ad9",
+        "filename": "app/Http/Controllers/KpiQueryHandler.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-01-14T06:45:18Z",
+      "side": 1,
+      "message": "remove else",
+      "revId": "e5abbf448e3b9155423555496ea167165b8937cb",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "28f77a40_8d66c31e",
+        "filename": "app/Http/Controllers/KpiQueryHandler.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-01-14T06:45:18Z",
+      "side": 1,
+      "message": "use ORM instead of plain sql",
+      "revId": "e5abbf448e3b9155423555496ea167165b8937cb",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "93b940a3_8daeb6c4",
+        "filename": "app/Http/Controllers/KpiQueryHandler.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 806,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-01-14T06:45:18Z",
+      "side": 1,
+      "message": "combine condition statement instead to - duplicate code.\n\nAnd it\u0027s highly commended to use switch case",
+      "revId": "e5abbf448e3b9155423555496ea167165b8937cb",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    }
+  ]
+}
