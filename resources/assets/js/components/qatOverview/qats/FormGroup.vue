@@ -96,6 +96,7 @@
         </el-col>
         <el-col :span="6">
           <el-select
+            :disabled="bool.subnet"
             class="full-width"
             v-loading="loading.qatSubnetStatus"
             v-model="subnet"
@@ -273,6 +274,7 @@
                 startIcon: true
               },
               bool: {
+                subnet: false,
                 hour: false,
                 minute: false,
                 baseStation: false,
@@ -377,6 +379,10 @@
             }
         },
         methods: {
+            judgeDatasourceType() {
+              if( this.dataSource == 'ENIQ' &&  this.dataType == 'GSM') return 0;
+              return 1;
+            },
             change_city: function(citys) {
                 this.city = this.processMutiplySelect(citys, this.cityGroup, this.city);
             },
@@ -391,6 +397,7 @@
             },
             visible_change_city: function(value) {
                 if (!value) {
+                  if(!this.judgeDatasourceType()) return;
                   this.loading.qatSubnetStatus = true;
                   this.city.length == 0? 
                     this.loading.qatSubnetStatus = this.processLoadNullCity(this.$message, '城市')
@@ -399,6 +406,7 @@
                 }    
             },
             remove_tag: function(value) {
+              if(!this.judgeDatasourceType()) return;
               this.loading.qatSubnetStatus = true;
               this.city.length == 0? this.loading.qatSubnetStatus = this.processLoadNullCity(this.$message, '城市')
                : this.processLoadSubnet(this.city, this.dataSource, this.dataType);
@@ -629,6 +637,7 @@
             this.loading.qatCityStatus = true;
             this.loading.qatTimeStatus = true;
             this.loading.qatLocationStatus = true;
+            this.bool.subnet = !this.judgeDatasourceType();
             this.processLoadTemplate(this.dataSource, this.dataType);
             this.processLoadCitys(this.dataSource, this.dataType);
             this.processLoadTime(this.dataSource, this.dataType);
