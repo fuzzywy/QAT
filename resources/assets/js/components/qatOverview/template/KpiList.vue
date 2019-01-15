@@ -11,14 +11,14 @@
                 @node-drag-end="handleDragEnd"
                 :draggable="draggable"
                 >
-                <span class="custom-tree-node" slot-scope="{ node, data }">
-                <span>{{ node.label }}</span>
-                <span>
-                  <el-button v-show="data.showRemove" type="text" size="mini" @click="() => remove(node, data)">
-                    <i class="el-icon-remove"></i>
-                  </el-button>
+                <span class="custom-tree-node" style="width: -webkit-fill-available" slot-scope="{ node, data }">
+                    <span style="float: left;">{{ node.label }}</span>
+                    <span style="float: right;">
+                      <el-button v-show="data.showRemove" type="text" size="mini" @click="() => remove(node, data)">
+                        <i class="el-icon-delete"></i>
+                      </el-button>
+                    </span>
                 </span>
-              </span>
             </el-tree>
         </el-card>
     </div>
@@ -47,12 +47,12 @@
           handleNodeClick(data) {
             //点击数据/全部element数据
             this.processSelectKpiFormula(data, this.elementData);
-            // this.processLoadTemplateData('ENIQ', 'TDD');
           },
           remove(node, data) {
             const parent = node.parent;
             const children = parent.data.children || parent.data;
             const index = children.findIndex(d => d.id === data.id);
+            this.processDeleteElement(children[index]['id'], this.templateName, this.parent, this.grandparent);
             children.splice(index, 1);
           },
           handleDragEnd(draggingNode, dropNode, dropType, ev) {

@@ -41,6 +41,8 @@ Route::prefix('template')->namespace('TemplateManage')->group(function () {
 	Route::post('deleteQatFormula', 'TemplateController@deleteQatFormula');
 	Route::post('modifyQatFormula', 'TemplateController@modifyQatFormula');
 	Route::post('insertQatElement', 'TemplateController@insertQatElement');
+	Route::post('deleteQatElement', 'TemplateController@deleteQatElement');
+	Route::post('addQatTemplate', 'TemplateController@addQatTemplate');
 });
 
 // [ReportManage routes]

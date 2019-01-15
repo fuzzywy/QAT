@@ -261,7 +261,9 @@
 
                 flag: 0,
 
-                templateGrandparent: ''
+                templateGrandparent: '',
+
+                expendFlag: ''
             }
         },
         computed: {
@@ -323,7 +325,14 @@
                             break;
                         case 2:
                             this.search = '';//this.$store.getters.modifyQatFormula[0];
-                            this.processloadElementData( this.templateName, this.parent, this.grandparent, this.$store.getters.qatLoginUser );
+                            if( this.$store.getters.modifyQatFormula[0] == 'Permission denied' ) {
+                                this.$message({
+                                    message: '错误:你没有权限修改本公式!',
+                                    type: 'error'
+                                });
+                            }else {
+                                this.processloadElementData( this.templateName, this.parent, this.grandparent, this.$store.getters.qatLoginUser );
+                            }
                             break;
                         case 3:
                             break;
@@ -505,6 +514,7 @@
             },
             expandFormulaChange(row, expandedRows) {
                 let temp = this.expandsFormula;
+                this.expendFlag = row.type;
                 this.expandsFormula = [];
                 this.formulaData = [];
                 this.expandsFormula.push(row.id);
@@ -640,6 +650,13 @@
                     this.$message({
                         message: '警告:没有权限修改 '+this.templateGrandparent+' 下的用户模板！',
                         type: 'warning'
+                    });
+                    return;
+                }
+                if( this.expendFlag != this.parent ) {
+                    this.$message({
+                        message: '错误:当前选择制式 <'+this.expendFlag+'> 与目标制式: <' + this.parent + '> 不符，请重新选择！',
+                        type: 'error'
                     });
                     return;
                 }

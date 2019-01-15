@@ -4,6 +4,30 @@
       <el-card class="box-card" shadow="hover">
         <div slot="header" class="clearfix">
           <span>模板</span>
+            <el-button 
+                  style="float: right; padding: 3px 0"
+                  type="text" 
+                  @click="dialogFormVisible = true"
+              ><i class="el-icon-plus"></i>
+            </el-button>
+            <el-dialog title="新建模板" :visible.sync="dialogFormVisible">
+                <el-form :model="form">
+                    <el-form-item label="名称" :label-width="formLabelWidth">
+                        <el-input placeholder="请输入模板名" v-model="form.name" autocomplete="off"></el-input>
+                    </el-form-item>
+                    <el-form-item label="制式" :label-width="formLabelWidth">
+                        <el-select v-model="form.mode" placeholder="请输入制式">
+                            <el-option label="TDD" value="tdd"></el-option>
+                            <el-option label="FDD" value="fdd"></el-option>
+                            <el-option label="NBIOT" value="nbiot"></el-option>
+                        </el-select>
+                    </el-form-item>
+                </el-form>
+                <div slot="footer" class="dialog-footer">
+                    <el-button @click="dialogFormVisible = false">取 消</el-button>
+                    <el-button type="primary" @click="newTemplate()">确 定</el-button>
+                </div>
+            </el-dialog>
         </div>
         <el-input
           placeholder="输入关键字进行过滤"
@@ -20,14 +44,11 @@
           :filter-node-method="filterNode"
           ref="tree"
           >
-          <span class="custom-tree-node" slot-scope="{ node, data }">
-            <span>{{ node.label }}</span>
-            <span>
-              <el-button v-show="data.showAppend" type="text" size="mini" @click="() => append(data)">
-                <i class="el-icon-circle-plus"></i>
-              </el-button>
+          <span class="custom-tree-node" style="width: -webkit-fill-available" slot-scope="{ node, data }">
+            <span style="float: left;">{{ node.label }}</span>
+            <span style="float: right;">
               <el-button v-show="data.showRemove" type="text" size="mini" @click="() => remove(node, data)">
-                <i class="el-icon-remove"></i>
+                <i class="el-icon-delete"></i>
               </el-button>
             </span>
           </span>
@@ -56,7 +77,6 @@
       const data = [{
         id: 1,
         label: '通用模板',
-        showAppend: true,
         showRemove: false,
         children: [{
           id: 4,
@@ -65,7 +85,6 @@
       }, {
         id: 3,
         label: '系统模板',
-        showAppend: false,
         showRemove: false,
         children: [{
           id: 7,
@@ -77,12 +96,25 @@
       }];
       return {
         filterText: '',
-        treeData: []
+        treeData: [],
+        dialogFormVisible: false,
+        form: {
+          name: '',
+          mode: 'TDD'
+        },
+        formLabelWidth: '50px',
+        addFlag: 0
       };
     },
     watch: {
       filterText(val) {
         this.$refs.tree.filter(val);
+      },
+      addFlag() {
+        if(this.addFlag == 1) {
+          this.addFlag = 0;
+          this.processLoadTemplateData(this.datasource, this.datatype);
+        }
       }
     },
     computed: {
@@ -102,8 +134,18 @@
             default:
                 break;
         }
+        //增加
+        switch(this.$store.getters.addQatTemplateStatus) {
+          case 1:
+          case 2:
+              break;
+          case 3:
+              break;
+          default:
+              break;
+        }
         //插入
-        switch( this.$store.getters.insertTemplateNameStatus ) {
+        /*switch( this.$store.getters.insertTemplateNameStatus ) {
             case 1:
                 break;
             case 2:
@@ -113,7 +155,7 @@
                 break;
             default:
                 break;
-        }
+        }*/
         //删除
         switch( this.$store.getters.removeTemplateNameStatus ) {
             case 1:
@@ -136,7 +178,7 @@
         if (!value) return true;
         return data.label.indexOf(value) !== -1;
       },
-      append(data) {
+      /*append(data) {
         //如果用户目录下没有模板
         if ( data.label === '通用模板' || this.treeData.length <= 2 ) {
           //获取登陆用户
@@ -170,7 +212,8 @@
           }
           //这里需要进一步优化代码
           this.processinsertTemplateName(this.$store.getters.qatLoginUser, value, data.label);
-          const newChild = { id: id--, label: value, children: [], showAppend: false, showRemove: true };
+          // const newChild = { id: id--, label: value, children: [], showAppend: false, showRemove: true };
+          const newChild = { id: id--, label: value, children: [], showRemove: true };
           if (!data.children) {
             this.$set(data, 'children', []);
           }
@@ -181,7 +224,7 @@
             message: '取消输入'
           });       
         });
-      },
+      },*/
       remove(node, data) {
         const parent = node.parent;
         const children = parent.data.children || parent.data;
@@ -193,9 +236,9 @@
         }).then(() => {
           this.processremoveTemplateName(this.$store.getters.qatLoginUser, data.label, data.id);
           children.splice(index, 1);
-          if ( this.treeData.length <= 2 ) {
-            this.treeData[0]['showAppend'] = true
-          }
+          // if ( this.treeData.length <= 2 ) {
+          //   this.treeData[0]['showAppend'] = true
+          // }
           this.$message({
             type: 'success',
             message: '删除成功!'
@@ -224,6 +267,11 @@
           });
           return;
         }
+      },
+      newTemplate() {
+        this.dialogFormVisible = false;
+        this.addFlag = 1;
+        this.processAddTempalte(this.form.name, this.form.mode);
       }
     }
   };

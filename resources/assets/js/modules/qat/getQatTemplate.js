@@ -36,7 +36,14 @@ export const qatTemplate = {
         modifyQatFormulaStatus: 0,
         modifyQatFormula: {},
 
-        insertQatElementStatus: 0
+        insertQatElementStatus: 0,
+        insertQatElement: {},
+
+        deleteQatElementStatus: 0,
+        deleteQatElement: {},
+
+        addQatTemplate: {},
+        addQatTemplateStatus: 0
 
     },
     actions: {
@@ -249,18 +256,52 @@ export const qatTemplate = {
             QatTemplateAPI.insertQatElement( data.templateName, data.parent, data.grandparent, data.ids )
             .then( function( response ){
                 if ( response.data != undefined ) {
-                    // commit( 'modifyQatFormula', response.data );
+                    commit( 'insertQatElement', response.data );
                     commit( 'insertQatElementStatus', 2 );
                 }else {
-                    // commit( 'modifyQatFormula', [ response ] );
+                    commit( 'insertQatElement', [ response ] );
                     commit( 'insertQatElementStatus' , 3 ); 
                 }
             })
             .catch( function(){
-                // commit( 'modifyQatFormula', [ 'Connection failed' ] );
+                commit( 'insertQatElement', [ 'Connection failed' ] );
                 commit( 'insertQatElementStatus', 3 );
             });
-        }
+        },
+        deleteQatElement( {commit}, data ) {
+            commit( 'deleteQatElementStatus', 1 );
+            QatTemplateAPI.deleteQatElement( data.id, data.templateName, data.parent, data.grandparent )
+            .then( function( response ){
+                if ( response.data != undefined ) {
+                    commit( 'deleteQatElement', response.data );
+                    commit( 'deleteQatElementStatus', 2 );
+                }else {
+                    commit( 'deleteQatElement', [ response ] );
+                    commit( 'deleteQatElementStatus' , 3 ); 
+                }
+            })
+            .catch( function(){
+                commit( 'deleteQatElement', [ 'Connection failed' ] );
+                commit( 'deleteQatElementStatus', 3 );
+            });
+        },
+        addQatTemplate( {commit}, data ) {
+            commit( 'addQatTemplateStatus', 1 );
+            QatTemplateAPI.addQatTemplate( data.templateName, data.format )
+            .then( function( response ){
+                if ( response.data != undefined ) {
+                    commit( 'addQatTemplate', response.data );
+                    commit( 'addQatTemplateStatus', 2 );
+                }else {
+                    commit( 'addQatTemplate', [ response ] );
+                    commit( 'addQatTemplateStatus' , 3 ); 
+                }
+            })
+            .catch( function(){
+                commit( 'addQatTemplate', [ 'Connection failed' ] );
+                commit( 'addQatTemplateStatus', 3 );
+            });
+        },
     },
     mutations: {
         qatTemplateStatus( state, status ){
@@ -334,7 +375,22 @@ export const qatTemplate = {
         },
         insertQatElementStatus( state, status ){
             state.insertQatElementStatus = status;
-        }
+        },
+        insertQatElement( state, insertQatElement ){
+            state.insertQatElement = insertQatElement;
+        },
+        deleteQatElementStatus( state, status ){
+            state.deleteQatElementStatus = status;
+        },
+        deleteQatElement( state, deleteQatElement ){
+            state.deleteQatElement = deleteQatElement;
+        },
+        addQatTemplateStatus( state, status ){
+            state.addQatTemplateStatus = status;
+        },
+        addQatTemplate( state, addQatTemplate ){
+            state.addQatTemplate = addQatTemplate;
+        },
     },
     getters: {
         qatTemplateStatus( state ){
@@ -408,6 +464,21 @@ export const qatTemplate = {
         },
         insertQatElementStatus( state ){
             return state.insertQatElementStatus;
+        },
+        insertQatElement( state ){
+            return state.insertQatElement;
+        },
+        deleteQatElementStatus( state ){
+            return state.deleteQatElementStatus;
+        },
+        deleteQatElement( state ){
+            return state.deleteQatElement;
+        },
+        addQatTemplateStatus( state ){
+            return state.addQatTemplateStatus;
+        },
+        addQatTemplate( state ){
+            return state.addQatTemplate;
         }
     }
 }

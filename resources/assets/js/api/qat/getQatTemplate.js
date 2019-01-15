@@ -254,5 +254,45 @@ export default {
                 return 'Other errors'
             }
         });
+    },
+    deleteQatElement: function(id, templateName, parent, grandparent) {
+        return axios.post( 'template/deleteQatElement', {
+            id: id,
+            templateName: templateName,
+            parent: parent,
+            grandparent: grandparent
+        })
+        .catch(function(error){
+            if (error.response) {
+                if ( error.response.status == '404' ) {
+                    return error.response.status + ' Not Found';
+                }else {
+                    return error.response.status;
+                }
+            } else if (error.request) {
+                return 'Request failed'
+            } else {
+                return 'Other errors'
+            }
+        });
+    },
+    addQatTemplate: function(templateName, format) {
+        return axios.post( 'template/addQatTemplate', {
+            templateName: templateName,
+            format: format
+        })
+        .catch(function(error){
+            if (error.response) {
+                if ( error.response.status == '404' ) {
+                    return error.response.status + ' Not Found';
+                }else {
+                    return error.response.status;
+                }
+            } else if (error.request) {
+                return 'Request failed'
+            } else {
+                return 'Other errors'
+            }
+        });
     }
 }
