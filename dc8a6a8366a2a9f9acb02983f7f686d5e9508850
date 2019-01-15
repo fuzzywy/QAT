@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0874e0c3_5742da70",
+        "filename": "resources/assets/js/components/qatOverview/qats/FormGroup.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-01-15T06:34:00Z",
+      "side": 1,
+      "message": "change method name to isDisableSN\n\nand use \"return !(this.dataSoucre\u003d\u003d\u0027ENIQ\u0027 \u0026\u0026 this.dataType\u003d\u0027GSM\u0027)\"\n\ninstead of if .... else ....",
+      "revId": "dc8a6a8366a2a9f9acb02983f7f686d5e9508850",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    }
+  ]
+}
