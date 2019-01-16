@@ -36,7 +36,7 @@ Route::prefix('template')->namespace('TemplateManage')->group(function () {
 	Route::post('loadQatElementData', 'TemplateController@loadQatElementData');
 	Route::post('orderQatElementData', 'TemplateController@orderQatElementData');
 	Route::post('loadQatFormulaData', 'TemplateController@loadQatFormulaData');
-	Route::get('selectKpiFormula', 'TemplateController@selectKpiFormula');
+	Route::post('selectKpiFormula', 'TemplateController@selectKpiFormula');
 	Route::post('addQatFormula', 'TemplateController@addQatFormula');
 	Route::post('deleteQatFormula', 'TemplateController@deleteQatFormula');
 	Route::post('modifyQatFormula', 'TemplateController@modifyQatFormula');

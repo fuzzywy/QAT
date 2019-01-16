@@ -338,9 +338,11 @@ class TemplateController extends Controller
     * @return array 公式列表
     */
     public function selectKpiFormula() {
-        $clickElement = json_decode(Input::get('clickElement'));
+        // $clickElement = json_decode(Input::get('clickElement'));
+        // $elements = Input::get('elements');
+        $clickElement = Input::get('clickElement');
         $elements = Input::get('elements');
-        $data = Kpiformula::where('id', $clickElement->id)
+        $data = Kpiformula::where('id', $clickElement['id'])
                 ->get()
                 ->toArray();
         $return['click'] = $data;
@@ -348,7 +350,8 @@ class TemplateController extends Controller
         $format = $data[0]['format'];
         $ids = [];
         foreach ($elements as $key => $element) {
-            array_push($ids, json_decode($element)->id);
+            // array_push($ids, json_decode($element)->id);
+            array_push($ids, $element['id']);
         }
         $data = Kpiformula::whereIn('id', $ids)
                 ->where('user', $user)
