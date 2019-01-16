@@ -229,7 +229,6 @@ trait KpiQueryHandler
 
         
         $sql =    $this->sql->selectSql.$tempTableSQL.$this->sql->orderbySql;
-        echo $sql;exit;
         return $sql;
 
 
