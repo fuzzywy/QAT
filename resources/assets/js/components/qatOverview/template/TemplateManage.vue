@@ -33,16 +33,17 @@
           placeholder="输入关键字进行过滤"
           v-model="filterText">
         </el-input>
-        <el-tree 
+        <!-- <el-tree 
           accordion
           :user="getLoginUser"
           :data="treeData"
           @node-click="nodeClick"
           node-key="id"
           :expand-on-click-node="false"
-          default-expand-all
+          :default-expand-all="false"
           :filter-node-method="filterNode"
           ref="tree"
+          :highlight-current="true"
           >
           <span class="custom-tree-node" style="width: -webkit-fill-available" slot-scope="{ node, data }">
             <span style="float: left;">{{ node.label }}</span>
@@ -52,7 +53,20 @@
               </el-button>
             </span>
           </span>
-        </el-tree>
+        </el-tree> -->
+        <el-tree
+              accordion
+              :user="getLoginUser"
+              :data="treeData"
+              @node-click="nodeClick"
+              node-key="id"
+              :expand-on-click-node="false"
+              :default-expand-all="false"
+              :filter-node-method="filterNode"
+              ref="tree"
+              :highlight-current="true"
+              :render-content="renderContent">
+          </el-tree>
       </el-card>
     </div>
 </template>
@@ -174,6 +188,46 @@
         this.processLoadTemplateData(this.datasource, this.datatype);
     },
     methods: {
+      renderContent(h, { node, data, store }) {
+        return h('span', {
+            style: {
+                color: "",
+                width: '-webkit-fill-available',
+                float: 'left'
+            },
+            on: {
+                'mouseenter': () => {
+                  data.showRemove = true;
+                },
+                'mouseleave': () => {
+                  data.showRemove = false;
+                }
+            }
+        }, [
+                h('span', {
+                }, node.label),
+                h('span', {
+                    style: {
+                        float: 'right',
+                        display: data.showRemove ? '' : 'none',
+                    },
+                }, [
+                    h('el-button', {
+                        props: {
+                            type: 'text',
+                            size: 'small',
+                        },
+                        style: {
+                        },
+                        on: {
+                            click: () => {
+                                this.remove(node, data)
+                            }
+                        }
+                    }, [h('i', {class:'el-icon-delete'})]),
+                ]),
+            ]);
+        },
       filterNode(value, data) {
         if (!value) return true;
         return data.label.indexOf(value) !== -1;
@@ -251,6 +305,7 @@
         });
       },
       nodeClick(node, data, self) {
+        // console.log(node, this.treeData)
         if( !node.hasOwnProperty('children') ) {
           this.bus.$emit('templateName', 
           { 

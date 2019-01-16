@@ -31,10 +31,24 @@ class TemplateController extends Controller
     public function getTemplate() {
         $dataSource = Input::get('dataSource');
         $dataType = Input::get('dataType');
-        $arr = array(
-                array('value'=>$dataSource, 'label'=>$dataSource),
-                array('value'=>$dataType, 'label'=>$dataType)
-                    );
+        if(Auth::user()->name=="admin"||Auth::user()->name=="system"){
+            $template = Template::select('id','templateName')
+                                ->where("format",strtolower($dataType))
+                                ->get()->toArray();
+        }else{
+            $template = Template::select('id','templateName')
+                                ->where("format",strtolower($dataType))
+                                ->where(function($query){
+                                    $query->where('user',Auth::user()->name)
+                                        ->orwhere('user', 'admin')
+                                        ->orwhere('user', 'system');
+                                })->get()->toArray();
+
+        }
+        $arr = [];
+        foreach ($template as $key => $value) {
+           $arr[]=array('value'=>$value['id'],'label'=>$value['templateName']);
+        }
         return $arr;
     }
     /**  
@@ -107,7 +121,7 @@ class TemplateController extends Controller
             if( !array_key_exists($datum['format'], $arrs[$datum['user']]['children']) ) {
                 if( $datum['user'] == Auth::user()->name ) {
                     // $arrs[$datum['user']]['children'][$datum['format']] = array('id'=>$datum['id'], 'label'=>$datum['format'], 'children'=>array(), 'showAppend'=>true, 'showRemove'=>true );
-                    $arrs[$datum['user']]['children'][$datum['format']] = array('id'=>$datum['id'], 'label'=>$datum['format'], 'children'=>array(), 'showRemove'=>false );
+                    $arrs[$datum['user']]['children'][$datum['format']] = array('id'=>$datum['id'], 'label'=>$datum['format'], 'children'=>array());
                 } else {
                     $arrs[$datum['user']]['children'][$datum['format']] = array('id'=>$datum['id'], 'label'=>$datum['format'], 'children'=>array());
                 }
@@ -115,7 +129,7 @@ class TemplateController extends Controller
         }
         foreach ($data as $key => $datum) {
             if( $datum['user'] == Auth::user()->name ) {
-                $arrs[$datum['user']]['children'][$datum['format']]['children'][$datum['templateName'].$datum['id']] = array('id'=>$datum['id'], 'label'=>$datum['templateName'], 'showRemove'=>true );
+                $arrs[$datum['user']]['children'][$datum['format']]['children'][$datum['templateName'].$datum['id']] = array('id'=>$datum['id'], 'label'=>$datum['templateName'], 'showRemove'=>false );
             } else {
                 $arrs[$datum['user']]['children'][$datum['format']]['children'][$datum['templateName'].$datum['id']] = array('id'=>$datum['id'], 'label'=>$datum['templateName']);
             }
@@ -178,11 +192,11 @@ class TemplateController extends Controller
         if( $grandparent == '系统模板' ) {
             $grandparent = 'system';
         }
-        if( $grandparent === $auth ) {
+        /*if( $grandparent === $auth ) {
             $showRemove = true;
         }else {
             $showRemove = false;
-        }
+        }*/
         $elementId = template::select('elementId')
                 ->where('templateName', $templateName)
                 ->where('format', $parent)
@@ -198,12 +212,21 @@ class TemplateController extends Controller
                         ->get()
                         ->toArray();
         $elements = [];
-        foreach ($arrs as $arr) {
-            $arr['showRemove'] = $showRemove;
-            $arr['label'] = $arr['kpiName'];
-            $arr['parent'] = $arr['format'];
-            $arr['grandparent'] = $arr['user'];;
-            $elements[] = $arr;
+        if( $grandparent === $auth ) {
+            foreach ($arrs as $arr) {
+                $arr['showRemove'] = false;
+                $arr['label'] = $arr['kpiName'];
+                $arr['parent'] = $arr['format'];
+                $arr['grandparent'] = $arr['user'];;
+                $elements[] = $arr;
+            }
+        }else {
+            foreach ($arrs as $arr) {
+                $arr['label'] = $arr['kpiName'];
+                $arr['parent'] = $arr['format'];
+                $arr['grandparent'] = $arr['user'];;
+                $elements[] = $arr;
+            }
         }
         return json_encode($elements);
     }

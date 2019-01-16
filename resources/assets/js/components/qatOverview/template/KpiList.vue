@@ -4,7 +4,7 @@
             <div slot="header" class="clearfix">
               <span>指标 {{templateName}}</span>
             </div>
-            <el-tree 
+            <!-- <el-tree 
                 :data="elementData" 
                 @node-click="handleNodeClick" 
                 :getElementData="getElementData"
@@ -19,6 +19,14 @@
                       </el-button>
                     </span>
                 </span>
+            </el-tree> -->
+            <el-tree
+                :data="elementData" 
+                @node-click="handleNodeClick" 
+                :getElementData="getElementData"
+                @node-drag-end="handleDragEnd"
+                :draggable="draggable"
+                :render-content="renderContent">
             </el-tree>
         </el-card>
     </div>
@@ -44,6 +52,46 @@
             };
         },
         methods: {
+          renderContent(h, { node, data, store }) {
+                return h('span', {
+                    style: {
+                        color: "",
+                        width: '-webkit-fill-available',
+                        float: 'left'
+                    },
+                    on: {
+                        'mouseenter': () => {
+                          data.showRemove = true;
+                        },
+                        'mouseleave': () => {
+                          data.showRemove = false;
+                        }
+                    }
+                }, [
+                        h('span', {
+                        }, node.label),
+                        h('span', {
+                            style: {
+                                float: 'right',
+                                display: data.showRemove ? '' : 'none',
+                            },
+                        }, [
+                            h('el-button', {
+                                props: {
+                                    type: 'text',
+                                    size: 'small',
+                                },
+                                style: {
+                                },
+                                on: {
+                                    click: () => {
+                                        this.remove(node, data)
+                                    }
+                                }
+                            }, [h('i', {class:'el-icon-delete'})]),
+                        ]),
+                    ]);
+          },
           handleNodeClick(data) {
             //点击数据/全部element数据
             this.processSelectKpiFormula(data, this.elementData);

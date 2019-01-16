@@ -75,6 +75,7 @@
                                 :row-key="getDetailedKeys" 
                                 :expand-row-keys="expandsDetailed" 
                                 @select="select"
+                                @expand-change="expandDetailChange"
                             >
                                 <el-table-column
                                     type="selection"
@@ -147,14 +148,14 @@
                                 <el-table-column label="操作">
                                     <template slot-scope="scope">
                                         <el-button 
-                                            v-show="showEdit"
+                                            v-show="showEdit && is_show(scope)"
                                             size="mini"
                                             @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
                                         <el-button
-                                            v-show="showDelete"
+                                            v-show="showDelete && is_show(scope)"
                                             size="mini"
                                             type="danger"
-                                            @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+                                            @click="handleDelete(scope.$index, scope.row)">删除</el-button> 
                                     </template>
                                 </el-table-column>
                             </el-table>
@@ -263,7 +264,9 @@
 
                 templateGrandparent: '',
 
-                expendFlag: ''
+                expendFlag: '',
+
+                showId: 0
             }
         },
         computed: {
@@ -432,6 +435,9 @@
             });
         },
         methods: {
+            is_show(scope){
+                return scope.row.id == this.showId;
+            },
             handleFormulaTable(formulaId, formulaName, parent, grandparent){
                 if( grandparent == 'admin' ) {
                     grandparent = '通用模板';
@@ -489,6 +495,8 @@
                 this.expandsDetailed = [formulaId];
             },
             expandChange(row, expandedRows) {
+                this.showModifyColumn = false;
+                this.showColumn = true;
                 let temp = this.expands;
                 this.expands = [];
                 this.typeData = [];
@@ -513,6 +521,8 @@
                 }
             },
             expandFormulaChange(row, expandedRows) {
+                this.showModifyColumn = false;
+                this.showColumn = true;
                 let temp = this.expandsFormula;
                 this.expendFlag = row.type;
                 this.expandsFormula = [];
@@ -560,7 +570,12 @@
                     }))
                 }, 0);
             },
+            expandDetailChange() {
+                this.showModifyColumn = false;
+                this.showColumn = true;
+            },
             cellMouseEnter( row, column, cell, event ) {
+                this.showId = row.id;
                 this.showEdit = false;
                 this.showDelete = false;
                 let name = this.tableData.map(name=>{
