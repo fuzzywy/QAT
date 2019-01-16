@@ -20,7 +20,7 @@ class LteFddQueryHandler extends Controller
     public function templateQuery(Request $request){
 
         //初始化赋值
-        $this->query($request);
+        $this->init($request);
 
         $array=[];
 		foreach ($this->subnets as $key => $value) {
@@ -70,7 +70,7 @@ class LteFddQueryHandler extends Controller
                     $siteType = "无数据";
                     $siteNameChinese = "无数据";
                 }   
-
+                
                 if($this->timeDim=="day"){
                             array_splice($rows, 3, 0, $cluster);
                             array_splice($rows, 5, 0, $siteType);

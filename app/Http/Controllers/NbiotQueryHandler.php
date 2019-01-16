@@ -21,7 +21,7 @@ class NbiotQueryHandler extends Controller
     public function templateQuery(Request $request){
 
         //初始化赋值
-        $this->query($request);
+        $this->init($request);
 
         $array=[];
 		foreach ($this->subnets as $key => $value) {

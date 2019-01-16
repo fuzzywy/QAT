@@ -10,10 +10,12 @@ namespace App\Http\Controllers;
 
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Common\DataBaseConnection;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
 use PDO;
 use Exception;
+use App\Models\Template;
+use App\Models\Kpiformula;
 trait KpiQueryHandler
 {
     use FormulaHandler;
@@ -21,6 +23,8 @@ trait KpiQueryHandler
     public $dataSource;
     //数据类型：TDD/FDD/NBIOT/GSM
     public $dataType;
+    //模版名Id
+    public $templateId;
     //模版名
     public $template;
     //时间类型：天/day,天组/dayGroup,小时/hour,小时组/hourgroup,15分钟/quarter
@@ -45,21 +49,23 @@ trait KpiQueryHandler
     public $resultText;
     public $sql;
 
-    public $localDB;//模版所在数据库
 
-    public $neighborCell;//邻区对
+    public $neighborCell = false;//邻区对
 
-    public function __construct(){
-        $this->sql = new \stdClass();
-    }
-    public function query(Request $request)
+    /**
+     * 查询初始化赋值
+     * @DateTime 2019-01-15
+     * @param    Request    $request 
+     * @return   
+     */
+    public function init(Request $request)
     {   
 
         $this->dataSource = "ENIQ";
         $this->dataType = $request['dataType'];
-        $this->template = $request['template'];
-       
-        $subnets = array("changzhou:CZ_Wujin_g1tdd1","nantong:Nantong1_LTE","nantong:Nantong2_LTE","nantong:Nantong4_LTE","nantong:Nantong3_LTE","nantong:Nantong_wlan","nantong2:NT_Nantong_G2tdd1","wuxi:WX_yixing_g2tdd");
+        $this->templateId = $request['template'];
+        
+   
         $subnets = $request['subnets'];
         foreach ($subnets as $key => $value) {
             if($value&&$value!=="allSelect"){
@@ -67,9 +73,7 @@ trait KpiQueryHandler
                 $newsubnets[$city[0]][]=$city[1];
             }
         }
-        // print_r($newsubnets);
-        // print_r(array_keys($newsubnets));
-        // print_r(array_values($newsubnets));
+
         $this->cities = array_keys($newsubnets);
         $this->subnets =$newsubnets;
         $this->timeDim = $request['timeDim'];
@@ -81,84 +85,79 @@ trait KpiQueryHandler
         $this->hour = $request['hour'];
         $this->minute = $request['minute'];
         $this->result="";
+        $this->sql = new \stdClass();
 
-        $dbc = new DataBaseConnection();
-        $this->localDB = $dbc->getDB("mongs");
 
-        $sql = "select description from template where templateName='".$this->template."' limit 1";
+        $res = Template::select('templateName','description')
+                ->where("id",$this->templateId)
+                ->first()->toArray();
 
-        $result = $this->localDB->query($sql)->fetchAll(PDO::FETCH_ASSOC);
-
-        if($result[0]['description']=="neighborCell"){
+        $this->template = $res['templateName'];
+        if($res['description']=="neighborCell"){
             $this->neighborCell = true;
-        }else{
-            $this->neighborCell=false;
         }
-
-        // Step1
-        // getKpis;
-        // Step2
-        // createSQL
-        // // Step A) createslectSql()
-        // // Step B) 
-        // exit;
     }
 
-    // Create query sql
+    /**
+     * 生成sql语句
+     * @DateTime 2019-01-15
+     * @param    string     $city       城市
+     * @param    array      $subnetwork 子网
+     * @return   string                 sql语句
+     */
     public function createSql($city,$subnetwork)
     {   
         $subnetwork = $this->getSubnetWork($city);//获取子网
 
-        if($this->timeDim=="day"){
-            $this->sql->selectSql = "select AGG_TABLE0.DAY,AGG_TABLE0.location,AGG_TABLE0.cellNum,";
-            $this->sql->resultText ="day,location,cellNum";
-            $this->sql->orderbySql = " ORDER BY AGG_TABLE0.DAY";
-        }elseif($this->timeDim=="dayGroup"){
-            $this->sql->selectSql = "select AGG_TABLE0.DAY,AGG_TABLE0.location,AGG_TABLE0.cellNum,";
-            $this->sql->resultText ="dayGroup,location,cellNum";
-
-            $this->sql->orderbySql = " ORDER BY AGG_TABLE0.DAY";
-        }elseif($this->timeDim=="hour"){
-            $this->sql->selectSql = "select AGG_TABLE0.DAY,AGG_TABLE0.HOUR,AGG_TABLE0.location,AGG_TABLE0.cellNum,";
-            $this->sql->resultText ="day,hour,location,cellNum";
-
-            $this->sql->orderbySql = " ORDER BY AGG_TABLE0.DAY,AGG_TABLE0.HOUR";
-        }elseif($this->timeDim=="hourGroup"){
-            $this->sql->selectSql = "select AGG_TABLE0.DAY,AGG_TABLE0.HOUR,AGG_TABLE0.location,AGG_TABLE0.cellNum,";
-            $this->sql->resultText ="day,hourGroup,location,cellNum";
-
-            $this->sql->orderbySql = " ORDER BY AGG_TABLE0.DAY,AGG_TABLE0.HOUR";
-
-        }elseif($this->timeDim=="quarter"){
-            $this->sql->selectSql = "select AGG_TABLE0.DAY,AGG_TABLE0.HOUR,AGG_TABLE0.MINUTE,AGG_TABLE0.location,AGG_TABLE0.cellNum,";
-            $this->sql->resultText ="day,hour,minute,location,cellNum";
-
-            $this->sql->orderbySql = " ORDER BY AGG_TABLE0.DAY,AGG_TABLE0.HOUR,AGG_TABLE0.MINUTE";
-
-        }
-        if($this->locationDim=="baseStation"){
-            $this->sql->selectSql.="AGG_TABLE0.subNet,";
-            $this->sql->resultText = str_replace("cellNum", "cellNum,subNet",  $this->sql->resultText);
-
-        }
-        if($this->locationDim=="cell"){
-            $this->sql->selectSql.="AGG_TABLE0.subNet,AGG_TABLE0.site,";
-            $this->sql->resultText = str_replace("cellNum", "cellNum,subNet,site",  $this->sql->resultText);
-
+        switch ($this->timeDim) {
+            case 'day':
+                $this->sql->selectSql = "select AGG_TABLE0.DAY,AGG_TABLE0.location,AGG_TABLE0.cellNum,";
+                $this->sql->resultText ="day,location,cellNum";
+                $this->sql->orderbySql = " ORDER BY AGG_TABLE0.DAY";
+                break;
+            case 'dayGroup':
+                $this->sql->selectSql = "select AGG_TABLE0.DAY,AGG_TABLE0.location,AGG_TABLE0.cellNum,";
+                $this->sql->resultText ="dayGroup,location,cellNum";
+                $this->sql->orderbySql = " ORDER BY AGG_TABLE0.DAY";
+                break;
+            case 'hour':
+                $this->sql->selectSql = "select AGG_TABLE0.DAY,AGG_TABLE0.HOUR,AGG_TABLE0.location,AGG_TABLE0.cellNum,";
+                $this->sql->resultText ="day,hour,location,cellNum";
+                $this->sql->orderbySql = " ORDER BY AGG_TABLE0.DAY,AGG_TABLE0.HOUR";
+                break;
+            case 'hourGroup':
+                $this->sql->selectSql = "select AGG_TABLE0.DAY,AGG_TABLE0.HOUR,AGG_TABLE0.location,AGG_TABLE0.cellNum,";
+                $this->sql->resultText ="day,hourGroup,location,cellNum";
+                $this->sql->orderbySql = " ORDER BY AGG_TABLE0.DAY,AGG_TABLE0.HOUR";
+                break;
+            case 'quarter':
+                $this->sql->selectSql = "select AGG_TABLE0.DAY,AGG_TABLE0.HOUR,AGG_TABLE0.MINUTE,AGG_TABLE0.location,AGG_TABLE0.cellNum,";
+                $this->sql->resultText ="day,hour,minute,location,cellNum";
+                $this->sql->orderbySql = " ORDER BY AGG_TABLE0.DAY,AGG_TABLE0.HOUR,AGG_TABLE0.MINUTE";
+                break;
         }
 
+        switch ($this->locationDim) {
+            case 'baseStation':
+                $this->sql->selectSql.="AGG_TABLE0.subNet,";
+                $this->sql->resultText = str_replace("cellNum", "cellNum,subNet",  $this->sql->resultText);
+                break;
+            case 'cell':
+                $this->sql->selectSql.="AGG_TABLE0.subNet,AGG_TABLE0.site,";
+                $this->sql->resultText = str_replace("cellNum", "cellNum,subNet,site",  $this->sql->resultText);
+                break;
+        }
 
 
-        $dbc = new DataBaseConnection();
-        $localDB = $dbc->getDB("mongs");
-        $kpis=$this->getKpis($localDB);
+        $kpis=$this->getKpis();
         $nosum_map = array();//max,min,avg
-        $counterMap = $this->getCheckCounters($kpis['ids'],$localDB,$nosum_map);
+        $counterMap = $this->getCheckCounters($kpis['ids'],$nosum_map);
       
         $tables  = array_keys(array_count_values($counterMap));
         $aggselectSQL=$this->createSelectSql($city);
         $filterSQL=$this->createFilterSql($city);
         $groupbySQL=$this->createGroupBySql();
+
         if (count($tables) == 1) {
             $table = $tables[0];
             if (trim(substr($table, 0, (strlen($table) - 4))) == strtolower("DC_E_ERBS_EUTRANCELLRELATION") && $this->template != '切换成功率(不含邻区对)') {
@@ -230,12 +229,18 @@ trait KpiQueryHandler
 
         
         $sql =    $this->sql->selectSql.$tempTableSQL.$this->sql->orderbySql;
+        echo $sql;exit;
         return $sql;
 
 
     }
 
-    // Create select sql
+    /**
+     * 生成select sql
+     * @DateTime 2019-01-15
+     * @param    string     $city 城市
+     * @return   string          select sql
+     */
     public function createSelectSql($city)
     {      
         $subnetwork = $this->getSubnetWork($city);//获取子网
@@ -300,7 +305,12 @@ trait KpiQueryHandler
     }
 
 
-    // Create filter sql
+    /**
+     * 生成filter sql
+     * @DateTime 2019-01-15
+     * @param    string     $city 城市
+     * @return   string           filter sql
+     */
     public function createFilterSql($city)
     {   
         //获取单个地市的子网 array()
@@ -332,11 +342,8 @@ trait KpiQueryHandler
                 $aggWhereSql.="and hour_id in($hour)";
             } 
             if($this->minute){
-                $hour = implode(",", $this->minute);
-                $aggWhereSql.="and min_id in($hour)";
-            }else{
-                $aggWhereSql.="and min_id in(0,15,30,45)";
-
+                $minute = implode(",", $this->minute);
+                $aggWhereSql.="and min_id in($minute)";
             }
         }
         if($this->locationDim=="baseStation"||$this->locationDim=="baseStationGroup"){
@@ -365,7 +372,11 @@ trait KpiQueryHandler
         return $aggWhereSql;
     }
 
-    // Create group by sql
+    /**
+     * 生成 groupBy sql
+     * @DateTime 2019-01-15
+     * @return   string group by sql
+     */
     public function createGroupBySql()
     {   
         $aggGroupBy = "";
@@ -389,7 +400,17 @@ trait KpiQueryHandler
       
     }
 
-    // Create sub query sql for each table
+    /**
+     * 对每张表建立sql
+     * @DateTime 2019-01-15
+     * @param    array     $countersForQuery counters列表
+     * @param    string    $selectSQL        select sql
+     * @param    string    $filterSQL        filter sql
+     * @param    string    $groupbySQL       groupby sql
+     * @param    string     $table           sysbase table
+     * @param    array     $nosum_map        存放特殊情况的counter
+     * @return   string                      单张表的sql
+     */
     public function createSubQuerySql($countersForQuery,$selectSQL,$filterSQL,$groupbySQL,$table,$nosum_map)
     {   
         $aggTypes = $this->loadAggTypes();
@@ -434,14 +455,13 @@ trait KpiQueryHandler
         return "($selectSQL from dc.$table $filterSQL $groupbySQL)";
     }
 
-    // Create subNetwork sql
-    public function createSubNetSql()
-    {
-       
-
-    }
-
-    // Export query result
+    /**
+     * 文件下载
+     * @DateTime 2019-01-15
+     * @param    array     $data  文件数据
+     * @param    string    $title 文件title
+     * @return   string           文件名
+     */
     public function download($data,$title)
     {   
         $fileName="common/files/".trim($this->template)."_".date("YmdHis").".csv";
@@ -462,36 +482,43 @@ trait KpiQueryHandler
     }
 
     /**
-     * [getKpis description]
+     * 获取模版信息
      * @DateTime 2018-12-12
-     * @param    [type]     $localDB [description]
-     * @return   [type]              [description]
+     * @return   array   模版对应的信息
      */
-    public function getKpis($localDB)
+    public function getKpis()
     {
 
-        // $queryKpiset  = "select elementId from template where templateName='".$this->template."' and user = '$parent'";
-        $queryKpiset  = "select elementId from template where templateName='".$this->template."'";
-        $res          = $localDB->query($queryKpiset);
-        $kpis         = $res->fetchColumn();
-        $kpisStr      = ','.$kpis.',';
-        $queryKpiName = "select kpiName,kpiPrecision,kpiFormula,instr('$kpisStr',CONCAT(',',id,',')) as sort from kpiformula where id in ($kpis) order by sort";
-        $res          = $localDB->query($queryKpiName)->fetchAll(PDO::FETCH_ASSOC);
+        $elementId = Template::select("elementId")->where("id",$this->templateId)->first()->toArray();
+        $kpis   = $elementId['elementId'];
+        $kpisStr = ",".$kpis.",";
+
+        $res = DB::select("select kpiName,kpiPrecision,kpiFormula,instr('$kpisStr',CONCAT(',',id,',')) as sort from kpiformula where id in ($kpis) order by sort");
+
         $kpiNames     = "";
         $result          = array();
         foreach ($res as $row) {
-            $result['kpiformula'][] = $row;
-            $kpiNames = $kpiNames.trim($row['kpiName']).",";
+            $result['kpiformula'][] = array('kpiName'=>$row->kpiName,
+                                            'kpiPrecision'=>$row->kpiPrecision,
+                                            'kpiFormula'=>$row->kpiFormula,
+                                             'sort'=> $row->sort);
+            $kpiNames = $kpiNames.trim($row->kpiName).",";
         }
 
-        $kpiNames        = substr($kpiNames, 0, (strlen($kpiNames) - 1));
+        $kpiNames        = substr($kpiNames,0,-1);
         $result['ids']   = $kpis;
         $result['names'] = $kpiNames;
         return $result;
     }
 
-
-    protected function getCheckCounters($queryFormula, $localDB,&$nosum_map) {
+    /**
+     * 获取模版公式的counter和table
+     * @DateTime 2019-01-15
+     * @param    string     $queryFormula 公式id
+     * @param    array     &$nosum_map   存放特殊counter
+     * @return   array                   模版counter数据信息
+     */
+    protected function getCheckCounters($queryFormula,&$nosum_map) {
         if($this->dataType=="TDD"){
             $counters = unserialize(Redis::get("Counters_TDD"));
 
@@ -502,11 +529,11 @@ trait KpiQueryHandler
             $counters = unserialize(Redis::get("Counters_NBIOT"));
 
         }
-        $queryFormula  = "select kpiName,kpiFormula,kpiPrecision,instr('$queryFormula,',CONCAT(id,',')) as sort from kpiformula where id in (".$queryFormula.") order by sort";
-        $check = [];
+        $queryFormula = DB::select("select kpiName,kpiFormula,kpiPrecision,instr('$queryFormula,',CONCAT(id,',')) as sort from kpiformula where id in (".$queryFormula.") order by sort");
+
         $counterMap = array();
-        foreach ($localDB->query($queryFormula) as $row) {
-            $kpi = $row['kpiFormula'];
+        foreach ($queryFormula as $row) {
+            $kpi = $row->kpiFormula;
             $pattern       = "/[\(\)\+\*-\/]/";
             $columns       = preg_split($pattern, $kpi);
             $matches       = array();
@@ -587,13 +614,26 @@ trait KpiQueryHandler
         return trim($aggTypes[$counterName]);
 
     }//end getAggType()
-        protected function convertInternalCounter($counterName, $index)
+    /**
+     * 处理有下标的counter
+     * @DateTime 2019-01-15
+     * @param    string     $counterName counter名
+     * @param    int    $index       数值
+     * @return   string               sql
+     */
+    protected function convertInternalCounter($counterName, $index)
     {
         $SQL = "sum(case DCVECTOR_INDEX when $index then $counterName else 0 end)";
         return str_replace("\n", "", $SQL);
 
     }//end convertInternalCounter()
 
+    /**
+     * 适配子网信息
+     * @DateTime 2019-01-15
+     * @param    string     $oss oss名称
+     * @return   string          子网适配信息
+     */
     public function getSubnetWork($oss) {
         $SN = "";
         switch ($oss) {
@@ -633,7 +673,13 @@ trait KpiQueryHandler
         }
         return $SN;
     }
-
+    /**
+     * 获取site信息
+     * @DateTime 2019-01-15
+     * @param    string    $format 制式
+     * @param    string     $oss    oss名
+     * @return   string             site信息
+     */
     public function getSN($format, $oss) {
         $SN = "";
         switch ($format) {
@@ -715,11 +761,16 @@ trait KpiQueryHandler
 
     }//end loadAggTypes()
 
-
+    /**
+     * 获得查询结果
+     * @DateTime 2019-01-15
+     * @param    array     $result 单个oss数据
+     * @return   array             查询结果
+     */
     public function getResult($result){
-        $kpis=$this->getKpis($this->localDB);
+        $kpis=$this->getKpis();
         $nosum_map = array();
-        $counterMap = $this->getCheckCounters($kpis['ids'],$this->localDB,$nosum_map);
+        $counterMap = $this->getCheckCounters($kpis['ids'],$nosum_map);
         $counters = array_values(array_unique(array_keys($counterMap)));//获取所有的pm键值
         $data = array();
         foreach ($result as $key => $value) {
@@ -746,7 +797,7 @@ trait KpiQueryHandler
                     
         }
         
-        return $data;
+        return json_decode(json_encode($data,JSON_PARTIAL_OUTPUT_ON_ERROR),TRUE);
 
     }
     /**
@@ -795,6 +846,13 @@ trait KpiQueryHandler
         return $returnDate;
 
     }
+    /**
+     * 获得公式结果
+     * @DateTime 2019-01-15
+     * @param    array     $value 单条数据
+     * @param    array     $kpis  公式
+     * @return   array            求到的结果
+     */
     public function getResultArray($value,$kpis){
                 if(!$value){
                     return array();
@@ -803,50 +861,47 @@ trait KpiQueryHandler
                 foreach ($value as $k => $v) {
                     foreach ($v as  $arr) {
                           //时间类型：天/day,天组/dayGroup,小时/hour,小时组/hourgroup,15分钟/quarter
-                        if($this->timeDim=="day"){
-                            $newFormula[$i]['day']=$arr['DAY'];
-                            $newFormula[$i]['location']=$arr['location'];
-                            $newFormula[$i]['cellNum'] = $arr['cellNum'];
-                        }elseif($this->timeDim=="dayGroup"){
-                            $newFormula[$i]['day']=$arr['DAY'];
-                            $newFormula[$i]['location']=$arr['location'];
-                            $newFormula[$i]['cellNum'] = $arr['cellNum'];
-                        }elseif($this->timeDim=="hour"){
-                            $newFormula[$i]['day']=$arr['DAY'];
-                            $newFormula[$i]['HOUR']=$arr['HOUR'];
-                            $newFormula[$i]['location']=$arr['location'];
-                            $newFormula[$i]['cellNum'] = $arr['cellNum'];
-                        }elseif($this->timeDim=="hourgroup"){
-                            $newFormula[$i]['day']=$arr['DAY'];
-                            $newFormula[$i]['HOUR']=$arr['HOUR'];
-                            $newFormula[$i]['location']=$arr['location'];
-                            $newFormula[$i]['cellNum'] = $arr['cellNum'];
-                        }elseif($this->timeDim=="quarter"){
-                            $newFormula[$i]['day']=$arr['DAY'];
-                            $newFormula[$i]['HOUR']=$arr['HOUR'];
-                            $newFormula[$i]['MINUTE']=$arr['MINUTE'];
-                            $newFormula[$i]['location']=$arr['location'];
-                            $newFormula[$i]['cellNum'] = $arr['cellNum'];
+                        switch ($this->timeDim) {
+                            case 'day':
+                                $newFormula[$i]['day']=$arr['DAY'];
+                                $newFormula[$i]['location']=$arr['location'];
+                                $newFormula[$i]['cellNum'] = $arr['cellNum'];
+                                break;
+                            case 'dayGroup':
+                                $newFormula[$i]['day']=$arr['DAY'];
+                                $newFormula[$i]['location']=$arr['location'];
+                                $newFormula[$i]['cellNum'] = $arr['cellNum'];
+                                break;
+                            case 'hour':
+                                $newFormula[$i]['day']=$arr['DAY'];
+                                $newFormula[$i]['HOUR']=$arr['HOUR'];
+                                $newFormula[$i]['location']=$arr['location'];
+                                $newFormula[$i]['cellNum'] = $arr['cellNum'];
+                                break;
+                            case 'hourgroup':
+                                $newFormula[$i]['day']=$arr['DAY'];
+                                $newFormula[$i]['HOUR']=$arr['HOUR'];
+                                $newFormula[$i]['location']=$arr['location'];
+                                $newFormula[$i]['cellNum'] = $arr['cellNum'];
+                                break;
+                            case 'quarter':
+                                $newFormula[$i]['day']=$arr['DAY'];
+                                $newFormula[$i]['HOUR']=$arr['HOUR'];
+                                $newFormula[$i]['MINUTE']=$arr['MINUTE'];
+                                $newFormula[$i]['location']=$arr['location'];
+                                $newFormula[$i]['cellNum'] = $arr['cellNum'];
+                                break;
+
                         }
+
                          //查询维度：city/城市,subnet/子网,subnetGroup/子网组,baseStation/基站,baseStationGroup/基站组,cell/小区,cellGroup/小区组
 
-                        if($this->locationDim=="city"){
-
-                        }elseif($this->locationDim=="subnet"){
-
-                        }elseif($this->locationDim=="subnetGroup"){
-                            
-                        }elseif($this->locationDim=="baseStation"){
+                       if($this->locationDim=="baseStation"){
                             $newFormula[$i]['subNet'] = $arr['subNet'];
-                            
-                        }elseif($this->locationDim=="baseStationGroup"){
                             
                         }elseif($this->locationDim=="cell"){
                             $newFormula[$i]['subNet'] = $arr['subNet'];
                             $newFormula[$i]['site'] = $arr['site'];
-                            
-                        }elseif($this->locationDim=="cellGroup"){
-                            
                         }
                         if(array_key_exists('relation', $arr)){
                             $newFormula[$i]['relation'] = $arr['relation'];
@@ -869,6 +924,14 @@ trait KpiQueryHandler
             return $newFormula;
     }
 
+    /**
+     * 根据公式获得运算结果
+     * @DateTime 2019-01-15
+     * @param    string     $kpiformula   公式
+     * @param    int        $kpiPrecision 精度
+     * @param     array       $arr        数据
+     * @return   int                       结果值
+     */
     protected function getCalculationRes($kpiformula, $kpiPrecision, $arr) {
         $kpiformula = strtolower($kpiformula);
         $pattern       = "/[\(\)\+\*-\/]/";
