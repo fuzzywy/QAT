@@ -20,7 +20,7 @@
                     </span>
                 </span>
             </el-tree> -->
-            <el-scrollbar :native="false" wrapStyle="" wrapClass="" viewClass="" viewStyle="" noresize="false" tag="section">
+            <el-scrollbar :native="false" wrapStyle="" wrapClass="" viewClass="" viewStyle="" tag="section">
                 <div style="max-height: -webkit-fill-available;">
                     <el-tree
                         v-loading="elementLoading"
@@ -89,6 +89,7 @@
                                     size: 'small',
                                 },
                                 style: {
+                                    margin: '0 10px 0 0'
                                 },
                                 on: {
                                     click: () => {

@@ -48,7 +48,7 @@
                     </div>
                 </el-dialog>
             </div>
-            <el-scrollbar :native="false" wrapStyle="" wrapClass="" viewClass="" viewStyle="" noresize="false" tag="section">
+            <el-scrollbar :native="false" wrapStyle="" wrapClass="" viewClass="" viewStyle="" tag="section">
                 <div style="max-height: -webkit-fill-available;">
                     <el-table
                         v-loading="formulaLoading"

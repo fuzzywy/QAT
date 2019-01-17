@@ -29,7 +29,7 @@
                 </div>
             </el-dialog>
         </div>
-        <el-scrollbar :native="false" wrapStyle="" wrapClass="" viewClass="" viewStyle="" noresize="false" tag="section">
+        <el-scrollbar :native="false" wrapStyle="" wrapClass="" viewClass="" viewStyle="" tag="section">
             <div style="max-height: -webkit-fill-available;">
                 <el-input
                   placeholder="输入关键字进行过滤"
@@ -229,6 +229,7 @@
                             size: 'small',
                         },
                         style: {
+                           margin: '0 10px 0 0'
                         },
                         on: {
                             click: () => {
