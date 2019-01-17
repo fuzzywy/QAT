@@ -29,10 +29,12 @@
                 </div>
             </el-dialog>
         </div>
-        <el-input
-          placeholder="输入关键字进行过滤"
-          v-model="filterText">
-        </el-input>
+        <el-scrollbar :native="false" wrapStyle="" wrapClass="" viewClass="" viewStyle="" noresize="false" tag="section">
+            <div style="max-height: -webkit-fill-available;">
+                <el-input
+                  placeholder="输入关键字进行过滤"
+                  v-model="filterText">
+                </el-input>
         <!-- <el-tree 
           accordion
           :user="getLoginUser"
@@ -54,19 +56,23 @@
             </span>
           </span>
         </el-tree> -->
-        <el-tree
-              accordion
-              :user="getLoginUser"
-              :data="treeData"
-              @node-click="nodeClick"
-              node-key="id"
-              :expand-on-click-node="false"
-              :default-expand-all="false"
-              :filter-node-method="filterNode"
-              ref="tree"
-              :highlight-current="true"
-              :render-content="renderContent">
-          </el-tree>
+        
+                <el-tree
+                    v-loading="templateLoading"
+                    accordion
+                    :user="getLoginUser"
+                    :data="treeData"
+                    @node-click="nodeClick"
+                    node-key="id"
+                    :expand-on-click-node="false"
+                    :default-expand-all="false"
+                    :filter-node-method="filterNode"
+                    ref="tree"
+                    :highlight-current="true"
+                    :render-content="renderContent">
+                </el-tree>
+            </div>
+        </el-scrollbar>
       </el-card>
     </div>
 </template>
@@ -117,7 +123,8 @@
           mode: 'TDD'
         },
         formLabelWidth: '50px',
-        addFlag: 0
+        addFlag: 0,
+        templateLoading: false
       };
     },
     watch: {
@@ -139,13 +146,17 @@
         //显示
         switch( this.$store.getters.qatTemplateDataStatus ) {
             case 1:
+                this.templateLoading = true;
                 break;
             case 2:
+                this.templateLoading = false;
                 this.treeData = this.$store.getters.qatTemplateData;
                 break;
             case 3:
+                this.templateLoading = false;
                 break;
             default:
+                this.templateLoading = false;
                 break;
         }
         //增加

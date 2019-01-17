@@ -48,138 +48,143 @@
                     </div>
                 </el-dialog>
             </div>
-            <el-table
-                :data="tableData"
-                style="width: 100%"
-                :row-key="getRowKeys" 
-                :expand-row-keys="expands" 
-                @expand-change="expandChange"
-                >
-                <el-table-column type="expand">
+            <el-scrollbar :native="false" wrapStyle="" wrapClass="" viewClass="" viewStyle="" noresize="false" tag="section">
+                <div style="max-height: -webkit-fill-available;">
                     <el-table
-                        :show-header=false
-                        :data="typeData"
-                        :row-key="getFormulaKeys" 
-                        :expand-row-keys="expandsFormula" 
-                        @expand-change="expandFormulaChange"
-                    >
+                        v-loading="formulaLoading"
+                        :data="tableData"
+                        style="width: 100%"
+                        :row-key="getRowKeys" 
+                        :expand-row-keys="expands" 
+                        @expand-change="expandChange"
+                        >
                         <el-table-column type="expand">
                             <el-table
-                                ref="multipleTable"
-                                tooltip-effect="dark"
-                                @selection-change="handleSelectionChange"
                                 :show-header=false
-                                :data="formulaData"
-                                @cell-mouse-enter="cellMouseEnter"
-                                @cell-mouse-leave="cellMouseLeave"
-                                :row-key="getDetailedKeys" 
-                                :expand-row-keys="expandsDetailed" 
-                                @select="select"
-                                @expand-change="expandDetailChange"
+                                :data="typeData"
+                                :row-key="getFormulaKeys" 
+                                :expand-row-keys="expandsFormula" 
+                                @expand-change="expandFormulaChange"
                             >
-                                <el-table-column
-                                    type="selection"
-                                    width="55">
+                                <el-table-column type="expand">
+                                    <el-table
+                                        ref="multipleTable"
+                                        tooltip-effect="dark"
+                                        @selection-change="handleSelectionChange"
+                                        :show-header=false
+                                        :data="formulaData"
+                                        @cell-mouse-enter="cellMouseEnter"
+                                        @cell-mouse-leave="cellMouseLeave"
+                                        :row-key="getDetailedKeys" 
+                                        :expand-row-keys="expandsDetailed" 
+                                        @select="select"
+                                        @expand-change="expandDetailChange"
+                                    >
+                                        <el-table-column
+                                            type="selection"
+                                            width="55">
+                                        </el-table-column>
+                                        <el-table-column
+                                            label="Type"
+                                            prop="name">
+                                        </el-table-column>
+                                        <el-table-column type="expand">
+                                            <template slot-scope="props">
+                                                <el-form label-position="left" inline class="demo-table-expand" v-show="showColumn">
+                                                    <el-form-item label="Id">
+                                                        <span>{{ props.row.id }}</span>
+                                                    </el-form-item>
+                                                    <el-form-item label="Name">
+                                                        <span>{{ props.row.name }}</span>
+                                                    </el-form-item>
+                                                    <el-form-item label="Formula">
+                                                        <span>{{ props.row.formula }}</span>
+                                                    </el-form-item>
+                                                    <el-form-item label="Precision">
+                                                        <span>{{ props.row.precision }}</span>
+                                                    </el-form-item>
+                                                </el-form>
+                                                <el-row :gutter="10" v-show="showModifyColumn">
+                                                    <el-col :span="14">
+                                                        <el-input v-model="props.row.name">
+                                                            <template slot="prepend">Name</template>
+                                                        </el-input>
+                                                    </el-col>
+                                                    <el-col :span="10">
+                                                        <el-input v-model="props.row.precision">
+                                                            <template slot="prepend">Precision</template>
+                                                        </el-input>
+                                                    </el-col>
+                                                    <el-col :span="24">
+                                                        <div style="margin-top: 10px;"> </div>
+                                                    </el-col>
+                                                    <el-col :span="24">
+                                                        <el-input
+                                                          type="textarea"
+                                                          :rows="2"
+                                                          placeholder="请输入公式"
+                                                          v-model="props.row.formula">
+                                                        </el-input>
+                                                    </el-col>
+                                                    <el-col :span="24">
+                                                        <div style="margin-top: 10px;"> </div>
+                                                    </el-col>
+                                                    <el-col :span="8" :offset="8">
+                                                        <el-button 
+                                                            style="width: -webkit-fill-available"
+                                                            type="primary"
+                                                            @click="modifyFormula(props.row)">
+                                                            <span>修改</span><!--  :class="toogle.startIcon" -->
+                                                        </el-button>
+                                                    </el-col>
+                                                    <el-col :span="8">
+                                                        <el-button 
+                                                            style="width: -webkit-fill-available"
+                                                            type="primary"
+                                                            @click="cancel()">
+                                                            <span>取消</span><!--  :class="toogle.startIcon" -->
+                                                        </el-button>
+                                                    </el-col>
+                                                </el-row>
+                                            </template>
+                                        </el-table-column>
+                                        <el-table-column label="操作">
+                                            <template slot-scope="scope">
+                                                <el-button 
+                                                    v-show="showEdit && is_show(scope)"
+                                                    size="mini"
+                                                    @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+                                                <el-button
+                                                    v-show="showDelete && is_show(scope)"
+                                                    size="mini"
+                                                    type="danger"
+                                                    @click="handleDelete(scope.$index, scope.row)">删除</el-button> 
+                                            </template>
+                                        </el-table-column>
+                                    </el-table>
                                 </el-table-column>
                                 <el-table-column
                                     label="Type"
-                                    prop="name">
-                                </el-table-column>
-                                <el-table-column type="expand">
-                                    <template slot-scope="props">
-                                        <el-form label-position="left" inline class="demo-table-expand" v-show="showColumn">
-                                            <el-form-item label="Id">
-                                                <span>{{ props.row.id }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="Name">
-                                                <span>{{ props.row.name }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="Formula">
-                                                <span>{{ props.row.formula }}</span>
-                                            </el-form-item>
-                                            <el-form-item label="Precision">
-                                                <span>{{ props.row.precision }}</span>
-                                            </el-form-item>
-                                        </el-form>
-                                        <el-row :gutter="10" v-show="showModifyColumn">
-                                            <el-col :span="14">
-                                                <el-input v-model="props.row.name">
-                                                    <template slot="prepend">Name</template>
-                                                </el-input>
-                                            </el-col>
-                                            <el-col :span="10">
-                                                <el-input v-model="props.row.precision">
-                                                    <template slot="prepend">Precision</template>
-                                                </el-input>
-                                            </el-col>
-                                            <el-col :span="24">
-                                                <div style="margin-top: 10px;"> </div>
-                                            </el-col>
-                                            <el-col :span="24">
-                                                <el-input
-                                                  type="textarea"
-                                                  :rows="2"
-                                                  placeholder="请输入公式"
-                                                  v-model="props.row.formula">
-                                                </el-input>
-                                            </el-col>
-                                            <el-col :span="24">
-                                                <div style="margin-top: 10px;"> </div>
-                                            </el-col>
-                                            <el-col :span="8" :offset="8">
-                                                <el-button 
-                                                    style="width: -webkit-fill-available"
-                                                    type="primary"
-                                                    @click="modifyFormula(props.row)">
-                                                    <span>修改</span><!--  :class="toogle.startIcon" -->
-                                                </el-button>
-                                            </el-col>
-                                            <el-col :span="8">
-                                                <el-button 
-                                                    style="width: -webkit-fill-available"
-                                                    type="primary"
-                                                    @click="cancel()">
-                                                    <span>取消</span><!--  :class="toogle.startIcon" -->
-                                                </el-button>
-                                            </el-col>
-                                        </el-row>
-                                    </template>
-                                </el-table-column>
-                                <el-table-column label="操作">
-                                    <template slot-scope="scope">
-                                        <el-button 
-                                            v-show="showEdit && is_show(scope)"
-                                            size="mini"
-                                            @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-                                        <el-button
-                                            v-show="showDelete && is_show(scope)"
-                                            size="mini"
-                                            type="danger"
-                                            @click="handleDelete(scope.$index, scope.row)">删除</el-button> 
-                                    </template>
+                                    prop="type">
                                 </el-table-column>
                             </el-table>
                         </el-table-column>
                         <el-table-column
-                            label="Type"
-                            prop="type">
+                            label="Name"
+                            prop="name">
+                        </el-table-column>
+                        <el-table-column
+                            align="right">
+                            <template slot="header" slot-scope="scope">
+                                <el-input
+                                    v-model="search"
+                                    size="mini"
+                                    placeholder="输入关键字搜索"/>
+                            </template>
                         </el-table-column>
                     </el-table>
-                </el-table-column>
-                <el-table-column
-                    label="Name"
-                    prop="name">
-                </el-table-column>
-                <el-table-column
-                    align="right">
-                    <template slot="header" slot-scope="scope">
-                        <el-input
-                            v-model="search"
-                            size="mini"
-                            placeholder="输入关键字搜索"/>
-                    </template>
-                </el-table-column>
-            </el-table>
+                </div>
+            </el-scrollbar>
         </el-card>
     </div>
 </template>
@@ -266,7 +271,9 @@
 
                 expendFlag: '',
 
-                showId: 0
+                showId: 0,
+
+                formulaLoading: false
             }
         },
         computed: {
@@ -284,13 +291,17 @@
                 }
                 switch(this.$store.getters.selectKpiFormulaStatus) {
                     case 1:
+                        this.formulaLoading = true;
                         break;
                     case 2:
+                        this.formulaLoading = false;
                         this.selectKpiFormula = this.$store.getters.selectKpiFormula;
                         break;
                     case 3:
+                        this.formulaLoading = false;
                         break;
                     default:
+                        this.formulaLoading = false;
                         break;
                 }
                 if( this.search != '' ) {

@@ -44,7 +44,8 @@
         }
         /*解决滚动条抖动问题*/
         html {
-          overflow-y: scroll;
+          overflow-x: hidden;
+          overflow-y: hidden;
         }
     </style>
 </head>

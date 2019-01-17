@@ -20,15 +20,21 @@
                     </span>
                 </span>
             </el-tree> -->
-            <el-tree
-                :data="elementData" 
-                @node-click="handleNodeClick" 
-                :getElementData="getElementData"
-                @node-drag-end="handleDragEnd"
-                :draggable="draggable"
-                :render-content="renderContent">
-            </el-tree>
+            <el-scrollbar :native="false" wrapStyle="" wrapClass="" viewClass="" viewStyle="" noresize="false" tag="section">
+                <div style="max-height: -webkit-fill-available;">
+                    <el-tree
+                        v-loading="elementLoading"
+                        :data="elementData" 
+                        @node-click="handleNodeClick" 
+                        :getElementData="getElementData"
+                        @node-drag-end="handleDragEnd"
+                        :draggable="draggable"
+                        :render-content="renderContent">
+                    </el-tree>
+                </div>
+            </el-scrollbar>
         </el-card>
+        
     </div>
 </template>
 <script>
@@ -48,7 +54,8 @@
                 clickFormulaGrandparent: '',
                 clickFormulaParent: '',
                 clickFormulaRows: [],
-                clickFormulaRowsFlag: 0
+                clickFormulaRowsFlag: 0,
+                elementLoading: false
             };
         },
         methods: {
@@ -120,7 +127,6 @@
           }
         },
         computed: {
-            //loading加载。还未做
             getElementData(){
                 if (this.$store.getters.loadQatElementDataStatus == 2) {
                     switch(this.$store.getters.orderQatElementDataStatus) {
@@ -152,13 +158,17 @@
                 }          
                 switch(this.$store.getters.loadQatElementDataStatus) {
                     case 1:
+                        this.elementLoading = true;
                         break;
                     case 2:
+                        this.elementLoading = false;
                         this.elementData = this.$store.getters.loadQatElementData;
                         break;
                     case 3:
+                        this.elementLoading = false;
                         break;
                     default:
+                        this.elementLoading = false;
                         break;
                 }
                 //用户可拖拽权限
