@@ -502,6 +502,16 @@
                 }).filter(function(val){
                     return !(val === undefined || val === "");
                 });
+
+                let positions = arrs1[0]['children'];
+                let str;
+                for( var i=0; i<positions.length; i++ ) {
+                    if( positions[i].id == formulaId ) {
+                        str = positions.splice(i, 1);
+                    }
+                }
+                positions.unshift(str[0]);
+                
                 this.expandFormulaChange( { 'id': arrs1[0]['id'], 'type': arrs1[0]['name'] }, this.expandsFormula[0] )
                 this.expandsDetailed = [formulaId];
             },
