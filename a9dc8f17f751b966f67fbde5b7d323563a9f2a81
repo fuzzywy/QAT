@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2981ce34_005adc28",
+        "filename": "resources/assets/js/components/qatOverview/template/KpiList.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-01-25T02:38:26Z",
+      "side": 1,
+      "message": "remove the code in case 3\nduplicated",
+      "revId": "a9dc8f17f751b966f67fbde5b7d323563a9f2a81",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8fa3d191_2ee5863c",
+        "filename": "resources/assets/js/components/qatOverview/template/TemplateManage.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-01-25T02:38:26Z",
+      "side": 1,
+      "message": "remove code in case 3\nduplicate to default section",
+      "revId": "a9dc8f17f751b966f67fbde5b7d323563a9f2a81",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    }
+  ]
+}
