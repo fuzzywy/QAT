@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a00e4175_76e5428b",
+        "filename": "app/Console/Commands/LoadCounter.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-01-25T03:34:54Z",
+      "side": 1,
+      "message": "please change command name to lowercase\n\nyou can see from php artisan\n\nAll the command are lowercase",
+      "revId": "e44b8704405111ec51d88f567b559ff5001363c1",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5228a370_09674f9d",
+        "filename": "app/Console/Commands/MongsSiteLte.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-01-25T03:34:54Z",
+      "side": 1,
+      "message": "Change command name to lowercase",
+      "revId": "e44b8704405111ec51d88f567b559ff5001363c1",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    }
+  ]
+}
