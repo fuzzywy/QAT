@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8dd79a70_4edcf4aa",
+        "filename": "app/Http/Controllers/KpiQueryHandler.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-01-25T03:35:44Z",
+      "side": 1,
+      "message": "variable should be started by a lowercase character",
+      "revId": "247c3f78e76b66b91e3edbacb0559ba4294bccb1",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    }
+  ]
+}
