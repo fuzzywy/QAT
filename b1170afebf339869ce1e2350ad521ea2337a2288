@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8e44e8fe_4898cca3",
+        "filename": "app/Http/Controllers/GsmQueryHandler.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-01-25T03:23:08Z",
+      "side": 1,
+      "message": "Please use first instead of access array\u0027s index\n$dbServer \u003d Eniq_2G::where(xxxxxx)-\u003efirst()\n\n$host\u003d$dbServer-\u003ehost\n.......",
+      "revId": "b1170afebf339869ce1e2350ad521ea2337a2288",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a366dd9b_06b74931",
+        "filename": "app/Http/Controllers/GsmQueryHandler.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-01-25T03:23:08Z",
+      "side": 1,
+      "message": "Exception should be logged\nLog::error(xxxxx)",
+      "revId": "b1170afebf339869ce1e2350ad521ea2337a2288",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "94dfd655_0cd04761",
+        "filename": "app/Http/Controllers/KpiGsmQueryHandler.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-01-25T03:23:08Z",
+      "side": 1,
+      "message": "I think it\u0027s duplicated to the next condition?\nif ($this-\u003etimeDim \u003d\u003d \u0027dayGroup\u0027)\n\nelse if ($this-\u003etimeDim \u003d\u003d \"day\" || $this-\u003etimeDim \u003d\u003d \u0027dayGroup\u0027",
+      "revId": "b1170afebf339869ce1e2350ad521ea2337a2288",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd7a2097_3ae4463a",
+        "filename": "app/Http/Controllers/KpiGsmQueryHandler.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-01-25T03:23:08Z",
+      "side": 1,
+      "message": "Please combine the condition hour and hourGroup",
+      "revId": "b1170afebf339869ce1e2350ad521ea2337a2288",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b2c7acdb_fb8f9858",
+        "filename": "app/Http/Controllers/KpiGsmQueryHandler.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-01-25T03:23:08Z",
+      "side": 1,
+      "message": "I think there are still many duplicate method between\nKpiQuery and KpiGsmQuery\n\nIs there a way to extract the common method?",
+      "revId": "b1170afebf339869ce1e2350ad521ea2337a2288",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    }
+  ]
+}
