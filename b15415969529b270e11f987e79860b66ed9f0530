@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "27894794_ed7adb0e",
+        "filename": "resources/assets/js/components/qatOverview/template/FormulaManage.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 506,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-01-25T02:20:31Z",
+      "side": 1,
+      "message": "Please change arrs1 to a more readable name.\nAs i don\u0027t know what does \u0027arrs1\u0027 mean",
+      "revId": "b15415969529b270e11f987e79860b66ed9f0530",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "edddab88_f665428d",
+        "filename": "resources/assets/js/components/qatOverview/template/FormulaManage.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-01-25T02:20:31Z",
+      "side": 1,
+      "message": "change to\nvar i\u003d0,len\u003dpositions.length; i\u003clen;i++\n\nIn this case position.length won\u0027t be call in each interation",
+      "revId": "b15415969529b270e11f987e79860b66ed9f0530",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    }
+  ]
+}
