@@ -165,9 +165,6 @@
                         this.elementLoading = false;
                         this.elementData = this.$store.getters.loadQatElementData;
                         break;
-                    case 3:
-                        this.elementLoading = false;
-                        break;
                     default:
                         this.elementLoading = false;
                         break;

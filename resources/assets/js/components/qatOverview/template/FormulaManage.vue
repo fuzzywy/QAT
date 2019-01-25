@@ -460,7 +460,7 @@
                 this.expandsFormula = [];
                 this.expandsDetailed = [];
                 //format id/format id/Formula arr/arrs/arrs/key/expandsId
-                let expArr,expandsArr,expandsFormulaArr,arrs, arrs1, key,expandsId;
+                let expArr,expandsArr,expandsFormulaArr,arrs, formatArrs, key,expandsId;
                 expArr = this.tableData.map(item=>{
                     if ( item.name === 'admin' || item.name === grandparent ) {
                         return item.id;
@@ -495,7 +495,7 @@
                 arrs = this.tableData[key].children.map(formula=>{
                     return formula;
                 });
-                arrs1 = arrs.map(formula=>{
+                formatArrs = arrs.map(formula=>{
                     if(formula.id == expandsFormulaArr[this.expandsFormula]) {
                         return formula;
                     }
@@ -503,16 +503,16 @@
                     return !(val === undefined || val === "");
                 });
 
-                let positions = arrs1[0]['children'];
+                let positions = formatArrs[0]['children'];
                 let str;
-                for( var i=0; i<positions.length; i++ ) {
+                for( let i=0,len=positions.length-1; i<len; i++ ) {
                     if( positions[i].id == formulaId ) {
                         str = positions.splice(i, 1);
                     }
                 }
                 positions.unshift(str[0]);
                 
-                this.expandFormulaChange( { 'id': arrs1[0]['id'], 'type': arrs1[0]['name'] }, this.expandsFormula[0] )
+                this.expandFormulaChange( { 'id': formatArrs[0]['id'], 'type': formatArrs[0]['name'] }, this.expandsFormula[0] )
                 this.expandsDetailed = [formulaId];
             },
             expandChange(row, expandedRows) {
