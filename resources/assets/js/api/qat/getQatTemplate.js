@@ -154,11 +154,11 @@ export default {
         });
     },
     selectKpiFormula: function(clickElement, elements) {
-        return axios.get( 'template/selectKpiFormula', {
-            params: {
+        return axios.post( 'template/selectKpiFormula', {
+            // params: {
                 clickElement: clickElement,
                 elements: elements
-            }
+            // }
         })
         .catch(function(error){
             if (error.response) {

@@ -4,7 +4,7 @@
             <div slot="header" class="clearfix">
               <span>指标 {{templateName}}</span>
             </div>
-            <el-tree 
+            <!-- <el-tree 
                 :data="elementData" 
                 @node-click="handleNodeClick" 
                 :getElementData="getElementData"
@@ -19,8 +19,22 @@
                       </el-button>
                     </span>
                 </span>
-            </el-tree>
+            </el-tree> -->
+            <el-scrollbar :native="false" wrapStyle="" wrapClass="" viewClass="" viewStyle="" tag="section">
+                <div style="max-height: -webkit-fill-available;">
+                    <el-tree
+                        v-loading="elementLoading"
+                        :data="elementData" 
+                        @node-click="handleNodeClick" 
+                        :getElementData="getElementData"
+                        @node-drag-end="handleDragEnd"
+                        :draggable="draggable"
+                        :render-content="renderContent">
+                    </el-tree>
+                </div>
+            </el-scrollbar>
         </el-card>
+        
     </div>
 </template>
 <script>
@@ -40,10 +54,52 @@
                 clickFormulaGrandparent: '',
                 clickFormulaParent: '',
                 clickFormulaRows: [],
-                clickFormulaRowsFlag: 0
+                clickFormulaRowsFlag: 0,
+                elementLoading: false
             };
         },
         methods: {
+          renderContent(h, { node, data, store }) {
+                return h('span', {
+                    style: {
+                        color: "",
+                        width: '-webkit-fill-available',
+                        float: 'left'
+                    },
+                    on: {
+                        'mouseenter': () => {
+                          data.showRemove = true;
+                        },
+                        'mouseleave': () => {
+                          data.showRemove = false;
+                        }
+                    }
+                }, [
+                        h('span', {
+                        }, node.label),
+                        h('span', {
+                            style: {
+                                float: 'right',
+                                display: data.showRemove ? '' : 'none',
+                            },
+                        }, [
+                            h('el-button', {
+                                props: {
+                                    type: 'text',
+                                    size: 'small',
+                                },
+                                style: {
+                                    margin: '0 10px 0 0'
+                                },
+                                on: {
+                                    click: () => {
+                                        this.remove(node, data)
+                                    }
+                                }
+                            }, [h('i', {class:'el-icon-delete'})]),
+                        ]),
+                    ]);
+          },
           handleNodeClick(data) {
             //点击数据/全部element数据
             this.processSelectKpiFormula(data, this.elementData);
@@ -72,7 +128,6 @@
           }
         },
         computed: {
-            //loading加载。还未做
             getElementData(){
                 if (this.$store.getters.loadQatElementDataStatus == 2) {
                     switch(this.$store.getters.orderQatElementDataStatus) {
@@ -104,13 +159,14 @@
                 }          
                 switch(this.$store.getters.loadQatElementDataStatus) {
                     case 1:
+                        this.elementLoading = true;
                         break;
                     case 2:
+                        this.elementLoading = false;
                         this.elementData = this.$store.getters.loadQatElementData;
                         break;
-                    case 3:
-                        break;
                     default:
+                        this.elementLoading = false;
                         break;
                 }
                 //用户可拖拽权限
