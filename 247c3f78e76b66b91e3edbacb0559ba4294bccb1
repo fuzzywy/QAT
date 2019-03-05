@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "d1bca19b_185e288f",
+        "filename": "app/Http/Controllers/KpiQueryHandler.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-03-05T01:50:23Z",
+      "side": 1,
+      "message": "day和dayGroup只有resultText不一样,其它的代码是重复的。\n应该将dayGroup的resultText也改成day。然后去除重复代码。类似：\ncase \u0027day\u0027:\ncase \u0027dayGroup\u0027\n$this-\u003esql-\u003eselectSql \u003d \"select AGG_TABLE0.DAY,AGG_TABLE0.location,AGG_TABLE0.cellNum,\";\n$this-\u003esql-\u003eresultText \u003d\"day,location,cellNum\";\n$this-\u003esql-\u003eorderbySql \u003d \" ORDER BY AGG_TABLE0.DAY\";\n\n注意，只要没有break,case会继续走下去。因此可以去掉重复代码。\n\n同样的修改应该作用于hour和hourGroup",
+      "revId": "247c3f78e76b66b91e3edbacb0559ba4294bccb1",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8dd79a70_4edcf4aa",
         "filename": "app/Http/Controllers/KpiQueryHandler.php",
         "patchSetId": 1
@@ -13,6 +30,23 @@
       "writtenOn": "2019-01-25T03:35:44Z",
       "side": 1,
       "message": "variable should be started by a lowercase character",
+      "revId": "247c3f78e76b66b91e3edbacb0559ba4294bccb1",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "46c66756_1dce4f67",
+        "filename": "app/Http/Controllers/KpiQueryHandler.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 865,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-03-05T01:50:23Z",
+      "side": 1,
+      "message": "同上，删除重复代码",
       "revId": "247c3f78e76b66b91e3edbacb0559ba4294bccb1",
       "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
       "unresolved": false
