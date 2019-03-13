@@ -1,23 +1,22 @@
 export default {
     getQatData: function( cancelToken, dataSource, dataType, template, timeDim, locationDim, cities, subnets, baseStation, cell, date, hour, minute, crontab, notice ) {
-        return axios.get( "getQatData", {
-            cancelToken: cancelToken.token,
-            params: {
-                dataSource: dataSource,
-                dataType: dataType,
-                template: template,
-                timeDim: timeDim,
-                locationDim: locationDim,
-                cities: cities,
-                subnets: subnets,
-                baseStation: baseStation,
-                cell: cell,
-                date: date,
-                hour: hour,
-                minute: minute,
-                crontab: crontab,
-                notice: notice
-            }
+        return axios.post( "getQatData", {
+            dataSource: dataSource,
+            dataType: dataType,
+            template: template,
+            timeDim: timeDim,
+            locationDim: locationDim,
+            cities: cities,
+            subnets: subnets,
+            baseStation: baseStation,
+            cell: cell,
+            date: date,
+            hour: hour,
+            minute: minute,
+            crontab: crontab,
+            notice: notice
+        }, {
+            cancelToken: cancelToken.token
         })
         .catch(function(error) {
             if (axios.isCancel(error)) {

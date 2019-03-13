@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Eniq_2G;
+use Illuminate\Support\Facades\Log;
 use PDO;
 class GsmQueryHandler extends Controller
 {
@@ -26,7 +27,6 @@ class GsmQueryHandler extends Controller
 
     	foreach ($cities as $key => $value) {
             $dbServers = Eniq_2G::where("city",$value)->get()->toArray();
-    		
     		$host     = $dbServers[0]['host'];
             $port     = $dbServers[0]['port'];
             $dbName   = $dbServers[0]['dbName'];
@@ -37,6 +37,7 @@ class GsmQueryHandler extends Controller
                 $pmDB     = new PDO($pmDbDSN, $userName, $password);
                 
             } catch (\Exception $e) {
+                Log::error($dbServers[0]['city'].":sybase数据库连接失败");
                 continue;
             }
             $sql = $this->createSql($dbServers[0]['conn']);

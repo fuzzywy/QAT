@@ -19,17 +19,21 @@ class SubnetController extends Controller
 		$citys = input::get("citys"); //城市
 		$dataType = input::get("dataType");//制式
 		$dataSource = input::get("dataSource");//数据库
-		$dbc = new DataBaseConnection();
-		
-		$arr = array(array("value"=>"allSelect","label"=>"全选"));
-		$subNetWork = $dbc->getSubnetwork($citys,$dataSource,$dataType);
-		foreach ($subNetWork as $key=>$value) {
-			foreach ($value as $k=>$v) {
-				//输出格式 chengshi:ziwang
-				array_push($arr, array("value"=>$key.":".$v,"label"=>$v));
-				
+		if($dataType=="GSM"){
+			$arr = array();
+		}else{
+			$dbc = new DataBaseConnection();
+			$arr = array(array("value"=>"allSelect","label"=>"全选"));
+			$subNetWork = $dbc->getSubnetwork($citys,$dataSource,$dataType);
+			foreach ($subNetWork as $key=>$value) {
+				foreach ($value as $k=>$v) {
+					//输出格式 chengshi:ziwang
+					array_push($arr, array("value"=>$key.":".$v,"label"=>$v));
+					
+				}
 			}
 		}
+		
 		return $arr;
 	}
 }

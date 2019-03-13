@@ -12,6 +12,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
+use PDO;
 use Exception;
 use App\Models\Template;
 use App\Models\Kpiformula;
@@ -110,22 +111,30 @@ trait KpiQueryHandler
 
         switch ($this->timeDim) {
             case 'day':
-            case 'dayGroup':
                 $this->sql->selectSql = "select AGG_TABLE0.DAY,AGG_TABLE0.location,AGG_TABLE0.cellNum,";
                 $this->sql->resultText ="day,location,cellNum";
                 $this->sql->orderbySql = " ORDER BY AGG_TABLE0.DAY";
-            break;
+                break;
+            case 'dayGroup':
+                $this->sql->selectSql = "select AGG_TABLE0.DAY,AGG_TABLE0.location,AGG_TABLE0.cellNum,";
+                $this->sql->resultText ="dayGroup,location,cellNum";
+                $this->sql->orderbySql = " ORDER BY AGG_TABLE0.DAY";
+                break;
             case 'hour':
-            case 'hourGroup':
                 $this->sql->selectSql = "select AGG_TABLE0.DAY,AGG_TABLE0.HOUR,AGG_TABLE0.location,AGG_TABLE0.cellNum,";
                 $this->sql->resultText ="day,hour,location,cellNum";
                 $this->sql->orderbySql = " ORDER BY AGG_TABLE0.DAY,AGG_TABLE0.HOUR";
-            break;
+                break;
+            case 'hourGroup':
+                $this->sql->selectSql = "select AGG_TABLE0.DAY,AGG_TABLE0.HOUR,AGG_TABLE0.location,AGG_TABLE0.cellNum,";
+                $this->sql->resultText ="day,hourGroup,location,cellNum";
+                $this->sql->orderbySql = " ORDER BY AGG_TABLE0.DAY,AGG_TABLE0.HOUR";
+                break;
             case 'quarter':
                 $this->sql->selectSql = "select AGG_TABLE0.DAY,AGG_TABLE0.HOUR,AGG_TABLE0.MINUTE,AGG_TABLE0.location,AGG_TABLE0.cellNum,";
                 $this->sql->resultText ="day,hour,minute,location,cellNum";
                 $this->sql->orderbySql = " ORDER BY AGG_TABLE0.DAY,AGG_TABLE0.HOUR,AGG_TABLE0.MINUTE";
-            break;
+                break;
         }
 
         switch ($this->locationDim) {
@@ -234,7 +243,7 @@ trait KpiQueryHandler
     public function createSelectSql($city)
     {      
         $subnetwork = $this->getSubnetWork($city);//获取子网
-        $sn = $this->getSN($this->dataType,$city);
+        $SN = $this->getSN($this->dataType,$city);
         $conname = trim(preg_replace('/[0-9]+/', '', $city));
     
         $left = "select ";
@@ -276,7 +285,7 @@ trait KpiQueryHandler
                 $middle .="'AllErbs' AS location,";
             }elseif($this->locationDim=="cell"){
 
-                $middle .="$subnetwork as subNet,$sn,";
+                $middle .="$subnetwork as subNet,$SN,";
                 if($this->dataType=="TDD"){
                     $middle.="EutranCellTDD as location,";
                 }elseif($this->dataType=="FDD"){
@@ -371,7 +380,9 @@ trait KpiQueryHandler
     {   
         $aggGroupBy = "";
 
-        if($this->timeDim=="day"||$this->timeDim=="dayGroup"){
+        if($this->timeDim=="day"){
+            $aggGroupBy = " group by DAY,location";
+        }elseif($this->timeDim=="dayGroup"){
             $aggGroupBy = " group by DAY,location";
         }elseif($this->timeDim=="hour"){
             $aggGroupBy = " group by DAY,hour_id,location";
@@ -623,43 +634,43 @@ trait KpiQueryHandler
      * @return   string          子网适配信息
      */
     public function getSubnetWork($oss) {
-        $sn = "";
+        $SN = "";
         switch ($oss) {
             case 'wuxiENM':
-                $sn = "substring(substring(SN, 0, charindex(',',SN)-1), 12)";
+                $SN = "substring(substring(SN, 0, charindex(',',SN)-1), 12)";
                 break;
             case "wuxi1":
-                $sn = "substring(SN, 12, charindex(',', SN)-12)";
+                $SN = "substring(SN, 12, charindex(',', SN)-12)";
                 break;
           case "wuxi2":
-            $sn = "substring(SN, 12, charindex(',', SN)-12)";
+            $SN = "substring(SN, 12, charindex(',', SN)-12)";
             break;
           case "wuxi":
-            $sn = "substring(SN, 12, charindex(',', SN)-12)";
+            $SN = "substring(SN, 12, charindex(',', SN)-12)";
             break;
             case "suzhou3":
-                $sn = "substring(SN, 12, charindex(',', SN)-12)";
+                $SN = "substring(SN, 12, charindex(',', SN)-12)";
                 break;
             case "zhenjiang":
-                $sn = "substring(substring(SN, 0, charindex(',',SN)-1), 12)";
+                $SN = "substring(substring(SN, 0, charindex(',',SN)-1), 12)";
             break;
             case "zhenjiang1":
-                $sn = "substring(substring(SN, charindex(',', SN)+12), 0, charindex(',', substring(SN, charindex(',', SN)+12))-1)";
+                $SN = "substring(substring(SN, charindex(',', SN)+12), 0, charindex(',', substring(SN, charindex(',', SN)+12))-1)";
                 break;
             case "changzhou":
-              $sn = "substring(SN, charindex('=', SN)+1, charindex(',', SN)-charindex('=', SN)-1)";
+              $SN = "substring(SN, charindex('=', SN)+1, charindex(',', SN)-charindex('=', SN)-1)";
               break;
             case "suzhou":
-              $sn = "substring(SN, charindex('=', SN)+1, charindex(',', SN)-charindex('=', SN)-1)";
+              $SN = "substring(SN, charindex('=', SN)+1, charindex(',', SN)-charindex('=', SN)-1)";
               break;
             case "nantong":
-              $sn = "substring(SN, charindex('=', SN)+1, charindex(',', SN)-charindex('=', SN)-1)";
+              $SN = "substring(SN, charindex('=', SN)+1, charindex(',', SN)-charindex('=', SN)-1)";
               break;
             default:
-                $sn = "substring(SN,charindex('=',substring(SN,32,25))+32,charindex(',',substring(SN,32,25))-charindex('=',substring(SN,32,25))-1)";
+                $SN = "substring(SN,charindex('=',substring(SN,32,25))+32,charindex(',',substring(SN,32,25))-charindex('=',substring(SN,32,25))-1)";
                 break;
         }
-        return $sn;
+        return $SN;
     }
     /**
      * 获取site信息
@@ -669,66 +680,66 @@ trait KpiQueryHandler
      * @return   string             site信息
      */
     public function getSN($format, $oss) {
-        $sn = "";
+        $SN = "";
         switch ($format) {
             case 'NBIOT':
                 switch ($oss) {
                     case 'wuxiENM':
-                        $sn = "SN  as site";
+                        $SN = "SN  as site";
                         break;
                     case "suzhou3":
-                        $sn = "SN  as site";
+                        $SN = "SN  as site";
                         break;
             case "changzhou":
-              $sn = "substring(substring(substring(SN, charindex (',', SN)+1), charindex(',', substring(SN, charindex (',', SN)+1))+1, char_length(substring(SN, charindex (',', SN)+1))), charindex('=', substring(substring(SN, charindex (',', SN)+1), charindex(',', substring(SN, charindex (',', SN)+1))+1, char_length(substring(SN, charindex (',', SN)+1))))+1) as site";
+              $SN = "substring(substring(substring(SN, charindex (',', SN)+1), charindex(',', substring(SN, charindex (',', SN)+1))+1, char_length(substring(SN, charindex (',', SN)+1))), charindex('=', substring(substring(SN, charindex (',', SN)+1), charindex(',', substring(SN, charindex (',', SN)+1))+1, char_length(substring(SN, charindex (',', SN)+1))))+1) as site";
               break;
             case "nantong":
-              $sn = "substring(substring(substring(SN, charindex (',', SN)+1), charindex(',', substring(SN, charindex (',', SN)+1))+1, char_length(substring(SN, charindex (',', SN)+1))), charindex('=', substring(substring(SN, charindex (',', SN)+1), charindex(',', substring(SN, charindex (',', SN)+1))+1, char_length(substring(SN, charindex (',', SN)+1))))+1) as site";
+              $SN = "substring(substring(substring(SN, charindex (',', SN)+1), charindex(',', substring(SN, charindex (',', SN)+1))+1, char_length(substring(SN, charindex (',', SN)+1))), charindex('=', substring(substring(SN, charindex (',', SN)+1), charindex(',', substring(SN, charindex (',', SN)+1))+1, char_length(substring(SN, charindex (',', SN)+1))))+1) as site";
               break;
                     default:
-                        $sn = "substring(substring(SN,charindex (',', substring(SN, 32, 25)) + 32),11,25) as site";
+                        $SN = "substring(substring(SN,charindex (',', substring(SN, 32, 25)) + 32),11,25) as site";
                         break;
                 }
                 break;
             default:
                 switch ($oss) {
                     case 'wuxiENM':
-                        $sn = "SN  as site";
+                        $SN = "SN  as site";
                         break;
                     case "zhenjiang1":
-                        $sn = "substring(substring(substring(SN, charindex (',', SN)+1), charindex(',', substring(SN, charindex (',', SN)+1))+1, char_length(substring(SN, charindex (',', SN)+1))), charindex('=', substring(substring(SN, charindex (',', SN)+1), charindex(',', substring(SN, charindex (',', SN)+1))+1, char_length(substring(SN, charindex (',', SN)+1))))+1) as site";
+                        $SN = "substring(substring(substring(SN, charindex (',', SN)+1), charindex(',', substring(SN, charindex (',', SN)+1))+1, char_length(substring(SN, charindex (',', SN)+1))), charindex('=', substring(substring(SN, charindex (',', SN)+1), charindex(',', substring(SN, charindex (',', SN)+1))+1, char_length(substring(SN, charindex (',', SN)+1))))+1) as site";
                         break;
                     case "zhenjiang":
-                        $sn = "substring(substring(substring(SN, charindex (',', SN)+1), charindex(',', substring(SN, charindex (',', SN)+1))+1, char_length(substring(SN, charindex (',', SN)+1))), charindex('=', substring(substring(SN, charindex (',', SN)+1), charindex(',', substring(SN, charindex (',', SN)+1))+1, char_length(substring(SN, charindex (',', SN)+1))))+1) as site";
+                        $SN = "substring(substring(substring(SN, charindex (',', SN)+1), charindex(',', substring(SN, charindex (',', SN)+1))+1, char_length(substring(SN, charindex (',', SN)+1))), charindex('=', substring(substring(SN, charindex (',', SN)+1), charindex(',', substring(SN, charindex (',', SN)+1))+1, char_length(substring(SN, charindex (',', SN)+1))))+1) as site";
                         break;
                     case "suzhou3":
-                        $sn = "substring(substring(substring(SN, charindex (',', SN)+1), charindex(',', substring(SN, charindex (',', SN)+1))+1, char_length(substring(SN, charindex (',', SN)+1))), charindex('=', substring(substring(SN, charindex (',', SN)+1), charindex(',', substring(SN, charindex (',', SN)+1))+1, char_length(substring(SN, charindex (',', SN)+1))))+1) as site";
+                        $SN = "substring(substring(substring(SN, charindex (',', SN)+1), charindex(',', substring(SN, charindex (',', SN)+1))+1, char_length(substring(SN, charindex (',', SN)+1))), charindex('=', substring(substring(SN, charindex (',', SN)+1), charindex(',', substring(SN, charindex (',', SN)+1))+1, char_length(substring(SN, charindex (',', SN)+1))))+1) as site";
                         break;
                     case "wuxi1":
-                        $sn = "substring(substring(substring(SN, charindex (',', SN)+1), charindex(',', substring(SN, charindex (',', SN)+1))+1, char_length(substring(SN, charindex (',', SN)+1))), charindex('=', substring(substring(SN, charindex (',', SN)+1), charindex(',', substring(SN, charindex (',', SN)+1))+1, char_length(substring(SN, charindex (',', SN)+1))))+1) as site";
+                        $SN = "substring(substring(substring(SN, charindex (',', SN)+1), charindex(',', substring(SN, charindex (',', SN)+1))+1, char_length(substring(SN, charindex (',', SN)+1))), charindex('=', substring(substring(SN, charindex (',', SN)+1), charindex(',', substring(SN, charindex (',', SN)+1))+1, char_length(substring(SN, charindex (',', SN)+1))))+1) as site";
                         break;
                     case "wuxi":
-                        $sn = "substring(substring(substring(SN, charindex (',', SN)+1), charindex(',', substring(SN, charindex (',', SN)+1))+1, char_length(substring(SN, charindex (',', SN)+1))), charindex('=', substring(substring(SN, charindex (',', SN)+1), charindex(',', substring(SN, charindex (',', SN)+1))+1, char_length(substring(SN, charindex (',', SN)+1))))+1) as site";
+                        $SN = "substring(substring(substring(SN, charindex (',', SN)+1), charindex(',', substring(SN, charindex (',', SN)+1))+1, char_length(substring(SN, charindex (',', SN)+1))), charindex('=', substring(substring(SN, charindex (',', SN)+1), charindex(',', substring(SN, charindex (',', SN)+1))+1, char_length(substring(SN, charindex (',', SN)+1))))+1) as site";
                         break;
                 case "wuxi2":
-                    $sn = "substring(substring(substring(SN, charindex (',', SN)+1), charindex(',', substring(SN, charindex (',', SN)+1))+1, char_length(substring(SN, charindex (',', SN)+1))), charindex('=', substring(substring(SN, charindex (',', SN)+1), charindex(',', substring(SN, charindex (',', SN)+1))+1, char_length(substring(SN, charindex (',', SN)+1))))+1) as site";
+                    $SN = "substring(substring(substring(SN, charindex (',', SN)+1), charindex(',', substring(SN, charindex (',', SN)+1))+1, char_length(substring(SN, charindex (',', SN)+1))), charindex('=', substring(substring(SN, charindex (',', SN)+1), charindex(',', substring(SN, charindex (',', SN)+1))+1, char_length(substring(SN, charindex (',', SN)+1))))+1) as site";
                     break;
                     case "changzhou":
-                        $sn = "substring(substring(substring(SN, charindex (',', SN)+1), charindex(',', substring(SN, charindex (',', SN)+1))+1, char_length(substring(SN, charindex (',', SN)+1))), charindex('=', substring(substring(SN, charindex (',', SN)+1), charindex(',', substring(SN, charindex (',', SN)+1))+1, char_length(substring(SN, charindex (',', SN)+1))))+1) as site";
+                        $SN = "substring(substring(substring(SN, charindex (',', SN)+1), charindex(',', substring(SN, charindex (',', SN)+1))+1, char_length(substring(SN, charindex (',', SN)+1))), charindex('=', substring(substring(SN, charindex (',', SN)+1), charindex(',', substring(SN, charindex (',', SN)+1))+1, char_length(substring(SN, charindex (',', SN)+1))))+1) as site";
                         break;
                 case "suzhou":
-                    $sn = "substring(substring(substring(SN, charindex (',', SN)+1), charindex(',', substring(SN, charindex (',', SN)+1))+1, char_length(substring(SN, charindex (',', SN)+1))), charindex('=', substring(substring(SN, charindex (',', SN)+1), charindex(',', substring(SN, charindex (',', SN)+1))+1, char_length(substring(SN, charindex (',', SN)+1))))+1) as site";
+                    $SN = "substring(substring(substring(SN, charindex (',', SN)+1), charindex(',', substring(SN, charindex (',', SN)+1))+1, char_length(substring(SN, charindex (',', SN)+1))), charindex('=', substring(substring(SN, charindex (',', SN)+1), charindex(',', substring(SN, charindex (',', SN)+1))+1, char_length(substring(SN, charindex (',', SN)+1))))+1) as site";
                     break;
                 case "nantong":
-                    $sn = "substring(substring(substring(SN, charindex (',', SN)+1), charindex(',', substring(SN, charindex (',', SN)+1))+1, char_length(substring(SN, charindex (',', SN)+1))), charindex('=', substring(substring(SN, charindex (',', SN)+1), charindex(',', substring(SN, charindex (',', SN)+1))+1, char_length(substring(SN, charindex (',', SN)+1))))+1) as site";
+                    $SN = "substring(substring(substring(SN, charindex (',', SN)+1), charindex(',', substring(SN, charindex (',', SN)+1))+1, char_length(substring(SN, charindex (',', SN)+1))), charindex('=', substring(substring(SN, charindex (',', SN)+1), charindex(',', substring(SN, charindex (',', SN)+1))+1, char_length(substring(SN, charindex (',', SN)+1))))+1) as site";
                     break;
                     default:
-                        $sn = "substring(substring(SN,charindex (',', substring(SN, 32, 25)) + 32),11,25) as site";
+                        $SN = "substring(substring(SN,charindex (',', substring(SN, 32, 25)) + 32),11,25) as site";
                         break;
                 }
                 break;
         }
-        return $sn;
+        return $SN;
     }
         /**
      * 获得AVG聚合类型的计数器集合
@@ -866,7 +877,7 @@ trait KpiQueryHandler
                                 $newFormula[$i]['location']=$arr['location'];
                                 $newFormula[$i]['cellNum'] = $arr['cellNum'];
                                 break;
-                            case 'hourgroup':
+                            case 'hourGroup':
                                 $newFormula[$i]['day']=$arr['DAY'];
                                 $newFormula[$i]['HOUR']=$arr['HOUR'];
                                 $newFormula[$i]['location']=$arr['location'];

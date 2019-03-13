@@ -95,15 +95,16 @@ class DataBaseConnection
             }
             foreach ($citys as $key => $value) {
                     $subnet = Eniq::select("conn",$str)->where("city",$value)->get()->toArray();
+                    // print_r($subnet);exit;
                     foreach ($subnet as  $v) {
                          if($v[$str]){
-                            $subNetWork[$v['conn']]=explode(",", $v[$str]);
+                            $subNetWork[$v['conn']]=array_unique(explode(",", $v[$str]));
                          }
                     }
                 }
             break;
         }
-        return ($subNetWork);
+        return $subNetWork;
 
     }
     /**

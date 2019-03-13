@@ -8,5 +8,5 @@ class Eniq extends Model
 {
     public 	  $timestamps = false;
     protected $connection = "Qat";
-    protected $table      = "Eniq";
+    protected $table      = "eniqs";
 }
