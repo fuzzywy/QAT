@@ -1,12 +1,12 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Eniq extends Model
+class city extends Model
 {
     public 	  $timestamps = false;
     protected $connection = "Qat";
-    protected $table      = "eniqs";
+    protected $table      = "cities";
 }

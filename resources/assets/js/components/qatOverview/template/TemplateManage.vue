@@ -56,6 +56,7 @@
             </span>
           </span>
         </el-tree> -->
+        
                 <el-tree
                     v-loading="templateLoading"
                     accordion
@@ -150,6 +151,9 @@
             case 2:
                 this.templateLoading = false;
                 this.treeData = this.$store.getters.qatTemplateData;
+                break;
+            case 3:
+                this.templateLoading = false;
                 break;
             default:
                 this.templateLoading = false;

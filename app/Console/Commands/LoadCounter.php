@@ -44,7 +44,7 @@ class LoadCounter extends Command
         $this->Load4GCounter("TDD");
         $this->Load4GCounter("FDD");
         $this->Load4GCounter("NBIOT");
-        $this->Load2GCounter("2G");
+        $this->Load2GCounter("GSM");
         $this->LoadNbmCounter("nbm");
     }
 
@@ -108,11 +108,9 @@ class LoadCounter extends Command
             $pmDB     = new PDO($pmDbDSN, $userName, $password);
             $tables = CounterTables::where("tableType",$type)->get()->toArray();
 
-
             foreach ($tables as $key => $value) {
                 $sql = "select a.name as Field from dbo.syscolumns a, dbo.sysobjects b where a.id=b.id and b.name='".$value['tableName']."'";
                 $res = $pmDB->query($sql)->fetchALL(PDO::FETCH_ASSOC);
-
                 foreach ($res as $row) {
                     $result[strtolower($row['Field'])]=$value['tableName'];
                 }

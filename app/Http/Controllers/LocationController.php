@@ -8,12 +8,18 @@ use Illuminate\Support\Facades\Input;
 class LocationController extends Controller 
 {
 	public function getLocation() {
-		sleep(1);
 		$dataSource = Input::get('dataSource');
 		$dataType = Input::get('dataType');
-		$arr = array(
-				array('value'=>$dataSource, 'label'=>$dataSource),
-				array('value'=>$dataType, 'label'=>$dataType),
+		if($dataType=="GSM"){
+			$arr = array(
+				array('value'=>'city', 'label'=>'城市'),
+				array('value'=>'cell', 'label'=>'小区'),
+				array('value'=>'cellGroup', 'label'=>'小区组'),
+				array('value'=>'BSC', 'label'=>'BSC'),
+				array('value'=>'BSCGroup', 'label'=>'BSC组')
+					);
+		}else{
+				$arr = array(
 				array('value'=>'city', 'label'=>'城市'),
 				array('value'=>'subnet', 'label'=>'子网'),
 				array('value'=>'subnetGroup', 'label'=>'子网组'),
@@ -22,6 +28,8 @@ class LocationController extends Controller
 				array('value'=>'cell', 'label'=>'小区'),
 				array('value'=>'cellGroup', 'label'=>'小区组'),
 					);
+		}
+	
 		return $arr;
 	}
 }

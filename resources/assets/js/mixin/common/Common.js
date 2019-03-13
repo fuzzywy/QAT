@@ -24,7 +24,10 @@ export const Common = {
             if ( seleAll == 1 ) {
               newdata = [];
               for (var j = 0; j < glen; j++) {
-                newdata.push(allselect[j]['value']);
+                if (allselect[j]['value'] != "allSelect") {
+                  newdata.push(allselect[j]['value']);
+                }
+                
               }
             }
 

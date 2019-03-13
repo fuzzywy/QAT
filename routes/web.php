@@ -24,7 +24,7 @@ Route::get('getQatSubnet', 'SubnetController@getSubnet');
 Route::get('getQatCity', 'CityController@getCity');
 Route::get('getQatTime', 'TimeController@getTime');
 Route::get('getQatLocation', 'LocationController@getLocation');
-Route::get('getQatData', 'DataController@getQatData');
+Route::post('getQatData', 'DataController@getQatData');
 
 // [TemplateManage routes]
 Route::prefix('template')->namespace('TemplateManage')->group(function () {
