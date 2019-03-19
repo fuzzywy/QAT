@@ -15,7 +15,7 @@
                 <el-menu-item index="NBIOT">NBIOT</el-menu-item>
                 <el-menu-item index="ALARM" disabled>ALARM</el-menu-item>
             </el-submenu>
-            <el-submenu index="NBM" disabled>
+            <el-submenu index="NBM">
                 <template slot="title">{{nbmkpi}}</template>
                 <el-menu-item index="TDD">TDD</el-menu-item>
                 <el-menu-item index="FDD">FDD</el-menu-item>

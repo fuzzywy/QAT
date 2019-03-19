@@ -53,6 +53,21 @@ return [
             'strict' => true,
             'engine' => null,
         ],
+        
+        'nbm' => [
+            'driver' => 'mysql',
+            'host' => "10.39.148.187",
+            // 'port' => env('DB_PORT',"3306"),
+            'port'=>'3306',
+            'database' => 'nbm',
+            'username' => 'root',
+            'password' => 'mongs',
+            'charset' => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'prefix' => '',
+            'strict' => false,
+            'engine' => null,
+        ],
 
         'pgsql' => [
             'driver' => 'pgsql',
