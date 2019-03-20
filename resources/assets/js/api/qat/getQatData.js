@@ -1,5 +1,5 @@
 export default {
-    getQatData: function( cancelToken, dataSource, dataType, template, timeDim, locationDim, cities, subnets, baseStation, cell, date, hour, minute, crontab, notice ) {
+    getQatData: function( cancelToken, dataSource, dataType, template, timeDim, locationDim, cities, subnets, baseStation, cell, date, hour, minute, crontab, notice, alarmTime ) {
         return axios.post( "getQatData", {
             dataSource: dataSource,
             dataType: dataType,
@@ -14,7 +14,8 @@ export default {
             hour: hour,
             minute: minute,
             crontab: crontab,
-            notice: notice
+            notice: notice,
+            alarmTime: alarmTime
         }, {
             cancelToken: cancelToken.token
         })
