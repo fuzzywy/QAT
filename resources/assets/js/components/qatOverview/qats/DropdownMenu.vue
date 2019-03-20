@@ -13,13 +13,25 @@
                 <el-menu-item index="FDD">FDD</el-menu-item>
                 <el-menu-item index="GSM">GSM</el-menu-item>
                 <el-menu-item index="NBIOT">NBIOT</el-menu-item>
-                <el-menu-item index="ALARM" disabled>ALARM</el-menu-item>
             </el-submenu>
             <el-submenu index="NBM">
                 <template slot="title">{{nbmkpi}}</template>
                 <el-menu-item index="TDD">TDD</el-menu-item>
                 <el-menu-item index="FDD">FDD</el-menu-item>
                 <el-menu-item index="NBIOT">NBIOT</el-menu-item>
+            </el-submenu>
+            <el-submenu index="ALARM">
+                <template slot="title">{{alarmkpi}}</template>
+                <el-submenu index="GSM">
+                    <template slot="title">{{gsmkpi}}</template>
+                    <el-menu-item index="Current">当前告警</el-menu-item>
+                    <el-menu-item index="History">历史告警</el-menu-item>
+                </el-submenu>
+                <el-submenu index="LTE">
+                    <template slot="title">{{ltekpi}}</template>
+                    <el-menu-item index="Current">当前告警</el-menu-item>
+                    <el-menu-item index="History">历史告警</el-menu-item>
+                </el-submenu>
             </el-submenu>
             <el-submenu index="KGET" disabled>
                 <template slot="title">{{kgetkpi}}</template>
@@ -53,7 +65,10 @@
                 mrkpi: "MR",
                 ctrkpi: "CTR",
                 ctumkpi: "CTUM",
-                ebmkpi: "EBM"
+                ebmkpi: "EBM",
+                alarmkpi: "ALARM",
+                gsmkpi: "GSM",
+                ltekpi: "LTE"
             }
         },
         methods: {
@@ -88,6 +103,9 @@
                         break;
                     case 'EBM':
                         this.ebmkpi = ft;
+                        break;
+                    case 'ALARM':
+                        this.alarmkpi = ft
                         break;
                     default:
                         this.eniqkpi = ft;
