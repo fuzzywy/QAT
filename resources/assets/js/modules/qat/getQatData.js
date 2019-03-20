@@ -3,7 +3,11 @@ export const qatData = {
     state: {
         qatData: {},
         qatDataStatus: 0,
-        cancelToken: {}
+        cancelToken: {},
+
+        qatDataSource: "ENIQ",
+
+        qatDataStyle: "TDD",
     },
     actions: {
         loadQatDataStatus( {commit}, data ) {
@@ -26,6 +30,12 @@ export const qatData = {
         },
         cancel() {
             this.cancelToken.cancel('取消查询');
+        },
+        getQatDataSource( {commit}, data) {
+            commit("qatDataSource", data.dataSource);
+        },
+        getQatDataStyle( {commit}, data) {
+            commit("qatDataStyle", data.dataType);
         }
     },
     mutations: {
@@ -34,6 +44,12 @@ export const qatData = {
         },
         qatData( state, qatData ){
             state.qatData = qatData;
+        },
+        qatDataSource(state, qatDataSource) {
+            state.qatDataSource = qatDataSource;
+        },
+        qatDataStyle(state, qatDataStyle) {
+            state.qatDataStyle = qatDataStyle
         }
     },
     getters: {
