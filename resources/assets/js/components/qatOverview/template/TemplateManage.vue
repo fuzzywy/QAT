@@ -134,7 +134,7 @@
       addFlag() {
         if(this.addFlag == 1) {
           this.addFlag = 0;
-          this.processLoadTemplateData(this.datasource, this.datatype);
+          this.processLoadTemplateData(this.$store.state.qatData.qatDataSource, this.$store.state.qatData.qatDataStyle);
         }
       }
     },
@@ -196,7 +196,7 @@
       }
     },
     mounted() {
-        this.processLoadTemplateData(this.datasource, this.datatype);
+        this.processLoadTemplateData(this.$store.state.qatData.qatDataSource, this.$store.state.qatData.qatDataStyle);
     },
     methods: {
       renderContent(h, { node, data, store }) {
@@ -300,7 +300,7 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          this.processremoveTemplateName(this.$store.getters.qatLoginUser, data.label, data.id);
+          this.processremoveTemplateName(this.$store.getters.qatLoginUser, data.label, data.id, this.$store.state.qatData.qatDataSource);
           children.splice(index, 1);
           // if ( this.treeData.length <= 2 ) {
           //   this.treeData[0]['showAppend'] = true
@@ -326,7 +326,7 @@
             grandparent: data.parent.parent.data.label,
             flag: 1
           });
-          this.processloadElementData( node.label, data.parent.data.label, data.parent.parent.data.label, this.$store.getters.qatLoginUser );
+          this.processloadElementData( node.label, data.parent.data.label, data.parent.parent.data.label, this.$store.getters.qatLoginUser, this.$store.state.qatData.qatDataSource );
         } else {
           this.$message({
             type: 'warning',
@@ -338,7 +338,7 @@
       newTemplate() {
         this.dialogFormVisible = false;
         this.addFlag = 1;
-        this.processAddTempalte(this.form.name, this.form.mode);
+        this.processAddTempalte(this.form.name, this.form.mode, this.$store.state.qatData.qatDataSource);
       }
     }
   };

@@ -53,11 +53,12 @@ export default {
             }
         });
     },
-    insertQatTemplateName: function(auth, templateName, parent) {
+    insertQatTemplateName: function(auth, templateName, parent, dataSource) {
         return axios.post( 'template/insertQatTemplateName', {
             auth: auth,
             templateName: templateName,
-            parent: parent
+            parent: parent,
+            dataSource: dataSource
         })
         .catch(function(error){
             if (error.response) {
@@ -73,11 +74,12 @@ export default {
             }
         });
     },
-    removeQatTemplateName: function(auth, templateName, id) {
+    removeQatTemplateName: function(auth, templateName, id, dataSource) {
         return axios.post( 'template/removeQatTemplateName', {
             auth: auth,
             templateName: templateName,
-            id: id
+            id: id,
+            dataSource: dataSource
         })
         .catch(function(error){
             if (error.response) {
@@ -93,12 +95,14 @@ export default {
             }
         });
     },
-    loadQatElementData: function(templateName, parent, grandparent, auth) {
+    loadQatElementData: function(templateName, parent, grandparent, auth, dataSource) {
+        console.log(dataSource);
         return axios.post( 'template/loadQatElementData', {
             templateName: templateName,
             parent: parent,
             grandparent: grandparent,
-            auth: auth
+            auth: auth,
+            dataSource: dataSource
         })
         .catch(function(error){
             if (error.response) {
@@ -114,13 +118,14 @@ export default {
             }
         });
     },
-    orderQatElementData: function(element, templateName, parent, grandparent, auth) {
+    orderQatElementData: function(element, templateName, parent, grandparent, auth, dataSource) {
         return axios.post( 'template/orderQatElementData', {
             element: element,
             templateName: templateName,
             parent: parent,
             grandparent: grandparent,
-            auth: auth 
+            auth: auth,
+            dataSource: dataSource
         })
         .catch(function(error){
             if (error.response) {
@@ -136,8 +141,9 @@ export default {
             }
         });
     },
-    loadQatFormulaData: function(/*id, label, templateName, parent, grandparent,*/ /*auth*/) {
+    loadQatFormulaData: function(/*id, label, templateName, parent, grandparent,*/ /*auth*/ dataSource) {
         return axios.post( 'template/loadQatFormulaData', {
+            dataSource: dataSource
         })
         .catch(function(error){
             if (error.response) {
@@ -153,11 +159,12 @@ export default {
             }
         });
     },
-    selectKpiFormula: function(clickElement, elements) {
+    selectKpiFormula: function(clickElement, elements, dataSource) {
         return axios.post( 'template/selectKpiFormula', {
             // params: {
                 clickElement: clickElement,
-                elements: elements
+                elements: elements,
+                dataSource: dataSource
             // }
         })
         .catch(function(error){
@@ -174,12 +181,13 @@ export default {
             }
         });
     },
-    addQatFormula: function(kpiName, kpiFormula, kpiPrecision, format) {
+    addQatFormula: function(kpiName, kpiFormula, kpiPrecision, format, dataSource) {
         return axios.post( 'template/addQatFormula', {
             kpiName: kpiName,
             kpiFormula: kpiFormula,
             kpiPrecision: kpiPrecision,
-            format: format
+            format: format,
+            dataSource: dataSource
         })
         .catch(function(error){
             if (error.response) {
@@ -195,9 +203,10 @@ export default {
             }
         });
     },
-    deleteQatFormula: function(id) {
+    deleteQatFormula: function(id, dataSource) {
         return axios.post( 'template/deleteQatFormula', {
-            id: id
+            id: id,
+            dataSource: dataSource
         })
         .catch(function(error){
             if (error.response) {
@@ -213,12 +222,13 @@ export default {
             }
         });
     },
-    modifyQatFormula: function(id, kpiName, kpiFormula, kpiPrecision) {
+    modifyQatFormula: function(id, kpiName, kpiFormula, kpiPrecision, dataSource) {
         return axios.post( 'template/modifyQatFormula', {
             id: id,
             kpiName: kpiName,
             kpiFormula: kpiFormula,
-            kpiPrecision: kpiPrecision
+            kpiPrecision: kpiPrecision,
+            dataSource: dataSource
         })
         .catch(function(error){
             if (error.response) {
@@ -234,12 +244,13 @@ export default {
             }
         });
     },
-    insertQatElement: function(templateName, parent, grandparent, ids) {
+    insertQatElement: function(templateName, parent, grandparent, ids, dataSource) {
         return axios.post( 'template/insertQatElement', {
             templateName: templateName,
             parent: parent,
             grandparent: grandparent,
-            ids: ids
+            ids: ids,
+            dataSource: dataSource
         })
         .catch(function(error){
             if (error.response) {
@@ -255,12 +266,13 @@ export default {
             }
         });
     },
-    deleteQatElement: function(id, templateName, parent, grandparent) {
+    deleteQatElement: function(id, templateName, parent, grandparent, dataSource) {
         return axios.post( 'template/deleteQatElement', {
             id: id,
             templateName: templateName,
             parent: parent,
-            grandparent: grandparent
+            grandparent: grandparent,
+            dataSource: dataSource
         })
         .catch(function(error){
             if (error.response) {
@@ -276,10 +288,11 @@ export default {
             }
         });
     },
-    addQatTemplate: function(templateName, format) {
+    addQatTemplate: function(templateName, format, dataSource) {
         return axios.post( 'template/addQatTemplate', {
             templateName: templateName,
-            format: format
+            format: format,
+            dataSource: dataSource
         })
         .catch(function(error){
             if (error.response) {

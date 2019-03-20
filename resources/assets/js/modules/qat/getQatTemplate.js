@@ -100,7 +100,7 @@ export const qatTemplate = {
         },
         insertTemplateName( {commit}, data ) {
             commit( 'insertTemplateNameStatus', 1 );
-            QatTemplateAPI.insertQatTemplateName( data.auth, data.templateName, data.parent )
+            QatTemplateAPI.insertQatTemplateName( data.auth, data.templateName, data.parent, data.dataSource )
             .then( function( response ){
                 if ( response.data != undefined ) {
                     commit( 'insertTemplateName', response.data );
@@ -117,7 +117,7 @@ export const qatTemplate = {
         },
         removeTemplateName( {commit}, data ) {
             commit( 'removeTemplateNameStatus', 1 );
-            QatTemplateAPI.removeQatTemplateName( data.auth, data.templateName, data.id )
+            QatTemplateAPI.removeQatTemplateName( data.auth, data.templateName, data.id, data.dataSource )
             .then( function( response ){
                 if ( response.data != undefined ) {
                     commit( 'removeTemplateName', response.data );
@@ -134,7 +134,7 @@ export const qatTemplate = {
         },
         loadQatElementData( {commit}, data ) {
             commit( 'loadQatElementDataStatus', 1 );
-            QatTemplateAPI.loadQatElementData( data.templateName, data.parent, data.grandparent, data.auth )
+            QatTemplateAPI.loadQatElementData( data.templateName, data.parent, data.grandparent, data.auth, data.dataSource)
             .then( function( response ){
                 if ( response.data != undefined ) {
                     commit( 'loadQatElementData', response.data );
@@ -151,7 +151,7 @@ export const qatTemplate = {
         },
         orderQatElementData( {commit}, data ) {
             commit( 'orderQatElementDataStatus', 1 );
-            QatTemplateAPI.orderQatElementData( data.element, data.templateName, data.parent, data.grandparent, data.auth )
+            QatTemplateAPI.orderQatElementData( data.element, data.templateName, data.parent, data.grandparent, data.auth, data.dataSource )
             .then( function( response ){
                 if ( response.data != undefined ) {
                     commit( 'orderQatElementData', response.data );
@@ -168,7 +168,7 @@ export const qatTemplate = {
         },
         loadQatFormulaData(  {commit}, data ) {
             commit( 'loadQatFormulaDataStatus', 1 );
-            QatTemplateAPI.loadQatFormulaData( /*data.id, data.label, data.templateName, data.parent, data.grandparent, *//*data.auth*/ )
+            QatTemplateAPI.loadQatFormulaData( /*data.id, data.label, data.templateName, data.parent, data.grandparent, *//*data.auth*/ data.dataSource)
             .then( function( response ){
                 if ( response.data != undefined ) {
                     commit( 'loadQatFormulaData', response.data );
@@ -185,7 +185,7 @@ export const qatTemplate = {
         },
         selectKpiFormula( {commit}, data ) {
             commit( 'selectKpiFormulaStatus', 1 );
-            QatTemplateAPI.selectKpiFormula( data.clickElement, data.elements )
+            QatTemplateAPI.selectKpiFormula( data.clickElement, data.elements, data.dataSource )
             .then( function( response ){
                 if ( response.data != undefined ) {
                     commit( 'selectKpiFormula', response.data );
@@ -202,7 +202,7 @@ export const qatTemplate = {
         },
         addQatFormula( {commit}, data ) {
             commit( 'addQatFormulaStatus', 1 );
-            QatTemplateAPI.addQatFormula( data.kpiName, data.kpiFormula, data.kpiPrecision, data.format )
+            QatTemplateAPI.addQatFormula( data.kpiName, data.kpiFormula, data.kpiPrecision, data.format, data.dataSource )
             .then( function( response ){
                 if ( response.data != undefined ) {
                     commit( 'addQatFormula', response.data );
@@ -219,7 +219,7 @@ export const qatTemplate = {
         },
         deleteQatFormula( {commit}, data ) {
             commit( 'deleteQatFormulaStatus', 1 );
-            QatTemplateAPI.deleteQatFormula( data.id )
+            QatTemplateAPI.deleteQatFormula( data.id, data.dataSource )
             .then( function( response ){
                 if ( response.data != undefined ) {
                     // commit( 'addQatFormula', response.data );
@@ -236,7 +236,7 @@ export const qatTemplate = {
         },
         modifyQatFormula( {commit}, data ) {
             commit( 'modifyQatFormulaStatus', 1 );
-            QatTemplateAPI.modifyQatFormula( data.id, data.kpiName, data.kpiFormula, data.kpiPrecision )
+            QatTemplateAPI.modifyQatFormula( data.id, data.kpiName, data.kpiFormula, data.kpiPrecision, data.dataSource )
             .then( function( response ){
                 if ( response.data != undefined ) {
                     commit( 'modifyQatFormula', response.data );
@@ -253,7 +253,7 @@ export const qatTemplate = {
         },
         insertQatElement( {commit}, data ) {
             commit( 'insertQatElementStatus', 1 );
-            QatTemplateAPI.insertQatElement( data.templateName, data.parent, data.grandparent, data.ids )
+            QatTemplateAPI.insertQatElement( data.templateName, data.parent, data.grandparent, data.ids, data.dataSource )
             .then( function( response ){
                 if ( response.data != undefined ) {
                     commit( 'insertQatElement', response.data );
@@ -270,7 +270,7 @@ export const qatTemplate = {
         },
         deleteQatElement( {commit}, data ) {
             commit( 'deleteQatElementStatus', 1 );
-            QatTemplateAPI.deleteQatElement( data.id, data.templateName, data.parent, data.grandparent )
+            QatTemplateAPI.deleteQatElement( data.id, data.templateName, data.parent, data.grandparent, data.dataSource )
             .then( function( response ){
                 if ( response.data != undefined ) {
                     commit( 'deleteQatElement', response.data );
@@ -287,7 +287,7 @@ export const qatTemplate = {
         },
         addQatTemplate( {commit}, data ) {
             commit( 'addQatTemplateStatus', 1 );
-            QatTemplateAPI.addQatTemplate( data.templateName, data.format )
+            QatTemplateAPI.addQatTemplate( data.templateName, data.format, data.dataSource )
             .then( function( response ){
                 if ( response.data != undefined ) {
                     commit( 'addQatTemplate', response.data );

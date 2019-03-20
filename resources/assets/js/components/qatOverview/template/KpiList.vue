@@ -102,13 +102,13 @@
           },
           handleNodeClick(data) {
             //点击数据/全部element数据
-            this.processSelectKpiFormula(data, this.elementData);
+            this.processSelectKpiFormula(data, this.elementData, this.$store.state.qatData.qatDataSource);
           },
           remove(node, data) {
             const parent = node.parent;
             const children = parent.data.children || parent.data;
             const index = children.findIndex(d => d.id === data.id);
-            this.processDeleteElement(children[index]['id'], this.templateName, this.parent, this.grandparent);
+            this.processDeleteElement(children[index]['id'], this.templateName, this.parent, this.grandparent, this.$store.state.qatData.qatDataSource);
             children.splice(index, 1);
           },
           handleDragEnd(draggingNode, dropNode, dropType, ev) {
@@ -118,13 +118,13 @@
                     if(this.elementData[i].hasOwnProperty('children')) {
                         this.elementData.splice(i+1, 0, {"showRemove": true, "label": this.elementData[i].children[0].label, "id":this.elementData[i].children[0].id});
                         this.elementData[i] = {"showRemove": true, "label": this.elementData[i].label, "id":this.elementData[i].id};
-                        this.processLoadElementOrder(this.elementData, this.templateName, this.parent, this.grandparent, this.$store.getters.qatLoginUser);
+                        this.processLoadElementOrder(this.elementData, this.templateName, this.parent, this.grandparent, this.$store.getters.qatLoginUser, this.$store.state.qatData.qatDataSource );
                         return;
                     }
                 } 
                 return;
             }
-            this.processLoadElementOrder(this.elementData, this.templateName, this.parent, this.grandparent, this.$store.getters.qatLoginUser);
+            this.processLoadElementOrder(this.elementData, this.templateName, this.parent, this.grandparent, this.$store.getters.qatLoginUser, this.$store.state.qatData.qatDataSource );
           }
         },
         computed: {
@@ -149,7 +149,7 @@
                         case 2:
                             this.elementData = this.$store.getters.insertQatElement;
                             this.clickFormulaRowsFlag = 0;
-                            this.processloadElementData( this.templateName, this.parent, this.grandparent, this.$store.getters.qatLoginUser );
+                            this.processloadElementData( this.templateName, this.parent, this.grandparent, this.$store.getters.qatLoginUser, this.$store.state.qatData.qatDataSource );
                             break;
                         case 3:
                             break;
@@ -203,7 +203,7 @@
                 this.elementData = s.concat(t);
                 this.processInsertElement(this.templateName, this.parent, this.grandparent, this.elementData.map(item=>{
                     return item.id;
-                }));
+                }), this.$store.state.qatData.qatDataSource);
                 this.clickFormulaRowsFlag = 1;
             }
         },

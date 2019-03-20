@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Template;
 use App\Models\Kpiformula;
+use App\Models\TemplateNbi;
+use App\Models\KpiformulaNbi;
 
 /** 
 * 模板管理控制器 
@@ -21,7 +23,26 @@ use App\Models\Kpiformula;
 * @version 0.0  
 */ 
 class TemplateController extends Controller 
-{
+{   
+    public $dataSource;
+
+    public $kpiTable;
+
+    public $table;
+
+    public function __construct() {
+        $this->dataSource = Input::get("dataSource");
+        switch($this->dataSource) {
+            case "ENIQ":
+                $this->table = new Template;
+                $this->kpiTable = new Kpiformula;
+                break;
+            case "NBM":
+                $this->table = new TemplateNbi;
+                $this->kpiTable = new KpiformulaNbi;
+                break;
+        }
+    }
     /**  
     * 获取模板列表 
     * 
@@ -29,14 +50,14 @@ class TemplateController extends Controller
     * @return array 模板列表
     */
     public function getTemplate() {
-        $dataSource = Input::get('dataSource');
+        // $dataSource = Input::get('dataSource');
         $dataType = Input::get('dataType');
         if(Auth::user()->name=="admin"||Auth::user()->name=="system"){
-            $template = Template::select('id','templateName')
+            $template = $this->table->select('id','templateName')
                                 ->where("format",strtolower($dataType))
                                 ->get()->toArray();
         }else{
-            $template = Template::select('id','templateName')
+            $template = $this->table->select('id','templateName')
                                 ->where("format",strtolower($dataType))
                                 ->where(function($query){
                                     $query->where('user',Auth::user()->name)
@@ -107,9 +128,8 @@ class TemplateController extends Controller
     */
     public function getQatTemplateData() {
         $arrs = [];
-        $dataSource = Input::get('dataSource');
         $dataType = Input::get('dataType');
-        $data = template::where('user', Auth::user()->name)
+        $data = $this->table->where('user', Auth::user()->name)
                         ->orwhere('user', 'admin')
                         ->orwhere('user', 'system')
                         ->get()
@@ -155,11 +175,11 @@ class TemplateController extends Controller
         $auth = Input::get('auth');
         $templateName = Input::get('templateName');
         $parent = Input::get('parent');
-        $template = new template();
-        $template->templateName = $templateName;
-        $template->user = $auth;
-        $template->format = $parent;
-        $template->save();
+        // $template = new template();
+        $this->table->templateName = $templateName;
+        $this->table->user = $auth;
+        $this->table->format = $parent;
+        $this->table->save();
         return $this->getQatTemplateData();
     }
     /**  
@@ -172,7 +192,7 @@ class TemplateController extends Controller
         $auth = Input::get('auth');
         $templateName = Input::get('templateName');
         $id = Input::get('id');
-        template::where('id', $id)->delete();
+        $this->table->where('id', $id)->delete();
         return $this->getQatTemplateData();
     }
     /**  
@@ -197,7 +217,7 @@ class TemplateController extends Controller
         }else {
             $showRemove = false;
         }*/
-        $elementId = template::select('elementId')
+        $elementId = $this->table->select('elementId')
                 ->where('templateName', $templateName)
                 ->where('format', $parent)
                 ->where('user', $grandparent)
@@ -206,7 +226,7 @@ class TemplateController extends Controller
                 ->elementId;
         $arrId = explode(',', $elementId);
         $elementId = ',' . $elementId . ',';
-        $arrs = Kpiformula::selectRaw("kpiName, instr('$elementId', CONCAT(',',id,',')) as sort, id, format, user")
+        $arrs = $this->kpiTable::selectRaw("kpiName, instr('$elementId', CONCAT(',',id,',')) as sort, id, format, user")
                         ->whereIn('id', $arrId)
                         ->orderBy('sort')
                         ->get()
@@ -254,7 +274,7 @@ class TemplateController extends Controller
             array_push($elements, $value['label']);
             array_push($ids, $value['id']);
         }
-        template::where('format', $parent)
+        $this->table->where('format', $parent)
                 ->where('user', $grandparent)
                 ->where('templateName', $templateName)
                 ->update(['elementId' => implode(',', $ids)]);
@@ -267,16 +287,16 @@ class TemplateController extends Controller
     * @return array 公式列表
     */
     public function loadQatFormulaData(){
-        $id = Input::get('id');
+        // $id = Input::get('id');
         // $label = Input::get('label');
         // $templateName = Input::get('templateName');
-        $parent = Input::get('parent');
-        $grandparent = Input::get('grandparent');
-        $auth = Input::get('auth');
+        // $parent = Input::get('parent');
+        // $grandparent = Input::get('grandparent');
+        // $auth = Input::get('auth');
         $arrs = [];
-        $dataSource = Input::get('grandparent');
-        $dataType = Input::get('parent');
-        $data = kpiformula::where('user', Auth::user()->name)
+        // $dataSource = Input::get('grandparent');
+        // $dataType = Input::get('parent');
+        $data = $this->kpiTable->where('user', Auth::user()->name)
                         ->orwhere('user', 'admin')
                         ->orwhere('user', 'system')
                         ->get()->toArray();
@@ -342,7 +362,7 @@ class TemplateController extends Controller
         // $elements = Input::get('elements');
         $clickElement = Input::get('clickElement');
         $elements = Input::get('elements');
-        $data = Kpiformula::where('id', $clickElement['id'])
+        $data = $this->kpiTable->where('id', $clickElement['id'])
                 ->get()
                 ->toArray();
         $return['click'] = $data;
@@ -353,7 +373,7 @@ class TemplateController extends Controller
             // array_push($ids, json_decode($element)->id);
             array_push($ids, $element['id']);
         }
-        $data = Kpiformula::whereIn('id', $ids)
+        $data = $this->kpiTable->whereIn('id', $ids)
                 ->where('user', $user)
                 ->where('format', $format)
                 ->get()
@@ -373,18 +393,18 @@ class TemplateController extends Controller
         $kpiPrecision = Input::get('kpiPrecision');
         $format = Input::get('format');
         $user = Auth::user()->name;
-        $s = Kpiformula::where('kpiName', $kpiName)
+        $s = $this->kpiTable->where('kpiName', $kpiName)
                     ->where('user', $user)
                     ->where('format', strtolower($format))
                     ->get()->toArray();
         if ( count($s) == 0 ) {
-            $formula = new Kpiformula();
-            $formula->kpiName = $kpiName;
-            $formula->kpiFormula = $kpiFormula;
-            $formula->kpiPrecision = $kpiPrecision;
-            $formula->format = strtolower($format);
-            $formula->user = $user;
-            $formula->save();
+            // $formula = new Kpiformula();
+            $this->kpiTable->kpiName = $kpiName;
+            $this->kpiTable->kpiFormula = $kpiFormula;
+            $this->kpiTable->kpiPrecision = $kpiPrecision;
+            $this->kpiTable->format = strtolower($format);
+            $this->kpiTable->user = $user;
+            $this->kpiTable->save();
         }
         return [$kpiName];
     }
@@ -396,7 +416,7 @@ class TemplateController extends Controller
     */
     public function deleteQatFormula() {
         $id = Input::get('id');
-        Kpiformula::where('id', $id)
+        $this->kpiTable->where('id', $id)
                     ->where('user', Auth::user()->name)
                     ->delete();
     }
@@ -411,10 +431,10 @@ class TemplateController extends Controller
         $kpiName = Input::get('kpiName');
         $kpiFormula = Input::get('kpiFormula');
         $kpiPrecision = Input::get('kpiPrecision');
-        $s = Kpiformula::where('id', $id)
+        $s = $this->kpiTable->where('id', $id)
                     ->get()->toArray();
         if( count($s) == 1 && $s[0]['user'] == Auth::user()->name ) {
-            Kpiformula::where('id', $id)
+            $this->kpiTable->where('id', $id)
                         ->update(['kpiName' => $kpiName, 'kpiFormula' => $kpiFormula, 'kpiPrecision' => $kpiPrecision]);
             return [$kpiName];
         } else{
@@ -438,7 +458,7 @@ class TemplateController extends Controller
             $grandparent = 'system';
         }
         $ids = Input::get('ids');
-        $s = Template::where('templateName', $templateName)
+        $s = $this->table->where('templateName', $templateName)
                 ->where('format', $parent)
                 // ->where('user', $grandparent)
                 ->get()->toArray();
@@ -449,12 +469,12 @@ class TemplateController extends Controller
             }else {
                 $str = implode(',', $ids);
             }
-            Template::where('templateName', $templateName)
+            $this->table->where('templateName', $templateName)
                 ->where('format', $parent)
                 ->where('user', $grandparent)
                 ->update(['elementId'=>$str]);
         }
-        return $this->getElement($templateName, $parent, $grandparent);
+        return $this->getElement($templateName, $parent, $grandparent, $this->table, $this->kpiTable);
     }
     /**  
     * 获取元素列表
@@ -465,7 +485,7 @@ class TemplateController extends Controller
     * @param mixed $grandparent 字段user/数据源
     * @return array 元素列表
     */
-    private function getElement($templateName, $parent, $grandparent) {
+    private function getElement($templateName, $parent, $grandparent, $table, $kpiTable) {
         if( $grandparent == '通用模板' ) {
             $grandparent = 'admin';
         }
@@ -473,7 +493,7 @@ class TemplateController extends Controller
             $grandparent = 'system';
         }
         $showRemove = true;
-        $elementId = template::select('elementId')
+        $elementId = $table->select('elementId')
                 ->where('templateName', $templateName)
                 ->where('format', $parent)
                 ->where('user', $grandparent)
@@ -482,7 +502,7 @@ class TemplateController extends Controller
                 ->elementId;
         $arrId = explode(',', $elementId);
         $elementId = ',' . $elementId . ',';
-        $arrs = Kpiformula::selectRaw("kpiName, instr('$elementId', CONCAT(',',id,',')) as sort, id, format, user")
+        $arrs = $kpiTable->selectRaw("kpiName, instr('$elementId', CONCAT(',',id,',')) as sort, id, format, user")
                         ->whereIn('id', $arrId)
                         ->orderBy('sort')
                         ->get()
@@ -514,7 +534,7 @@ class TemplateController extends Controller
         if( $grandparent == '系统模板' ) {
             $grandparent = 'system';
         }
-        $elements = template::select('elementId')
+        $elements = $this->table->select('elementId')
              ->where('templateName', $templateName)
              ->where('format', $parent)
              ->where('user', $grandparent)
@@ -527,7 +547,7 @@ class TemplateController extends Controller
             }
         }
         $elements = implode(',', $arrs);
-        template::where('templateName', $templateName)
+        $this->table->where('templateName', $templateName)
                 ->where('format', $parent)
                 ->where('user', $grandparent)
                 ->update(['elementId'=>$elements]);
@@ -543,16 +563,16 @@ class TemplateController extends Controller
         $templateName = Input::get('templateName');
         $format = Input::get('format');
         $user = Auth::user()->name;
-        $s = template::where('templateName', $templateName)
+        $s = $this->table->where('templateName', $templateName)
                     ->where('user', $user)
                     ->where('format', strtolower($format))
                     ->get()->toArray();
         if ( count($s) == 0 ) {
-            $template = new template();
-            $template->templateName = $templateName;
-            $template->format = strtolower($format);
-            $template->user = $user;
-            $template->save();
+            // $template = new template();
+            $this->table->templateName = $templateName;
+            $this->table->format = strtolower($format);
+            $this->table->user = $user;
+            $this->table->save();
         }
         return [$templateName];
     }

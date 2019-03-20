@@ -345,7 +345,7 @@
                                     type: 'error'
                                 });
                             }else {
-                                this.processloadElementData( this.templateName, this.parent, this.grandparent, this.$store.getters.qatLoginUser );
+                                this.processloadElementData( this.templateName, this.parent, this.grandparent, this.$store.getters.qatLoginUser, this.$store.state.qatData.qatDataSource );
                             }
                             break;
                         case 3:
@@ -395,7 +395,7 @@
         },
         watch: {
             search() {
-                this.processLoadFormulaData();
+                this.processLoadFormulaData(this.$store.state.qatData.qatDataSource);
             },
             selectKpiFormula() {
                 let formulaId = this.selectKpiFormula.click[0].id;
@@ -429,7 +429,7 @@
             }
         },
         mounted() {
-            this.processLoadFormulaData();
+            this.processLoadFormulaData(this.$store.state.qatData.qatDataSource);
             //获取template点击数据-暂时不需要，感觉复杂
             this.bus.$on('templateName', type=>{ 
                 this.templateName = type.templateName, 
@@ -630,7 +630,7 @@
                 }).then(() => {
                     // this.processLoadFormulaData();
                     this.search = row.id;
-                    this.processDeleteFormula(row.id);
+                    this.processDeleteFormula(row.id, this.$store.state.qatData.qatDataSource);
                     this.$message({
                         type: 'success',
                         message: '删除成功!'
@@ -651,7 +651,7 @@
                 //修改公式
                 // this.search = '';
                 this.search = row.name;
-                this.processModifyFormula(row.id, row.name, row.formula, row.precision);
+                this.processModifyFormula(row.id, row.name, row.formula, row.precision, this.$store.state.qatData.qatDataSource);
                 this.showModifyColumn = false;
                 this.showColumn = true;
             },
@@ -659,7 +659,7 @@
                 // this.search = '';
                 this.dialogFormVisible = false;
                 this.search = this.form.name;
-                this.processAddFormula(this.form.name, this.form.formula, this.form.precision, this.form.mode);
+                this.processAddFormula(this.form.name, this.form.formula, this.form.precision, this.form.mode, this.$store.state.qatData.qatDataSource);
                 // this.processLoadFormulaData();
             },
             toggleSelection(rows) {

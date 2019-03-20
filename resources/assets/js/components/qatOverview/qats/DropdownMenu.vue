@@ -93,6 +93,12 @@
                         this.eniqkpi = ft;
                         break;
                 }
+                this.$store.dispatch("getQatDataSource", {
+                    dataSource: keyPath[0]
+                });
+                this.$store.dispatch("getQatDataStyle", {
+                    dataTypes: key
+                });
                 this.bus.$emit('dataTypes', {datatype: key, datasource: keyPath[0]});
             }
         }
