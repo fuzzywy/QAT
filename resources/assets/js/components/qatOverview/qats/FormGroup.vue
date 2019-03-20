@@ -25,6 +25,8 @@
         <el-col :span="8">
           <el-select 
             class="full-width"
+            filterable
+            remote
             v-loading="loading.qatTemplateStatus"
             v-model="template"
             :showData="getTemplateData"
