@@ -74,6 +74,7 @@
         methods: {
             handleSelect(key, keyPath) {
                 var ft = keyPath.join('-');
+                var datasoure = keyPath[0];
                 this.eniqkpi = 'ENIQ';
                 this.nbmkpi = 'NBM';
                 this.kgetkpi = 'KGET';
@@ -81,7 +82,7 @@
                 this.ctrkpi = "CTR";
                 this.ctumkpi = "CTUM";
                 this.ebmkpi = "EBM";
-                switch (key)
+                switch (datasoure)
                 {
                     case 'ENIQ':
                         this.eniqkpi = ft;
@@ -105,7 +106,11 @@
                         this.ebmkpi = ft;
                         break;
                     case 'ALARM':
-                        this.alarmkpi = ft
+                        this.alarmkpi = ft;
+                        this.$store.dispatch("getAlarmStyle", {
+                            alarmStyle: keyPath[1],
+                            alarmTime: keyPath[2]
+                        });
                         break;
                     default:
                         this.eniqkpi = ft;

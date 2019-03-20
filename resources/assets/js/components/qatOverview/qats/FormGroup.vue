@@ -24,6 +24,7 @@
       <el-row :gutter="20">
         <el-col :span="8">
           <el-select 
+            :disabled="bool.kpitemplate"
             class="full-width"
             filterable
             remote
@@ -138,6 +139,7 @@
       <el-row :gutter="20">
         <el-col :span="12">
           <el-date-picker
+            :disabled="bool.chooseTime"
             value-format="yyyy-MM-dd"
             v-model="date"
             type="daterange"
@@ -280,7 +282,9 @@
                 hour: false,
                 minute: false,
                 baseStation: false,
-                cell: false
+                cell: false,
+                kpitemplate: false,
+                chooseTime: false
               },
               loading: {
                 qatSubnetStatus: false,
@@ -382,7 +386,13 @@
         },
         methods: {
             isDisableSN() {
-              return !(this.dataSource == 'ENIQ' &&  this.dataType == 'GSM');
+              return !((this.dataSource == 'ENIQ' &&  this.dataType == 'GSM') || (this.dataSource == "NBM") || (this.dataSource == "ALARM"));
+            },
+            isDisableTime() {
+              return !(this.$store.state.qatData.alarmTime == "Current");
+            },
+            isDisableTemplate() {
+              return !(this.dataSource == "ALARM");
             },
             change_city: function(citys) {
                 this.city = this.processMutiplySelect(citys, this.cityGroup, this.city);
@@ -476,7 +486,7 @@
             },
             //查询主函数
             toggleStartIcon(event) {
-              if ( !this.template ) {
+              if ( !(this.template || this.dataSource == "ALARM")) {
                 this.$message({
                   showClose: true,
                   message: '请选择模板',
@@ -516,7 +526,7 @@
                 this.loading.qatStart = false;
                 return;
               }
-              if ( this.date.length == 0 ) {
+              if ( !(this.date.length == 0 && this.$store.state.qatData.alarmTime == "Current") ) {
                 this.$message({
                   showClose: true,
                   message: '请选择日期',
@@ -565,7 +575,8 @@
                   this.hour, 
                   this.minute, 
                   this.crontab, 
-                  this.notice);
+                  this.notice,
+                  this.$store.state.qatData.alarmStyle);
                 return;
               }
             },
@@ -634,12 +645,16 @@
         computed: {
           //监控数据源/类型
           computedDatasourceType() {
-            this.loading.qatTemplateStatus = true;
             this.loading.qatCityStatus = true;
             this.loading.qatTimeStatus = true;
             this.loading.qatLocationStatus = true;
             this.bool.subnet = !this.isDisableSN();
-            this.processLoadTemplate(this.dataSource, this.dataType);
+            this.bool.kpitemplate = !this.isDisableTemplate();
+            this.bool.chooseTime = !this.isDisableTime();
+            if (!this.bool.kpitemplate) {
+              this.processLoadTemplate(this.dataSource, this.dataType);
+              this.loading.qatTemplateStatus = true;
+            }
             this.processLoadCitys(this.dataSource, this.dataType);
             this.processLoadTime(this.dataSource, this.dataType);
             this.processLoadLocation(this.dataSource, this.dataType);

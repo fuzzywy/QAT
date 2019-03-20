@@ -13,7 +13,7 @@ export const qatData = {
         loadQatDataStatus( {commit}, data ) {
             this.cancelToken = axios.CancelToken.source();
             commit( 'qatDataStatus', 1 );
-            QatDataAPI.getQatData( this.cancelToken, data.dataSource, data.dataType, data.template, data.timeDim, data.locationDim, data.cities, data.subnets, data.baseStation, data.cell, data.date, data.hour, data.minute, data.crontab, data.notice )
+            QatDataAPI.getQatData( this.cancelToken, data.dataSource, data.dataType, data.template, data.timeDim, data.locationDim, data.cities, data.subnets, data.baseStation, data.cell, data.date, data.hour, data.minute, data.crontab, data.notice, data.alarmstyle )
             .then( function( response ){
                 if ( response.data != undefined ) {
                     commit( 'qatData', response.data );

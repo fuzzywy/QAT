@@ -101,7 +101,8 @@ export const Common = {
               hour, 
               minute, 
               crontab, 
-              notice ) {
+              notice,
+              alarmstyle ) {
         this.$store.dispatch( 'loadQatDataStatus', {
             dataSource: dataSource,
             dataType: dataType,
@@ -116,7 +117,8 @@ export const Common = {
             hour: hour,
             minute: minute,
             crontab: crontab,
-            notice: notice
+            notice: notice,
+            alarmstyle: alarmstyle
         });
     },
     download_chrome(url) {
