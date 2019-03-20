@@ -24,6 +24,7 @@
       <el-row :gutter="20">
         <el-col :span="8">
           <el-select 
+            :disabled="bool.kpitemplate"
             class="full-width"
             filterable
             remote
@@ -280,7 +281,8 @@
                 hour: false,
                 minute: false,
                 baseStation: false,
-                cell: false
+                cell: false,
+                kpitemplate: false
               },
               loading: {
                 qatSubnetStatus: false,
@@ -382,7 +384,10 @@
         },
         methods: {
             isDisableSN() {
-              return !(this.dataSource == 'ENIQ' &&  this.dataType == 'GSM');
+              return !((this.dataSource == 'ENIQ' &&  this.dataType == 'GSM') || (this.dataSource == "NBM") || (this.dataSource == "ALARM"));
+            },
+            isDisableTemplate() {
+              return !(this.dataSource == "ALARM");
             },
             change_city: function(citys) {
                 this.city = this.processMutiplySelect(citys, this.cityGroup, this.city);
@@ -634,12 +639,15 @@
         computed: {
           //监控数据源/类型
           computedDatasourceType() {
-            this.loading.qatTemplateStatus = true;
             this.loading.qatCityStatus = true;
             this.loading.qatTimeStatus = true;
             this.loading.qatLocationStatus = true;
             this.bool.subnet = !this.isDisableSN();
-            this.processLoadTemplate(this.dataSource, this.dataType);
+            this.bool.kpitemplate = !this.isDisableTemplate();
+            if (!this.bool.kpitemplate) {
+              this.processLoadTemplate(this.dataSource, this.dataType);
+              this.loading.qatTemplateStatus = true;
+            }
             this.processLoadCitys(this.dataSource, this.dataType);
             this.processLoadTime(this.dataSource, this.dataType);
             this.processLoadLocation(this.dataSource, this.dataType);
