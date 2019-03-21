@@ -1,13 +1,13 @@
 export const Common = {
-	methods: {
-		//多选逻辑
-		processMutiplySelect(select, allselect, newdata) {
+  methods: {
+    //多选逻辑
+    processMutiplySelect(select, allselect, newdata) {
             var len = select.length,
-            	glen = allselect.length,
-            	seleAll = 0,
-            	arr = [];
+              glen = allselect.length,
+              seleAll = 0,
+              arr = [];
             for (var i = 0; i < len; i++) { 
-              if ( select[i] == 'allSelect' ) {
+              if ( select[i] == 'allSelect' && len < 6) {
                 seleAll = 1;
                 break;
               } else {
@@ -16,7 +16,7 @@ export const Common = {
             }
 
             //全不选
-            if ( seleAll == 0 && len == glen-1 ) {
+            if ( seleAll == 0 && len == glen ) {
                 newdata = [];
             }
 
@@ -40,15 +40,15 @@ export const Common = {
                 newdata = arr;
             }
             return newdata;
-		},
-		//加载子网
-		processLoadSubnet(citys, dataSource, dataType) {
-			this.$store.dispatch( 'loadQatSubnetStatus', {
+    },
+    //加载子网
+    processLoadSubnet(citys, dataSource, dataType) {
+      this.$store.dispatch( 'loadQatSubnetStatus', {
                 citys: citys,
                 dataSource: dataSource,
                 dataType: dataType
             });
-		},
+    },
     //城市为空
     processLoadNullCity(msg, type, clear) {
         msg({
@@ -131,5 +131,5 @@ export const Common = {
     download_firefox(url) {
       window.open(url);
     }
-	}
+  }
 }
