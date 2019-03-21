@@ -526,7 +526,7 @@
                 this.loading.qatStart = false;
                 return;
               }
-              if ( !(this.date.length == 0 && this.$store.state.qatData.alarmTime == "Current") ) {
+              if ( this.date.length == 0 && !(this.$store.state.qatData.alarmTime == "Current") ) {
                 this.$message({
                   showClose: true,
                   message: '请选择日期',
