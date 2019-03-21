@@ -389,7 +389,7 @@
               return !((this.dataSource == 'ENIQ' &&  this.dataType == 'GSM') || (this.dataSource == "NBM") || (this.dataSource == "ALARM"));
             },
             isDisableTime() {
-              return !(this.$store.state.qatData.alarmTime == "Current");
+              return !(this.$store.state.qatData.alarmTime == "Current" && this.dataSource == 'ALARM' );
             },
             isDisableTemplate() {
               return !(this.dataSource == "ALARM");
@@ -526,7 +526,7 @@
                 this.loading.qatStart = false;
                 return;
               }
-              if ( this.date.length == 0 && !(this.$store.state.qatData.alarmTime == "Current") ) {
+              if ( this.date.length == 0 && !(this.$store.state.qatData.alarmTime == "Current" && this.dataSource == 'ALARM') ) {
                 this.$message({
                   showClose: true,
                   message: '请选择日期',
