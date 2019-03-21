@@ -40,6 +40,23 @@ class LocationController extends Controller
 						array('value'=>'cellGroup', 'label'=>'小区组'),
 							);
 				break;
+			case "ALARM":
+				switch (substr($dataType, 0, 3)) {
+		            case "GSM":
+		                $arr = array(
+						array('value'=>'baseStation', 'label'=>'BSC'),
+						array('value'=>'cell', 'label'=>'BTS'),
+							);
+		                break;
+		            case "LTE":
+		                $arr = array(
+						array('value'=>'baseStation', 'label'=>'基站'),
+						array('value'=>'cell', 'label'=>'小区'),
+							);
+		                break;
+		        }
+				
+				break;
 		}
 		
 	

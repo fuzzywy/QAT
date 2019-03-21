@@ -18,13 +18,17 @@ class TimeController extends Controller
 						array('value'=>'hourGroup', 'label'=>'小时组'),
 						array('value'=>'quarter', 'label'=>'15分钟')
 					);
-			}else{
+			}else if ($dataSource=="NBM") {
 				$arr = array(
 						array('value'=>'day', 'label'=>'天'),
 						array('value'=>'hour', 'label'=>'小时'),
 						array('value'=>'hourGroup', 'label'=>'小时组'),
 						array('value'=>'quarter', 'label'=>'15分钟')
 					);
+			} else if ($dataSource=="ALARM") {
+				$arr = array(
+					array('value'=>'day', 'label'=>'天'),
+				);
 			}
 	
 		return $arr;

@@ -41,10 +41,12 @@ class DataController extends Controller
 			case "NBM":
 				$query = new NbmQueryHandler();
 				break;
+			case "ALARM":
+				$query = new AlarmQueryHandler();
+				break;
 		}
 
 		$result = $query->templateQuery($request);
-		
 		return $result;
 	}
 }
