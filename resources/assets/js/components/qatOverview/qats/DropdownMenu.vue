@@ -29,8 +29,16 @@
                 </el-submenu>
                 <el-submenu index="LTE">
                     <template slot="title">{{ltekpi}}</template>
-                    <el-menu-item index="Current">当前告警</el-menu-item>
-                    <el-menu-item index="History">历史告警</el-menu-item>
+                        <el-submenu index="TDD">
+                            <template slot="title">{{tddkpi}}</template>
+                            <el-menu-item index="Current">当前告警</el-menu-item>
+                            <el-menu-item index="History">历史告警</el-menu-item>
+                        </el-submenu>
+                        <el-submenu index="FDD">
+                            <template slot="title">{{fddkpi}}</template>
+                            <el-menu-item index="Current">当前告警</el-menu-item>
+                            <el-menu-item index="History">历史告警</el-menu-item>
+                        </el-submenu>
                 </el-submenu>
             </el-submenu>
             <el-submenu index="KGET" disabled>
@@ -68,7 +76,9 @@
                 ebmkpi: "EBM",
                 alarmkpi: "ALARM",
                 gsmkpi: "GSM",
-                ltekpi: "LTE"
+                ltekpi: "LTE",
+                tddkpi: "TDD",
+                fddkpi: "FDD"
             }
         },
         methods: {
@@ -107,10 +117,22 @@
                         break;
                     case 'ALARM':
                         this.alarmkpi = ft;
-                        this.$store.dispatch("getAlarmStyle", {
-                            alarmStyle: keyPath[1],
-                            alarmTime: keyPath[2]
-                        });
+                        switch(keyPath[1]) {
+                            case 'GSM':
+                                this.$store.dispatch("getAlarmStyle", {
+                                    alarmStyle: keyPath[1],
+                                    alarmTime: keyPath[2]
+                                });
+                                key = keyPath[1];
+                                break;
+                            case "LTE":
+                                this.$store.dispatch("getAlarmStyle", {
+                                    alarmStyle: keyPath[1],
+                                    alarmTime: keyPath[3]
+                                });
+                                 key = keyPath[1]+'-'+keyPath[2];
+                                break;
+                        }
                         break;
                     default:
                         this.eniqkpi = ft;
