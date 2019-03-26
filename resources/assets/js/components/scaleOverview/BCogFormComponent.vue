@@ -10,10 +10,10 @@
     }
 </style>
 <template>
-    <el-tooltip class="item" effect="dark" content="连接配置" placement="bottom-end">
-        <li class="nav-item dropdown">
+    <el-tooltip class="item" effect="dark" content="连接配置" placement="bottom-end" >
+        <li class="nav-item dropdown" @click="onConfig">
             <a id="locale" href="#" class="nav-link cog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                <router-link to="cog" tag="div"><i class="el-icon-setting"></i></router-link>
+                <i class="el-icon-setting"></i>
             </a>
         </li>
     </el-tooltip>
@@ -69,6 +69,9 @@
                 /* Trick to reset/clear native browser form validation state */
                 this.show = false;
                 this.$nextTick(() => { this.show = true });
+            },
+            onConfig () {
+                this.$router.push('cog');
             }
         }
     }

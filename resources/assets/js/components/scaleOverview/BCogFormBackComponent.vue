@@ -1,7 +1,7 @@
 <template>
-    <li class="nav-item dropdown">
+    <li class="nav-item dropdown" @click="onBack">
         <a id="locale" href="#" class="nav-link cogback" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-            <router-link to="/" tag="div">返回主页</router-link>
+            返回主页
         </a>
     </li>
 </template>
@@ -15,6 +15,11 @@
 </style>
 <script>
     export default {
-        
+        methods:{
+            onBack (){
+                this.$router.push("/");
+            }
+
+        }
     }
 </script>
