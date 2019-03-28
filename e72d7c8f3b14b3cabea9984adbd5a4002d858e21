@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "59daacbc_edddef1e",
+        "filename": "app/Eniq.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-03-28T16:26:34Z",
+      "side": 1,
+      "message": "为何指定host为fillable?",
+      "revId": "e72d7c8f3b14b3cabea9984adbd5a4002d858e21",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "960969b5_16081fcc",
+        "filename": "app/Http/Controllers/UploadController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-03-28T16:26:34Z",
+      "side": 1,
+      "message": "1) 方法名应该为upload\n2) 需要重新设计post参数。{\"data\": xxx\u0026xxx\u0026xxx} 这个参数设计不合理。\n{\n   \"ip\" : xxx,\n   \"conn\": xxx,\n   ....\n}",
+      "revId": "e72d7c8f3b14b3cabea9984adbd5a4002d858e21",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6755b556_7bf5ba8f",
+        "filename": "app/Http/Controllers/UploadController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-03-28T16:26:34Z",
+      "side": 1,
+      "message": "2张表字段完全一样，是否能合并成一张表。",
+      "revId": "e72d7c8f3b14b3cabea9984adbd5a4002d858e21",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f0679a07_4fbacc68",
+        "filename": "app/Http/Controllers/UploadController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-03-28T16:26:34Z",
+      "side": 1,
+      "message": "同上，应该把2张表合并，并添加type字段",
+      "revId": "e72d7c8f3b14b3cabea9984adbd5a4002d858e21",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e6f19ff2_cef00a62",
+        "filename": "resources/assets/js/components/scaleOverview/BCogFormTableComponent.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-03-28T16:26:34Z",
+      "side": 1,
+      "message": "使用element提供的el-table组件替换b-table.\n保证风格统一",
+      "revId": "e72d7c8f3b14b3cabea9984adbd5a4002d858e21",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    }
+  ]
+}
