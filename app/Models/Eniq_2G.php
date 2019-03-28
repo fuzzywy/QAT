@@ -9,4 +9,7 @@ class Eniq_2G extends Model
     public 	  $timestamps = false;
     protected $connection = "Qat";
     protected $table      = "Eniq_2G";
+    protected $fillable = [
+        'host'
+    ];
 }
