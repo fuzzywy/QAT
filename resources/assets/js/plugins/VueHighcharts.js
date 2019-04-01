@@ -1,0 +1,1 @@
+import VueHighcharts from 'vue-highcharts'

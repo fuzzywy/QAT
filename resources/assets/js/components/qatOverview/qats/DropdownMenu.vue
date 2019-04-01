@@ -92,6 +92,7 @@
                 this.ctrkpi = "CTR";
                 this.ctumkpi = "CTUM";
                 this.ebmkpi = "EBM";
+                this.alarmkpi = "ALARM";
                 switch (datasoure)
                 {
                     case 'ENIQ':

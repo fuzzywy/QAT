@@ -18,6 +18,7 @@ class NbmQueryHandler extends Controller
     	$pdo = $dc->getDB("nbm");
     	$row = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     	$fileName = $this->download($row, $this->sql->resultText);
-    	return  array("data"=>$row,"file"=>$fileName);
+        $arr = array_slice($row, 0, 1000);
+    	return  array("data"=>$arr,"file"=>$fileName);
     }
 }

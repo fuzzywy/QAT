@@ -176,7 +176,7 @@ class LteTddQueryHandler extends Controller
 
         $fileName = $this->download($newData,implode(",", $keys));
          //显示数据显示1000条
-        $arr = array_slice($newData, 0, 10);
+        $arr = array_slice($newData, 0, 1000);
         return array("data"=>$arr,"file"=>$fileName);
  
     
