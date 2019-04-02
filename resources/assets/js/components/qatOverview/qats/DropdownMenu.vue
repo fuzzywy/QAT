@@ -16,9 +16,9 @@
             </el-submenu>
             <el-submenu index="NBM">
                 <template slot="title">{{nbmkpi}}</template>
-                <el-menu-item index="TDD">TDD</el-menu-item>
-                <el-menu-item index="FDD">FDD</el-menu-item>
-                <el-menu-item index="NBIOT">NBIOT</el-menu-item>
+                <el-menu-item index=" TDD">TDD</el-menu-item>
+                <el-menu-item index=" FDD">FDD</el-menu-item>
+                <el-menu-item index=" NBIOT">NBIOT</el-menu-item>
             </el-submenu>
             <el-submenu index="ALARM">
                 <template slot="title">{{alarmkpi}}</template>
@@ -92,6 +92,7 @@
                 this.ctrkpi = "CTR";
                 this.ctumkpi = "CTUM";
                 this.ebmkpi = "EBM";
+                this.alarmkpi = "ALARM";
                 switch (datasoure)
                 {
                     case 'ENIQ':
