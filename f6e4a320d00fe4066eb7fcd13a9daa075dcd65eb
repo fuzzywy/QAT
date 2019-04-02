@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1dbf5d0a_53c0e10d",
+        "filename": "resources/assets/js/components/qatOverview/qats/DropdownMenu.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-04-02T08:10:49Z",
+      "side": 1,
+      "message": "建议INDEX设置为prefix-model\nEg:\nENIQ TDD \u003d\u003e ENIQ-TDD\nNBM TDD \u003d\u003e NBM-TDD",
+      "revId": "f6e4a320d00fe4066eb7fcd13a9daa075dcd65eb",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    }
+  ]
+}
