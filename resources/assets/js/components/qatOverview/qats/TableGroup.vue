@@ -22,7 +22,14 @@
 
     </div>
 </template>
-
+<style>
+  body .el-table th.gutter{
+    display: table-cell!important;
+  }/*防止单元格错位*/
+  body .el-table colgroup.gutter{
+    display: table-cell!important;
+  }/*防止单元格错位*/
+</style>
 <script>
     export default {
         data() {
