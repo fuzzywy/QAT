@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4ac2307e_c636196e",
+        "filename": "resources/assets/js/api/uploadCog.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-04-02T11:13:17Z",
+      "side": 1,
+      "message": "I think use\naxios.post(\u0027uploadCog\u0027,postData)\nOR\naxios({\n  method: \u0027post\u0027,\n  url: \u0027uploadCog\u0027,\n  data: {\n     postData\n  }\n});\nIS BETTER.\n\nI don\u0027t want any external parse work in background controller.\nHope you understand!\n\nFYI:\nhttps://github.com/axios/axios",
+      "revId": "5b078381780389cab4b30e3be3ed3abafb789b54",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    }
+  ]
+}
