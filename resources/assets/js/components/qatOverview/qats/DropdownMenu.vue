@@ -7,14 +7,14 @@
 <template>
     <div id="dropdown" class="dropdown">
         <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
-            <el-submenu index="ENIQ">
+            <el-submenu index="ENIQ" id="ENIQ">
                 <template slot="title">{{eniqkpi}}</template>
                 <el-menu-item index="TDD">TDD</el-menu-item>
                 <el-menu-item index="FDD">FDD</el-menu-item>
                 <el-menu-item index="GSM">GSM</el-menu-item>
                 <el-menu-item index="NBIOT">NBIOT</el-menu-item>
             </el-submenu>
-            <el-submenu index="NBM">
+            <el-submenu index="NBM" id="NBM">
                 <template slot="title">{{nbmkpi}}</template>
                 <el-menu-item index="TDD">TDD</el-menu-item>
                 <el-menu-item index="FDD">FDD</el-menu-item>
@@ -85,6 +85,12 @@
             handleSelect(key, keyPath) {
                 var ft = keyPath.join('-');
                 var datasoure = keyPath[0];
+                //element-ui的bug,选中ENQI或者NBM下划线会一直处于激活状态,暂时写死,但是需要点击两下才起作用
+                if (datasoure == "ENIQ") {
+                    $("#NBM").removeAttr("class").attr("class", "el-submenu");
+                } else if (datasoure == "NBM") {
+                    $("#ENIQ").removeAttr("class").attr("class", "el-submenu");
+                }
                 this.eniqkpi = 'ENIQ';
                 this.nbmkpi = 'NBM';
                 this.kgetkpi = 'KGET';
