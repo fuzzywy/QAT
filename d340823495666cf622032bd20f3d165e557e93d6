@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "daa29841_30608c3f",
+        "filename": "resources/assets/js/app.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-04-02T05:01:09Z",
+      "side": 1,
+      "message": "这个项目还会用到BootstrapVue吗",
+      "revId": "d340823495666cf622032bd20f3d165e557e93d6",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    }
+  ]
+}
