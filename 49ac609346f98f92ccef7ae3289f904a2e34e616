@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e69fcf0f_7f0e3ccb",
+        "filename": "resources/assets/js/plugins/BootstrapVue.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-04-02T08:12:34Z",
+      "side": 1,
+      "message": "删除没有用到的vue组件",
+      "revId": "49ac609346f98f92ccef7ae3289f904a2e34e616",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    }
+  ]
+}
