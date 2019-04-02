@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7ac5dc14_a76faac7",
+        "filename": "resources/assets/js/components/qatOverview/qats/DropdownMenu.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-04-02T04:55:28Z",
+      "side": 1,
+      "message": "我认为这个不是element-ui的bug\n参考http://element-cn.eleme.io/#/en-US/component/menu#navmenu\n\n利用default-active属性来控制激活页面",
+      "revId": "00361f5a15ab4e78030266728fc1e9e8b1e9cd2c",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    }
+  ]
+}
