@@ -19,7 +19,7 @@ export const uploadCog = {
     actions: {
         uploadCog( { commit }, data ) {
             commit( 'setuploadCogStatus', 1 );
-            UploadCogAPI.uploadCog( data.ip, data.connname, data.city, data.port, data.database, data.user, data.pwd, data.type, data.subnetwork, data.subnetworkfdd, data.subnetworknbiot )
+            UploadCogAPI.uploadCog(data)
             .then( (response) => {
                 if ( response.data != undefined ) {
                     commit( 'setuploadCog', response.data );
@@ -53,7 +53,7 @@ export const uploadCog = {
         },
         deleteCog( { commit }, data ) {
             commit( 'setdeleteCogStatus', 1 );
-            UploadCogAPI.deleteCog( data.ip, data.connname, data.city, data.port, data.database, data.user, data.pwd, data.type, data.subnetwork, data.subnetworkfdd, data.subnetworknbiot )
+            UploadCogAPI.deleteCog( data )
             .then( (response) => {
                 if ( response.data != undefined ) {
                     commit( 'setdeleteCog', response.data );

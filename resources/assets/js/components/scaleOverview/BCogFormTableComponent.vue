@@ -1,101 +1,77 @@
 <template>
     <div class="top-cog">
-        <b-container fluid>
-        <!-- User Interface controls -->
-        <b-row>
-          <b-col md="6" class="my-1">
-            <b-form-group horizontal label="Filter" class="mb-0">
-              <b-input-group>
-                <b-form-input v-model="filter" placeholder="Type to Search" />
-                <b-input-group-append>
-                  <b-btn :disabled="!filter" @click="filter = ''">Clear</b-btn>
-                </b-input-group-append>
-              </b-input-group>
-            </b-form-group>
-          </b-col>
-          <b-col md="6" class="my-1">
-            <b-form-group horizontal label="Sort" class="mb-0">
-              <b-input-group>
-                <b-form-select v-model="sortBy" :options="sortOptions">
-                  <option slot="first" :value="null">-- none --</option>
-                </b-form-select>
-                <b-form-select :disabled="!sortBy" v-model="sortDesc" slot="append">
-                  <option :value="false">Asc</option>
-                  <option :value="true">Desc</option>
-                </b-form-select>
-              </b-input-group>
-            </b-form-group>
-          </b-col>
-          <b-col md="6" class="my-1">
-            <b-form-group horizontal label="Add ip address" class="mb-0">
-              <b-button size="sm" @click.stop="addColumn">
-                Add
-              </b-button>
-            </b-form-group>
-          </b-col>
-          <b-col md="6" class="my-1">
-            <b-form-group horizontal label="Per page" class="mb-0">
-              <b-form-select :options="pageOptions" v-model="perPage" />
-            </b-form-group>
-          </b-col>
-        </b-row>
-        <!-- Main table element -->
-        <b-table striped 
-                 hover 
-                 show-empty
-                 stacked="md"
-                 :items="items"
-                 :fields="fields"
-                 :current-page="currentPage"
-                 :per-page="perPage"
-                 :filter="filter"
-                 :sort-by.sync="sortBy"
-                 :sort-desc.sync="sortDesc"
-                 :sort-direction="sortDirection"
-                 :fixed="fixed"
-                 @filtered="onFiltered"
-                 v-show="showCog==2"
-        >
-          <template slot="actions" slot-scope="row">
-            <!-- We use @click.stop here to prevent a 'row-clicked' event from also happening -->
-            <b-button size="sm" @click.stop="del(row.item, row.index, $event.target)" class="mr-1">
-              Delete
-            </b-button>
-            <b-button size="sm" @click.stop="row.toggleDetails" @click.top="modifyData(row.item, row.index, $event.target)">
-              {{ row.detailsShowing ? 'Hide' : 'Modify' }} Details
-            </b-button>
-          </template>
-          <template slot="row-details" slot-scope="row">
-            <b-card>
-                <b-row class="mb-2" v-for="(value, key) in row.item" :key="key" v-if="key!== '_showDetails' && key!== 'id'">
-                    <b-col sm="4" class="text-sm-right"><b>{{ key }}:</b></b-col>
-                    <b-col md="5">
-                        <b-form-input v-model="modify[key]" v-if="key !== 'type'"/>
-                        <b-form-input placeholder="LTE or GSM" v-model="modify[key]" v-if="key === 'type'"/>
-                    </b-col>
-                </b-row>
-                <div style="text-align: center;">
-                    <b-button size="sm" @click="modifyOK">modify</b-button>
-                </div>
-            </b-card>
-          </template>
-        </b-table>
-        <b-row>
-          <b-col md="6" class="my-1">
-            <b-pagination :total-rows="totalRows" :per-page="perPage" v-model="currentPage" class="my-0" />
-          </b-col>
-        </b-row>
-        <!-- Info modal -->
-        <b-modal id="modalInfo" @hide="resetModal" :title="modalInfo.title" ok-only>
-          <pre>{{ modalInfo.content }}</pre>
-        </b-modal>
-        <b-modal id="confirm" :title="confirm.title" @ok="handleOk" @hide="resetModal">
-            <pre> {{ confirm.content }} </pre>
-        </b-modal>
-        <b-modal id="confirmModify" :title="confirmModify.title" @ok="updateok">
-            <pre> {{ confirmModify.content }} </pre>
-        </b-modal>
-      </b-container>
+        <el-row :gutter="20">
+            <el-col :span="12">
+                <el-form label-width="80px">
+                    <el-form-item horizontal label="Filter" class="mb-0">
+                        <el-input v-model="filter" placeholder="Type to Search" @change="onFiltered">
+                            <template slot="append"><el-button :disabled="!filter" @click.stop="clearFilter">Clear</el-button></template>
+                        </el-input>
+                    </el-form-item>
+                </el-form>
+            </el-col>
+            <el-col :span="12">
+                <el-form label-width="150px">
+                    <el-form-item horizontal label="Add host address" class="mb-0">
+                        <el-button type="primary" @click.stop="addColumn">Add</el-button>
+                    </el-form-item>
+                </el-form>
+            </el-col>
+        </el-row>
+
+        <el-dialog title="新增/编辑"
+            :visible.sync="modifyVisible"
+            :close-on-click-modal="false"
+            :before-close="handleClose"
+            :modal-append-to-body="false">
+            <el-row class="mb-2" v-for="(value,key) in modify" :key="key" v-if="key!== 'id'">
+                <el-col :span="6" class="text-sm-right"><b>{{ key }}:</b></el-col>
+                <el-col :span="15" :offset="1">
+                    <el-input size="mini" v-model="modify[key]" v-if="key !== 'type'"/>
+                    <el-input size="mini" placeholder="LTE or GSM" v-model="modify[key]" v-if="key === 'type'"/>
+                </el-col>
+            </el-row>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click.stop="handleCancel()">cancel</el-button>
+                <el-button type="primary" @click.stop="handleUpdate()">modify</el-button>
+            </div>
+        </el-dialog>
+
+        <el-table
+            v-loading="loading.showCogStatus"
+            :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
+            border
+            style="margin: auto;"
+            max-height="500"
+            @sort-change="sortChange"
+            :options="getData">
+            <!--tableData.filter(data => !filter || data.type.toLowerCase().includes(filter.toLowerCase()))-->
+            <el-table-column v-for="(value,key) in header" width="180" :key="key" :prop="key" :label="key" show-overflow-tooltip sortable="custom" v-if="key !== 'type'" >
+            </el-table-column>
+            <el-table-column v-for="(value,key) in header" width="180" :key="key" :prop="key" :label="key" show-overflow-tooltip sortable="custom" v-if="key == 'type'">
+            </el-table-column>
+            <el-table-column align="center" width="180" v-if="total > 0">
+                <template slot="header" slot-scope="scope" >
+                    Actions
+                </template>
+                <template slot-scope="scope">
+                    <el-button size="mini"
+                        @click="handleEdit(scope.$index, scope.row)">modify</el-button>
+                    <el-button size="mini" type="danger"
+                        @click="handleDelete(scope.$index, scope.row)">delete</el-button>
+                </template>
+            </el-table-column>
+        </el-table>
+
+        <el-pagination
+            @size-change="size_change"
+            @current-change="current_change"
+            :current-page="currentPage"
+            :page-sizes="[5, 10, 50, 100]"
+            :page-size="5"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="total">
+        </el-pagination>
     </div>
 </template>
 <style>
@@ -104,168 +80,150 @@
         padding: 15px 15px 15px 15px;
         margin-top: 25px;
     }
-    .line-limit-length {
-        max-width: 150px;
-        white-space:nowrap;
-        overflow:hidden;
-        text-overflow:ellipsis;
-
-    }
-    
 </style>
 <script>
-    var items = [];
+    var tableData = [];
     export default {
-        data () {
+        data() {
             return {
-              items: items,
-              fields: [
-                { key: 'type', label: 'Type', sortable: true, class: 'text-center', sortDirection: 'desc'  },
-                { key: 'conn', label: 'Conn', sortable: true, sortDirection: 'desc' },
-                { key: 'city', label: 'city', sortable: true, sortDirection: 'desc' },
-                { key: 'ip', label: 'IP address', sortable: true, sortDirection: 'desc' },
-                { key: 'port', label: 'Port', sortable: true, class: 'text-center' },
-                { key: 'database', label: 'Database' },
-                { key: 'user', label: 'User' },
-                { key: 'pwd', label: 'Password' },
-                { key: 'subNetworkTdd', label: 'subNetworkTdd', class: 'line-limit-length' },
-                { key: 'subNetworkFdd', label: 'subNetworkFdd', class: 'line-limit-length' },
-                { key: 'subNetworkNbiot', label: 'subNetworkNbiot', class: 'line-limit-length' },
-                { key: 'actions', label: 'Actions' }
-              ],
-              fixed: false,
-              currentPage: 1,
-              perPage: 5,
-              totalRows: items.length,
-              pageOptions: [ 5, 10, 15 ],
-              sortBy: null,
-              sortDesc: false,
-              sortDirection: 'asc',
-              filter: null,
-              modalInfo: { title: '', content: '' },
-              confirm: { title: '', content: '' },
-              confirmModify: { title: '', content: '' },
-              delete: [],
-              modify: []
+                loading: {
+                    showCogStatus: false
+                },
+                tableData: tableData,
+                total:0,//默认数据总数
+                pageSize:5,//每页的数据条数
+                currentPage:1,//默认开始页面
+                header:[],
+                filter:'',
+                modify: [],
+                modifyVisible: false,
+                delete:[]
             }
-          },
-          computed: {
-            sortOptions () {
-              // Create an options list from our fields
-              return this.fields
-                .filter(f => f.sortable)
-                .map(f => { return { text: f.label, value: f.key } })
-            },
-            showCog () {
-                items = this.$store.getters.getShowCog
-                this.items = items
-                this.totalRows =  items.length
-                this.currentPage = 1
-                return this.$store.getters.getShowCogStatus
-            }
-          },
-          created() {
+        },
+        created() {
             this.$store.dispatch('showCog')
-          },
-          methods: {
+        },
+        methods: {
+            current_change: function(currentPage) {
+                this.currentPage = currentPage;
+            },
+            size_change: function(sizeChange) {
+                this.pageSize = sizeChange;
+            },
+            onFiltered () {
+                this.tableData = this.$store.getters.getShowCog.filter(data => !this.filter || data.type.toLowerCase().includes(this.filter.toLowerCase()))
+                this.total = this.tableData.length;
+                this.currentPage = 1;
+            },
+            clearFilter () {
+                this.filter = '';
+                this.onFiltered ();
+            },
+            sortChange: function(column, prop, order) {
+                //console.log(column + '-' + column.prop + '-' + column.order)
+                switch (column.order){
+                    case 'ascending':  
+                        this.tableData = this.tableData.sort(function(a, b) {
+                            if (typeof(a[column.prop]) == "number") {
+                                return a[column.prop]-(b[column.prop])
+                            } else {
+                                return a[column.prop].localeCompare(b[column.prop])
+                            }
+                        })
+                    break;
+                    case 'descending':
+                        this.tableData = this.tableData.sort(function(a, b) {
+                            if (typeof(a[column.prop]) == "number") {
+                                return b[column.prop]-(a[column.prop])
+                            } else {
+                                return b[column.prop].localeCompare(a[column.prop])
+                            }
+                        }) 
+                    break;
+                }
+            },
+            //点击编辑
+            handleEdit(index, row) {
+                this.modifyVisible = true;
+                this.modify = Object.assign({}, row); //这句是关键！！！
+            },
+            //点击关闭dialog
+            handleClose(done) {
+                this.modifyVisible = false;
+            },
+            //点击取消
+            handleCancel() {
+                this.modifyVisible = false;
+            },
+            //点击更新
+            handleUpdate() { 
+                console.log(this.currentPage);
+                //更新的时候就把弹出来的表单中的数据写到要修改的表格中
+                this.$store.dispatch('uploadCog', this.modify)
+                //这里再向后台发个post请求重新渲染表格数据
+                if ( this.modify.id == -1 ) {//新增
+                    this.$store.dispatch('showCog');
+                } else {//修改
+                    for (var i = this.tableData.length - 1; i >= 0; i--) {
+                        if( this.tableData[i].id == this.modify.id ) {
+                            this.tableData[i] = this.modify;
+                        } 
+                    }
+                }
+                this.modifyVisible = false;
+                this.$alert('修改成功', {
+                    confirmButtonText: '确定'
+                });
+            },
+            handleDelete(index, row) {
+                this.delete = Object.assign({}, row);
+                //console.log(this.delete);
+                this.$confirm("<pre>"+JSON.stringify(this.delete, null, 2)+"</pre>", '确认删除', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    dangerouslyUseHTMLString: true
+                }).then(() => {
+                    this.$store.dispatch('deleteCog', this.delete);
+                    tableData = [];
+                    for (var i = 0 ; i <= this.tableData.length - 1; i++) {
+                        if( this.tableData[i].id !== this.delete.id ) {
+                            tableData.push(this.tableData[i]);
+                        }
+                    }
+                    this.tableData = tableData;
+                    this.total =  this.tableData.length;
+                    if ( this.tableData.length/this.pageSize < this.currentPage ) {
+                        this.currentPage = Math.ceil(this.tableData.length/this.pageSize);
+                    }
+                    this.$message({
+                        type: 'success',
+                        message: '删除成功!'
+                    });
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });          
+                });
+            },
             addColumn () {
-                // this.$store.dispatch('showCog')
-                // this.fields.
-                this.filter = null
-                this.currentPage = 1
-                this.modify = []
-                this.modify.push({ id: '-1', _showDetails: true, ip: '', conn: '', city: '', port: '', database: '', user: '', pwd: '', subNetworkTdd: '', subNetworkFdd: '', subNetworkNbiot: '', type: '' })
+                this.currentPage = 1;
+                this.modify = [];
+                this.modify = { id: '-1', conn: '', city: '', host: '', port: '', dbName: '', userName: '', password: '', subNetworkTdd: '', subNetworkFdd: '', subNetworkNbiot: '', type: '' };
                 //限制add数量只能是一个
-                for (var i = this.items.length - 1; i >= 0; i--) {
-                    if( this.items[i].id == -1 ) {
-                        this.items[i]._showDetails = true
-                        return;
-                    }
-                }
-                for (var i = this.items.length - 1; i >= 0; i--) {
-                    this.modify.push(this.items[i])
-                }
-                this.items = this.modify.sort(function(a, b) {
-                    return a.id - b.id
-                })
-            },
-            modifyData ( item, index, button ) {
-                this.modify = item
-            },
-            modifyOK () {
-                this.$store.dispatch('uploadCog', {
-                    ip: this.modify.ip,
-                    conn: this.modify.conn,
-                    city: this.modify.city,
-                    port: this.modify.port,
-                    database: this.modify.database,
-                    user: this.modify.user,
-                    pwd: this.modify.pwd,
-                    type: this.modify.type,
-                    subNetworkTdd: this.modify.subNetworkTdd,
-                    subNetworkFdd: this.modify.subNetworkFdd,
-                    subNetworkNbiot: this.modify.subNetworkNbiot
-                })
-                this.confirmModify.title = ''
-                this.confirmModify.content = '修改成功'
-                this.$root.$emit('bv::show::modal', 'confirmModify', '#confirmModify')
-            },
-            del ( item, index, button ) {
-                this.delete = item
-                this.confirm.title = '确认删除'
-                this.confirm.content = JSON.stringify(item, null, 2)
-                this.$root.$emit('bv::show::modal', 'confirm', button)
-            },
-            handleOk ( evt ) {
-                // evt.preventDefault()
-                this.$store.dispatch('deleteCog', {
-                    ip: this.delete.ip,
-                    conn: this.delete.conn,
-                    city: this.delete.city,
-                    port: this.delete.port,
-                    database: this.delete.database,
-                    user: this.delete.user,
-                    pwd: this.delete.pwd,
-                    type: this.delete.type,
-                    subNetworkTdd: this.delete.subNetworkTdd,
-                    subNetworkFdd: this.delete.subNetworkFdd,
-                    subNetworkNbiot: this.delete.subNetworkNbiot
-                })
-                this.modify = []
-                //this.$store.dispatch('showCog')
-                for (var i = this.items.length - 1; i >= 0; i--) {
-                    if( this.items[i].id != this.delete.id ) {
-                       this.modify.push(this.items[i])
-                    }
-               }
-                this.items = this.modify.sort(function(a, b) {
-                    return a.id - b.id
-                })
-                this.totalRows =  this.items.length
-                if ( this.items.length/this.perPage < this.currentPage ) {
-                    this.currentPage = Math.ceil(this.items.length/this.perPage)
-                }
-            },
-            //更新table
-            updateok () {
-                this.$store.dispatch('showCog')
-                this.modify = []
-                // this.newItems = []
-            },
-            info (item, index, button) {
-              this.modalInfo.title = `Row index: ${index}`
-              this.modalInfo.content = JSON.stringify(item, null, 2)
-              this.$root.$emit('bv::show::modal', 'modalInfo', button)
-            },
-            resetModal () {
-              this.modalInfo.title = ''
-              this.modalInfo.content = ''
-            },
-            onFiltered (filteredItems) {
-              // Trigger pagination to update the number of buttons/pages due to filtering
-              this.totalRows = filteredItems.length
-              this.currentPage = 1
+                this.modifyVisible = true;
             }
-          }
+        },
+        computed: {
+            getData() {
+                if ( this.$store.getters.getShowCogStatus == 2 ) {
+                    tableData =  this.$store.getters.getShowCog;
+                    this.tableData = tableData;
+                    this.total = tableData.length;
+                    this.currentPage = 1;
+                    this.header = tableData[0];
+                }
+            }
+        }
     }
 </script>

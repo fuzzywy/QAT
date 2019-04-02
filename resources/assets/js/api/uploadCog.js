@@ -2,22 +2,7 @@
  * Imports the uploadCog URL from the config.
  */
  export default {
-    uploadCog: function( ip, connname, city, port, database, user, pwd, type, subnetwork, subnetworkfdd, subnetworknbiot ) {
-        let postData = qs.stringify({
-            // inCharset: 'utf-8',
-            // outCharset: 'utf-8',
-            ip: ip,
-            connname: connname,
-            city: city,
-            port: port,
-            database: database,
-            user: user,
-            pwd: pwd,
-            type: type,
-            subnetwork: subnetwork,
-            subnetworkfdd: subnetworkfdd,
-            subnetworknbiot: subnetworknbiot
-        });
+    uploadCog: function( postData ) {
         return axios.post('uploadCog', {
             data: postData
         })
@@ -66,22 +51,7 @@
             // console.log(error.config);
         });
     },
-    deleteCog: function( ip, connname, city, port, database, user, pwd, type, subnetwork, subnetworkfdd, subnetworknbiot ) {
-        let postData = qs.stringify({
-            // inCharset: 'utf-8',
-            // outCharset: 'utf-8',
-            ip: ip,
-            connname: connname,
-            city: city,
-            port: port,
-            database: database,
-            user: user,
-            pwd: pwd,
-            type: type,
-            subnetwork: subnetwork,
-            subnetworkfdd: subnetworkfdd,
-            subnetworknbiot: subnetworknbiot
-        });
+    deleteCog: function( postData ) {
         return axios.post( 'deleteCog', {
             data: postData
         })
