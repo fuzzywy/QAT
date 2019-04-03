@@ -16,6 +16,23 @@
       "revId": "5b078381780389cab4b30e3be3ed3abafb789b54",
       "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "52d829d7_9308ea30",
+        "filename": "resources/assets/js/components/scaleOverview/BCogFormTableComponent.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-04-03T08:49:11Z",
+      "side": 1,
+      "message": "please use array.splice method",
+      "revId": "5b078381780389cab4b30e3be3ed3abafb789b54",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
     }
   ]
 }
