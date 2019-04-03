@@ -10,6 +10,7 @@ class Eniq extends Model
     protected $connection = "Qat";
     protected $table      = "eniqs";
     protected $fillable = [
-        'host'
+        'conn',
+        'type'
     ];
 }

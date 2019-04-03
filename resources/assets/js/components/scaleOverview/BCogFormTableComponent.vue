@@ -19,16 +19,19 @@
             </el-col>
         </el-row>
 
-        <el-dialog title="新增/编辑"
+        <el-dialog title="add/modify"
             :visible.sync="modifyVisible"
             :close-on-click-modal="false"
             :before-close="handleClose"
-            :modal-append-to-body="false">
-            <el-row class="mb-2" v-for="(value,key) in modify" :key="key" v-if="key!== 'id'">
+            :modal-append-to-body="false"
+            >
+
+            <el-row class="mb-2" v-for="(value,key) in modify" :key="key" v-if="key !== 'id'">
                 <el-col :span="6" class="text-sm-right"><b>{{ key }}:</b></el-col>
                 <el-col :span="15" :offset="1">
-                    <el-input size="mini" v-model="modify[key]" v-if="key !== 'type'"/>
-                    <el-input size="mini" placeholder="LTE or GSM" v-model="modify[key]" v-if="key === 'type'"/>
+                    <el-input size="mini" v-model="modify[key]" v-if="key !== 'type' && key !== 'conn'"/>
+                    <el-input size="mini" :disabled="disabled" v-model="modify[key]" v-if="key === 'conn'"/>
+                    <el-input size="mini" :disabled="disabled" placeholder="LTE or GSM" v-model="modify[key]" v-if="key === 'type'"/>
                 </el-col>
             </el-row>
             <div slot="footer" class="dialog-footer">
@@ -46,10 +49,10 @@
             @sort-change="sortChange"
             :options="getData">
             <!--tableData.filter(data => !filter || data.type.toLowerCase().includes(filter.toLowerCase()))-->
-            <el-table-column v-for="(value,key) in header" width="180" :key="key" :prop="key" :label="key" show-overflow-tooltip sortable="custom" v-if="key !== 'type'" >
+
+            <el-table-column v-for="(value,key) in header" width="180" :key="key" :prop="key" :label="key" show-overflow-tooltip sortable="custom" v-if="key !== 'id'" >
             </el-table-column>
-            <el-table-column v-for="(value,key) in header" width="180" :key="key" :prop="key" :label="key" show-overflow-tooltip sortable="custom" v-if="key == 'type'">
-            </el-table-column>
+
             <el-table-column align="center" width="180" v-if="total > 0">
                 <template slot="header" slot-scope="scope" >
                     Actions
@@ -97,6 +100,7 @@
                 filter:'',
                 modify: [],
                 modifyVisible: false,
+                disabled:false,
                 delete:[]
             }
         },
@@ -144,8 +148,9 @@
             },
             //点击编辑
             handleEdit(index, row) {
+                this.disabled = true;
                 this.modifyVisible = true;
-                this.modify = Object.assign({}, row); //这句是关键！！！
+                this.modify = Object.assign({}, row);
             },
             //点击关闭dialog
             handleClose(done) {
@@ -161,9 +166,9 @@
                 //更新的时候就把弹出来的表单中的数据写到要修改的表格中
                 this.$store.dispatch('uploadCog', this.modify)
                 //这里再向后台发个post请求重新渲染表格数据
-                if ( this.modify.id == -1 ) {//新增
+                if ( this.modify.id == -1 ) {//add
                     this.$store.dispatch('showCog');
-                } else {//修改
+                } else {//modify
                     for (var i = this.tableData.length - 1; i >= 0; i--) {
                         if( this.tableData[i].id == this.modify.id ) {
                             this.tableData[i] = this.modify;
@@ -211,6 +216,7 @@
                 this.modify = [];
                 this.modify = { id: '-1', conn: '', city: '', host: '', port: '', dbName: '', userName: '', password: '', subNetworkTdd: '', subNetworkFdd: '', subNetworkNbiot: '', type: '' };
                 //限制add数量只能是一个
+                this.disabled = false;
                 this.modifyVisible = true;
             }
         },

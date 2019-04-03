@@ -10,23 +10,22 @@ use App\Models\Eniq_2G;
 class UploadController extends Controller 
 {
 	public function upload() {
+
+		$host = Input::get('host');
+		$conn = Input::get('conn');
+		$city = Input::get('city');
+		$port = Input::get('port');
+		$userName = Input::get('userName');
+		$password = Input::get('password');
+		$dbName = Input::get('dbName');
+		$subNetworkTdd = Input::get('subNetworkTdd');
+		$subNetworkFdd = Input::get('subNetworkFdd');
+		$subNetworkNbiot = Input::get('subNetworkNbiot');
+		$type = Input::get('type') == '' ? 'LTE': Input::get('type');
 		
-		$data = Input::get('data'); //注意post传值格式
-		$host = $data['host'];
-		$conn = $data['conn'];
-		$city = $data['city'];
-		$port = $data['port'];
-		$userName = $data['userName'];
-		$password = $data['password'];
-		$dbName = $data['dbName'];
-		$subNetworkTdd = $data['subNetworkTdd'];
-		$subNetworkFdd = $data['subNetworkFdd'];
-		$subNetworkNbiot = $data['subNetworkNbiot'];
-		$type = $data['type'] == '' ? 'LTE': $data['type'];
-		
-		Eniq::firstOrCreate(['host' => $host]);
-		Eniq::where('host', $host)
-			->update(['conn' => $conn, 'city' => $city, 'port' => $port, 'dbName' => $dbName, 'userName' => $userName, 'password' => $password, 'subNetworkTdd' => $subNetworkTdd, 'subNetworkFdd' => $subNetworkFdd, 'subNetworkNbiot' => $subNetworkNbiot, 'type' => $type]);
+		Eniq::firstOrCreate(['conn' => $conn, 'type' => $type]);
+		Eniq::where('conn', $conn)->where('type', $type)
+			->update(['host' => $host, 'city' => $city, 'port' => $port, 'dbName' => $dbName, 'userName' => $userName, 'password' => $password, 'subNetworkTdd' => $subNetworkTdd, 'subNetworkFdd' => $subNetworkFdd, 'subNetworkNbiot' => $subNetworkNbiot]);
 			
 	}
 
@@ -37,10 +36,7 @@ class UploadController extends Controller
 
 	public function delete() {
 
-		$data = Input::get('data');
-		$host = $data['host'];
-		$type = $data['type'];
-		Eniq::where('host', $host)->where('type', $type)->delete();
+		Eniq::where('id', Input::get('id'))->delete();
 		
 	}
 }

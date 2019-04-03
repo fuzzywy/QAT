@@ -3,9 +3,7 @@
  */
  export default {
     uploadCog: function( postData ) {
-        return axios.post('uploadCog', {
-            data: postData
-        })
+        return axios.post('uploadCog', postData)
         .catch(function(error) {
             if (error.response) {
                 // 发送请求后，服务端返回的响应码不是 2xx   
@@ -52,9 +50,7 @@
         });
     },
     deleteCog: function( postData ) {
-        return axios.post( 'deleteCog', {
-            data: postData
-        })
+        return axios.post( 'deleteCog', postData)
         .catch(function(error) {
             if (error.response) {
                 // 发送请求后，服务端返回的响应码不是 2xx   
