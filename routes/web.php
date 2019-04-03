@@ -16,11 +16,12 @@ Route::get('/', function () {
 Auth::routes();
 Route::get('localeLang', 'NavController@localeLang');
 Route::get('/home', 'HomeController@index')->name('home');
-Route::post('uploadCog', 'UploadController@uploadCog');
-Route::post('showCog', 'UploadController@showCog');
-Route::post('deleteCog', 'UploadController@deleteCog');
-Route::get('getQatSubnet', 'SubnetController@getSubnet');
+//连接配置
+Route::post('uploadCog', 'UploadController@upload');
+Route::post('showCog', 'UploadController@query');
+Route::post('deleteCog', 'UploadController@delete');
 
+Route::get('getQatSubnet', 'SubnetController@getSubnet');
 Route::get('getQatCity', 'CityController@getCity');
 Route::get('getQatTime', 'TimeController@getTime');
 Route::get('getQatLocation', 'LocationController@getLocation');

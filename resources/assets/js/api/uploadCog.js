@@ -2,25 +2,8 @@
  * Imports the uploadCog URL from the config.
  */
  export default {
-    uploadCog: function( ip, connname, city, port, database, user, pwd, type, subnetwork, subnetworkfdd, subnetworknbiot ) {
-        let postData = qs.stringify({
-            // inCharset: 'utf-8',
-            // outCharset: 'utf-8',
-            ip: ip,
-            connname: connname,
-            city: city,
-            port: port,
-            database: database,
-            user: user,
-            pwd: pwd,
-            type: type,
-            subnetwork: subnetwork,
-            subnetworkfdd: subnetworkfdd,
-            subnetworknbiot: subnetworknbiot
-        });
-        return axios.post('uploadCog', {
-            data: postData
-        })
+    uploadCog: function( postData ) {
+        return axios.post('uploadCog', postData)
         .catch(function(error) {
             if (error.response) {
                 // 发送请求后，服务端返回的响应码不是 2xx   
@@ -66,25 +49,8 @@
             // console.log(error.config);
         });
     },
-    deleteCog: function( ip, connname, city, port, database, user, pwd, type, subnetwork, subnetworkfdd, subnetworknbiot ) {
-        let postData = qs.stringify({
-            // inCharset: 'utf-8',
-            // outCharset: 'utf-8',
-            ip: ip,
-            connname: connname,
-            city: city,
-            port: port,
-            database: database,
-            user: user,
-            pwd: pwd,
-            type: type,
-            subnetwork: subnetwork,
-            subnetworkfdd: subnetworkfdd,
-            subnetworknbiot: subnetworknbiot
-        });
-        return axios.post( 'deleteCog', {
-            data: postData
-        })
+    deleteCog: function( postData ) {
+        return axios.post( 'deleteCog', postData)
         .catch(function(error) {
             if (error.response) {
                 // 发送请求后，服务端返回的响应码不是 2xx   
