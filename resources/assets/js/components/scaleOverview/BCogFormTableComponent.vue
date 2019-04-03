@@ -41,6 +41,7 @@
         </b-row>
         <!-- Main table element -->
         <b-table striped 
+                 hover 
                  show-empty
                  stacked="md"
                  :items="items"
@@ -101,34 +102,35 @@
     .top-cog {
         background-color: white; 
         padding: 15px 15px 15px 15px;
-        margin-top: 50px;
+        margin-top: 25px;
     }
     .line-limit-length {
-        max-width: 200px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+        max-width: 150px;
+        white-space:nowrap;
+        overflow:hidden;
+        text-overflow:ellipsis;
 
     }
+    
 </style>
 <script>
-    const items = [];
+    var items = [];
     export default {
         data () {
             return {
-              items: [],
+              items: items,
               fields: [
                 { key: 'type', label: 'Type', sortable: true, class: 'text-center', sortDirection: 'desc'  },
-                { key: 'connname', label: 'ConnName', sortable: true, sortDirection: 'desc' },
+                { key: 'conn', label: 'Conn', sortable: true, sortDirection: 'desc' },
                 { key: 'city', label: 'city', sortable: true, sortDirection: 'desc' },
                 { key: 'ip', label: 'IP address', sortable: true, sortDirection: 'desc' },
                 { key: 'port', label: 'Port', sortable: true, class: 'text-center' },
                 { key: 'database', label: 'Database' },
                 { key: 'user', label: 'User' },
                 { key: 'pwd', label: 'Password' },
-                { key: 'subnetwork', label: 'subNetwork', class: 'line-limit-length' },
-                { key: 'subnetworkfdd', label: 'subNetworkFdd', class: 'line-limit-length' },
-                { key: 'subnetworknbiot', label: 'subNetworkNbiot', class: 'line-limit-length' },
+                { key: 'subNetworkTdd', label: 'subNetworkTdd', class: 'line-limit-length' },
+                { key: 'subNetworkFdd', label: 'subNetworkFdd', class: 'line-limit-length' },
+                { key: 'subNetworkNbiot', label: 'subNetworkNbiot', class: 'line-limit-length' },
                 { key: 'actions', label: 'Actions' }
               ],
               fixed: false,
@@ -155,8 +157,11 @@
                 .map(f => { return { text: f.label, value: f.key } })
             },
             showCog () {
-                this.items = this.$store.getters.getShowCog
-                return this.$store.getters.getShowCogStatus;
+                items = this.$store.getters.getShowCog
+                this.items = items
+                this.totalRows =  items.length
+                this.currentPage = 1
+                return this.$store.getters.getShowCogStatus
             }
           },
           created() {
@@ -169,7 +174,7 @@
                 this.filter = null
                 this.currentPage = 1
                 this.modify = []
-                this.modify.push({ id: '-1', _showDetails: true, ip: '', connname: '', city: '', port: '', database: '', user: '', pwd: '', type: '', subnetwork: '', subnetworkfdd: '', subnetworknbiot: '' })
+                this.modify.push({ id: '-1', _showDetails: true, ip: '', conn: '', city: '', port: '', database: '', user: '', pwd: '', subNetworkTdd: '', subNetworkFdd: '', subNetworkNbiot: '', type: '' })
                 //限制add数量只能是一个
                 for (var i = this.items.length - 1; i >= 0; i--) {
                     if( this.items[i].id == -1 ) {
@@ -190,16 +195,16 @@
             modifyOK () {
                 this.$store.dispatch('uploadCog', {
                     ip: this.modify.ip,
-                    connname: this.modify.connname,
+                    conn: this.modify.conn,
                     city: this.modify.city,
                     port: this.modify.port,
                     database: this.modify.database,
                     user: this.modify.user,
                     pwd: this.modify.pwd,
                     type: this.modify.type,
-                    subnetwork: this.modify.subnetwork,
-                    subnetworkfdd: this.modify.subnetworkfdd,
-                    subnetworknbiot: this.modify.subnetworknbiot
+                    subNetworkTdd: this.modify.subNetworkTdd,
+                    subNetworkFdd: this.modify.subNetworkFdd,
+                    subNetworkNbiot: this.modify.subNetworkNbiot
                 })
                 this.confirmModify.title = ''
                 this.confirmModify.content = '修改成功'
@@ -215,26 +220,31 @@
                 // evt.preventDefault()
                 this.$store.dispatch('deleteCog', {
                     ip: this.delete.ip,
-                    connname: this.delete.connname,
+                    conn: this.delete.conn,
                     city: this.delete.city,
                     port: this.delete.port,
                     database: this.delete.database,
                     user: this.delete.user,
                     pwd: this.delete.pwd,
                     type: this.delete.type,
-                    subnetwork: this.delete.subnetwork,
-                    subnetworkfdd: this.delete.subnetworkfdd,
-                    subnetworknbiot: this.delete.subnetworknbiot
+                    subNetworkTdd: this.delete.subNetworkTdd,
+                    subNetworkFdd: this.delete.subNetworkFdd,
+                    subNetworkNbiot: this.delete.subNetworkNbiot
                 })
                 this.modify = []
+                //this.$store.dispatch('showCog')
                 for (var i = this.items.length - 1; i >= 0; i--) {
                     if( this.items[i].id != this.delete.id ) {
-                        this.modify.push(this.items[i])
+                       this.modify.push(this.items[i])
                     }
-                }
+               }
                 this.items = this.modify.sort(function(a, b) {
                     return a.id - b.id
                 })
+                this.totalRows =  this.items.length
+                if ( this.items.length/this.perPage < this.currentPage ) {
+                    this.currentPage = Math.ceil(this.items.length/this.perPage)
+                }
             },
             //更新table
             updateok () {

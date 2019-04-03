@@ -4,6 +4,7 @@
         padding-left: 0px;
         padding-bottom: 0px;
         padding-right: 0px;
+        cursor:pointer;
     }
     .item {
       margin: 4px;
@@ -11,10 +12,8 @@
 </style>
 <template>
     <el-tooltip class="item" effect="dark" content="连接配置" placement="bottom-end" >
-        <li class="nav-item dropdown" @click="onConfig">
-            <a id="locale" href="#" class="nav-link cog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                <i class="el-icon-setting"></i>
-            </a>
+        <li class="nav-item dropdown nav-link cog">
+            <i class="el-icon-setting" @click.stop="onConfig()"></i>
         </li>
     </el-tooltip>
 </template>
