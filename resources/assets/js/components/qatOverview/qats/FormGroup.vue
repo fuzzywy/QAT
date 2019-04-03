@@ -471,6 +471,10 @@
                       this.bool.cell = true;
                     break;
                     case 'cell':
+                      this.baseStation = '';
+                      this.bool.baseStation = false;
+                      this.bool.cell = false;
+                      break;
                     case 'cellGroup':
                       this.baseStation = '';
                       this.bool.baseStation = true;

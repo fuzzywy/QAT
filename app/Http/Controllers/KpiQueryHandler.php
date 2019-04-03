@@ -353,6 +353,10 @@ trait KpiQueryHandler
             }
         }
           if($this->locationDim=="cell"||$this->locationDim=="cellGroup"){
+            if ($this->baseStation) {
+                $baseStation = "'".str_replace(",", "','", $this->baseStation)."'";
+                $aggWhereSql .= " and erbs in($baseStation) ";
+            }
             if($this->cell){
                 $cell = trim($this->cell);
                 $cell="'".str_replace(",", "','", $cell)."'";
