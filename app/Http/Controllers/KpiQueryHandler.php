@@ -78,7 +78,7 @@ trait KpiQueryHandler
         $this->subnets =$newsubnets;
         $this->timeDim = $request['timeDim'];
         $this->locationDim = $request['locationDim'];
-        $this->baseStation = $request['baseStation'];
+        $this->baseStation = "'".str_replace(",", "','", $request['baseStation'])."'";
         $this->cell = $request['cell'];
         $this->dateStart =substr($request['date'][0],0,10);
         $this->dateEnd =substr($request['date'][1],0,10);
@@ -353,6 +353,9 @@ trait KpiQueryHandler
             }
         }
           if($this->locationDim=="cell"||$this->locationDim=="cellGroup"){
+            if ($this->baseStation) {
+                $aggWhereSql .= " and erbs in($this->baseStation) ";
+            }
             if($this->cell){
                 $cell = trim($this->cell);
                 $cell="'".str_replace(",", "','", $cell)."'";
