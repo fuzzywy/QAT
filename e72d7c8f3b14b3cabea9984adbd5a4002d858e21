@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "c0e8a1f3_846b0b36",
+        "filename": "app/Http/Controllers/UploadController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-04-03T08:49:39Z",
+      "side": 1,
+      "message": "\u003e 1) 方法名应该为upload\n \u003e 2) 需要重新设计post参数。{\"data\": xxx\u0026xxx\u0026xxx} 这个参数设计不合理。\n \u003e {\n \u003e \"ip\" : xxx,\n \u003e \"conn\": xxx,\n \u003e ....\n \u003e }",
+      "parentUuid": "960969b5_16081fcc",
+      "revId": "e72d7c8f3b14b3cabea9984adbd5a4002d858e21",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6755b556_7bf5ba8f",
         "filename": "app/Http/Controllers/UploadController.php",
         "patchSetId": 1
