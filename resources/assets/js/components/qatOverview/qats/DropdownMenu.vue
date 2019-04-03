@@ -9,16 +9,16 @@
         <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
             <el-submenu index="ENIQ">
                 <template slot="title">{{eniqkpi}}</template>
-                <el-menu-item index="TDD">TDD</el-menu-item>
-                <el-menu-item index="FDD">FDD</el-menu-item>
-                <el-menu-item index="GSM">GSM</el-menu-item>
-                <el-menu-item index="NBIOT">NBIOT</el-menu-item>
+                <el-menu-item index="ENIQ-TDD">TDD</el-menu-item>
+                <el-menu-item index="ENIQ-FDD">FDD</el-menu-item>
+                <el-menu-item index="ENIQ-GSM">GSM</el-menu-item>
+                <el-menu-item index="ENIQ-NBIOT">NBIOT</el-menu-item>
             </el-submenu>
             <el-submenu index="NBM">
                 <template slot="title">{{nbmkpi}}</template>
-                <el-menu-item index="TDD">TDD</el-menu-item>
-                <el-menu-item index="FDD">FDD</el-menu-item>
-                <el-menu-item index="NBIOT">NBIOT</el-menu-item>
+                <el-menu-item index="NBM-TDD">TDD</el-menu-item>
+                <el-menu-item index="NBM-FDD">FDD</el-menu-item>
+                <el-menu-item index="NBM-NBIOT">NBIOT</el-menu-item>
             </el-submenu>
             <el-submenu index="ALARM">
                 <template slot="title">{{alarmkpi}}</template>
