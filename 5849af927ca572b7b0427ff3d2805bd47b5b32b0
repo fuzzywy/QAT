@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "49542617_bc5151a2",
+        "filename": "app/Http/Controllers/NbmQueryHandler.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-04-04T02:01:44Z",
+      "side": 1,
+      "message": "BUG?\n\"data\" \u003d\u003e $row 应该为 \"data\" \u003d\u003e $arr吧",
+      "revId": "5849af927ca572b7b0427ff3d2805bd47b5b32b0",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    }
+  ]
+}
