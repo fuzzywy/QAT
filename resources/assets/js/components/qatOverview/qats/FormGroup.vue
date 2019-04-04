@@ -470,6 +470,12 @@
                       this.bool.baseStation = false;
                       this.bool.cell = true;
                     break;
+                    case 'BSC':
+                    case 'BSCGroup':
+                      this.cell = '';
+                      this.bool.baseStation = false;
+                      this.bool.cell = true;
+                    break;
                     case 'cell':
                       this.baseStation = '';
                       this.bool.baseStation = false;
@@ -490,6 +496,7 @@
             },
             //查询主函数
             toggleStartIcon(event) {
+              this.downloadfiles = '';
               if ( !(this.template || this.dataSource == "ALARM")) {
                 this.$message({
                   showClose: true,
@@ -643,7 +650,6 @@
                 });
                 this.loading.qatExport = false;
               }
-              this.downloadfiles = '';
             }
         },
         computed: {

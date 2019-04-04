@@ -16,8 +16,14 @@ export const Common = {
             }
 
             //全不选
-            if ( seleAll == 0 && len == glen ) {
-                newdata = [];
+            for (var k = 0,l=newdata.length; k < l; k++) {
+              if (newdata[k] == "allSelect") {
+                if ( allselect[0]["value"] == "allSelect" && len > 1 ) {
+                  newdata = [];
+                  return newdata;
+                } 
+              }
+                
             }
 
             //全选
