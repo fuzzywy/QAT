@@ -16,6 +16,57 @@
       "revId": "5849af927ca572b7b0427ff3d2805bd47b5b32b0",
       "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c8907dc1_1127fe9b",
+        "filename": "resources/assets/js/plugins/BootstrapVue.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-04-04T05:54:29Z",
+      "side": 1,
+      "message": "确认BootstrapVue是否在项目中有引用，没有的话需要删除",
+      "revId": "5849af927ca572b7b0427ff3d2805bd47b5b32b0",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6491329f_7ad0a6df",
+        "filename": "resources/assets/js/plugins/Highcharts.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-04-04T05:54:29Z",
+      "side": 1,
+      "message": "确认Hightcharts是否在项目中有引用，没有的话需要删除",
+      "revId": "5849af927ca572b7b0427ff3d2805bd47b5b32b0",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7122053a_513a2f13",
+        "filename": "resources/assets/js/plugins/jquery.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-04-04T05:54:29Z",
+      "side": 1,
+      "message": "确认jquery是否在项目中有引用，没有的话需要删除",
+      "revId": "5849af927ca572b7b0427ff3d2805bd47b5b32b0",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
     }
   ]
 }
