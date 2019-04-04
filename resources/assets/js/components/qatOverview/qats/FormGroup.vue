@@ -490,6 +490,7 @@
             },
             //查询主函数
             toggleStartIcon(event) {
+              this.downloadfiles = '';
               if ( !(this.template || this.dataSource == "ALARM")) {
                 this.$message({
                   showClose: true,
@@ -643,7 +644,6 @@
                 });
                 this.loading.qatExport = false;
               }
-              this.downloadfiles = '';
             }
         },
         computed: {
