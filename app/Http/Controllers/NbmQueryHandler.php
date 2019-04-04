@@ -17,7 +17,11 @@ class NbmQueryHandler extends Controller
     	$dc = new DataBaseConnection();
     	$pdo = $dc->getDB("nbm");
     	$row = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
-    	$fileName = $this->download($row, $this->sql->resultText);
+         //导出数据限制100万条
+        $data = array_slice($row, 0, 1000000);
+    	$fileName = $this->download($data, $this->sql->resultText);
+         //显示数据显示1000条
+        $arr = array_slice($row, 0, 1000);
     	return  array("data"=>$row,"file"=>$fileName);
     }
 }
