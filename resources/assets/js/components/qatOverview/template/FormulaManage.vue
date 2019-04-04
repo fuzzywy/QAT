@@ -39,6 +39,7 @@
                                 <el-option label="TDD" value="tdd"></el-option>
                                 <el-option label="FDD" value="fdd"></el-option>
                                 <el-option label="NBIOT" value="nbiot"></el-option>
+                                <el-option label="GSM" value="gsm"></el-option>
                             </el-select>
                         </el-form-item>
                     </el-form>
