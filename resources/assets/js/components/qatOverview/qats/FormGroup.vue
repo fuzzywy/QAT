@@ -4,8 +4,10 @@
         top: 10px;
         text-align: center;
         z-index: 999;
+        padding-bottom: 15px;
         padding-left: 15px;
         padding-right: 15px;
+        margin-top: 5px;
     }
     .full-width {
       width: 100%;

@@ -11,11 +11,11 @@
     .qatheader {
         position: relative;
         /*height: 50px;*/
-        margin-bottom: 5px;
+        /*margin-bottom: 5px;*/
     }
     .qatbody {
         position: relative;
-        padding: 0 0 15px 0;
+        /*padding: 0 0 15px 0;*/
         width: 100%;
         /*border: 1px solid #dcdfe6;*/
         margin: auto;
@@ -32,11 +32,13 @@
             <dropdown-menu></dropdown-menu>
         </div>
         <div class="qatbody">
-            <form-group :dataSource="datasource" :dataType="datatype"></form-group>
+            <component :is="whichFormGroup" :dataSource="datasource" :dataType="datatype"></component>
+            <!--<form-group :dataSource="datasource" :dataType="datatype"></form-group>-->
         </div>
-        <br />
+        <!--<br />-->
         <div class="qattable">
-            <table-group></table-group>
+            <component :is="whichTableGroup"></component>
+            <!--<table-group></table-group>-->
         </div>
     </div>
 </template>
@@ -45,17 +47,24 @@
     import DropdownMenu from './qats/DropdownMenu.vue';
     import FormGroup from './qats/FormGroup.vue';
     import TableGroup from './qats/TableGroup.vue';
+    import FormKgetGroup from './qats/kget/FormKgetGroup.vue';
+    import TableKgetGroup from './qats/kget/TableKgetGroup.vue';
+    
     export default {
         data() {
             return {
                 datasource: 'ENIQ',
-                datatype: 'TDD'
+                datatype: 'TDD',
+                whichFormGroup: 'FormGroup',
+                whichTableGroup: 'TableGroup'
             }
         },
         components: {
             DropdownMenu,
             FormGroup,
-            TableGroup
+            FormKgetGroup,
+            TableGroup,
+            TableKgetGroup
         },
         mounted() {
             if ( window.location.hash == '#/eniqfdd' ) {
@@ -67,6 +76,15 @@
                 this.datasource = types.datasource
                 this.datatype = types.datatype
                 // console.log(types.datasource, types.datatype)
+                switch (this.datasource) {
+                    case 'KGET' : 
+                        this.whichFormGroup = 'FormKgetGroup';
+                        this.whichTableGroup = 'TableKgetGroup';
+                    break;
+                    default :
+                        this.whichFormGroup = 'FormGroup';
+                        this.whichTableGroup = 'TableGroup';
+                }
             });
         }
     }

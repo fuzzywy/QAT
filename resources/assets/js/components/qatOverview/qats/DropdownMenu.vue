@@ -43,6 +43,8 @@
             </el-submenu>
             <el-submenu index="KGET" disabled>
                 <template slot="title">{{kgetkpi}}</template>
+                <el-menu-item index="ALL">参数查询</el-menu-item>
+                <el-menu-item index="Check">参数检查</el-menu-item>
             </el-submenu>
             <el-submenu index="MR" disabled>
                 <template slot="title">{{mrkpi}}</template>
@@ -69,7 +71,7 @@
                 activeIndex: 'ENIQ',
                 eniqkpi: "ENIQ-TDD",
                 nbmkpi: "NBM",
-                kgetkpi: "KGET",
+                kgetkpi: "参数",
                 mrkpi: "MR",
                 ctrkpi: "CTR",
                 ctumkpi: "CTUM",
@@ -87,7 +89,7 @@
                 var datasoure = keyPath[0];
                 this.eniqkpi = 'ENIQ';
                 this.nbmkpi = 'NBM';
-                this.kgetkpi = 'KGET';
+                this.kgetkpi = '参数';
                 this.mrkpi = "MR";
                 this.ctrkpi = "CTR";
                 this.ctumkpi = "CTUM";
@@ -101,7 +103,7 @@
                         this.nbmkpi = ft;
                         break;
                     case 'KGET':
-                        this.kgetkpi = ft;
+                        this.kgetkpi = this.kgetkpi+'-'+keyPath[1];
                         break;
                     case 'MR':
                         this.mrkpi = ft;

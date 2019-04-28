@@ -56,3 +56,19 @@ Route::prefix('report')->namespace('ReportManage')->group(function () {
     Route::get('list', 'ReportController@list');
     Route::get('list', 'ReportController@list');
 });
+
+// [kgetManage routes]
+Route::prefix('kget')->namespace('KgetManage')->group(function () {
+	Route::post('getQatKgetMoData', 'KgetController@getQatKgetMo');
+	Route::post('getMoByParamFilterData', 'KgetController@getMoByParamFilter');
+	Route::post('getKgetTaskData', 'KgetController@getKgetTask');
+	Route::post('getKgetParamData', 'KgetController@getKgetParam');
+	Route::post('getKgetData', 'KgetController@getKgetData');
+	Route::post('exportKgetFile', 'KgetController@exportKgetFile');
+	Route::post('insertKgetCrontabTask', 'KgetController@insertKgetCrontabTask');
+	Route::post('getKgetCrontabTask', 'KgetController@getKgetCrontabTask');
+	Route::post('checkKgetTaskName', 'KgetController@checkKgetTaskName');
+	Route::post('deleteKgetCrontabTask', 'KgetController@deleteKgetCrontabTask');
+	Route::post('getQatKgetMoListData', 'KgetController@getQatKgetMoList');
+
+});
