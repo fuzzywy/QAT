@@ -43,6 +43,8 @@
             </el-submenu>
             <el-submenu index="KGET" disabled>
                 <template slot="title">{{kgetkpi}}</template>
+                <el-menu-item index="ALL">{{$t('messages.kget.QUERY')}}</el-menu-item>
+                <el-menu-item index="Check">{{$t('messages.kget.CHECK')}}</el-menu-item>
             </el-submenu>
             <el-submenu index="MR" disabled>
                 <template slot="title">{{mrkpi}}</template>
@@ -69,7 +71,7 @@
                 activeIndex: 'ENIQ',
                 eniqkpi: "ENIQ-TDD",
                 nbmkpi: "NBM",
-                kgetkpi: "KGET",
+                kgetkpi: "",
                 mrkpi: "MR",
                 ctrkpi: "CTR",
                 ctumkpi: "CTUM",
@@ -81,13 +83,16 @@
                 fddkpi: "FDD"
             }
         },
+        mounted() {
+            this.kgetkpi = this.$t('messages.kget.KGET');
+        },
         methods: {
             handleSelect(key, keyPath) {
                 var ft = keyPath.join('-');
                 var datasoure = keyPath[0];
                 this.eniqkpi = 'ENIQ';
                 this.nbmkpi = 'NBM';
-                this.kgetkpi = 'KGET';
+                this.kgetkpi = this.$t('messages.kget.KGET');
                 this.mrkpi = "MR";
                 this.ctrkpi = "CTR";
                 this.ctumkpi = "CTUM";
@@ -101,7 +106,7 @@
                         this.nbmkpi = ft;
                         break;
                     case 'KGET':
-                        this.kgetkpi = ft;
+                        this.kgetkpi = this.kgetkpi+'-'+keyPath[1];
                         break;
                     case 'MR':
                         this.mrkpi = ft;

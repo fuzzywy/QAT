@@ -27,6 +27,7 @@
         "gulp": "^3.9.1",
         "highcharts": "^6.1.1",
         "vue-highcharts": "0.0.10",
-        "vue-router": "^3.0.1"
+        "vue-router": "^3.0.1",
+        "vue-i18n": "^8.11.2"
     }
 }

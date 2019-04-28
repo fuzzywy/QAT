@@ -4,6 +4,7 @@ namespace App\Console;
 
 use App\Console\Commands\LoadCounter;
 use App\Console\Commands\MongsSiteLte;
+use App\Console\Commands\KgetCrontabTask;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -28,6 +29,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command(LoadCounter::class)->dailyAt('02:00');
         $schedule->command(MongsSiteLte::class)->dailyAt('02:00');
+        $schedule->command(KgetCrontabTask::class)->dailyAt('12:00');
     }
 
     /**

@@ -79,6 +79,7 @@ class DataBaseConnection
         switch($dataType)
         {
             case "ENIQ":
+            case "KGET":
             switch($type)
             {
                 case "TDD":
@@ -90,15 +91,17 @@ class DataBaseConnection
                 case "NBIOT":
                 $str = "subNetworkNbiot";
                 break;
-
+                case "ALL":
+                $str = "replace(trim(both ',' from concat_ws(',',GROUP_CONCAT(subNetworkTdd),GROUP_CONCAT(subNetworkFdd),GROUP_CONCAT(subNetworkNbiot))), ',,' , ',')";
+                break;
                 
             }
             foreach ($citys as $key => $value) {
-                    $subnet = Eniq::select("conn",$str)->where("city",$value)->get()->toArray();
-                    // print_r($subnet);exit;
+                    $subnet = Eniq::selectRaw("conn , ".$str." as subNetwork")->where("city",$value)->get()->toArray();
+                    //print_r($subnet);
                     foreach ($subnet as  $v) {
-                         if($v[$str]){
-                            $subNetWork[$v['conn']]=array_unique(explode(",", $v[$str]));
+                         if($v['subNetwork']){
+                            $subNetWork[$v['conn']]=array_unique(explode(",", $v['subNetwork']));
                          }
                     }
                 }
