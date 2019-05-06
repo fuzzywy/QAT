@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "54d58920_d87f0299",
+        "filename": "app/Console/Kernel.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-05-06T05:50:08Z",
+      "side": 1,
+      "message": "每分钟执行？",
+      "revId": "3fae76868d148753b574b9496ef8d90fe28c6033",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e9eff61f_849fe466",
+        "filename": "app/Http/Controllers/KgetManage/KgetController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-05-06T05:50:08Z",
+      "side": 1,
+      "message": "select TABLE_SCHEMA as label\n是否可以避免之后的迭代？",
+      "revId": "3fae76868d148753b574b9496ef8d90fe28c6033",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2d16b33c_87ed8855",
+        "filename": "app/Http/Controllers/KgetManage/KgetController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-05-06T05:50:08Z",
+      "side": 1,
+      "message": "尽量避免在迭代中使用函数以提高运行效率\n\u003d\u003d\u003e for($i\u003d0,$size\u003dcount($data); i\u003csize; i++)",
+      "revId": "3fae76868d148753b574b9496ef8d90fe28c6033",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "30c8c9ed_64a36103",
+        "filename": "app/Http/Controllers/KgetManage/KgetController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-05-06T05:50:08Z",
+      "side": 1,
+      "message": "同上\nselect(\u0027TABLE_SCHEMA as value\u0027,\u0027TABLE_SCHEMA as label\u0027)",
+      "revId": "3fae76868d148753b574b9496ef8d90fe28c6033",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f5772092_5c774acf",
+        "filename": "resources/assets/js/api/qat/getQatKget.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-05-06T05:50:08Z",
+      "side": 1,
+      "message": "如果没有参数，使用GET而不是POST",
+      "revId": "3fae76868d148753b574b9496ef8d90fe28c6033",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "82f4405e_18d93d96",
+        "filename": "resources/assets/js/api/qat/getQatKget.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-05-06T05:50:08Z",
+      "side": 1,
+      "message": "function(error)需要提取成公共函数，太多重复代码",
+      "revId": "3fae76868d148753b574b9496ef8d90fe28c6033",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c31af579_a4590372",
+        "filename": "resources/assets/js/api/qat/getQatKget.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-05-06T05:50:08Z",
+      "side": 1,
+      "message": "POST\u003d\u003eGET",
+      "revId": "3fae76868d148753b574b9496ef8d90fe28c6033",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "eceed6d4_f05bedf7",
+        "filename": "resources/assets/js/api/qat/getQatKget.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-05-06T05:50:08Z",
+      "side": 1,
+      "message": "POST\u003d\u003eGET",
+      "revId": "3fae76868d148753b574b9496ef8d90fe28c6033",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7eaede97_81c601b7",
+        "filename": "resources/assets/js/components/qatOverview/qats/DropdownMenu.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-05-06T05:50:08Z",
+      "side": 1,
+      "message": "use elemet i18n",
+      "revId": "3fae76868d148753b574b9496ef8d90fe28c6033",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    }
+  ]
+}
