@@ -16,7 +16,7 @@ Route::get('/', function () {
 Auth::routes();
 Route::get('localeLang', 'NavController@localeLang');
 Route::get('/home', 'HomeController@index')->name('home');
-//连接配置
+// [cog routes]
 Route::post('uploadCog', 'UploadController@upload');
 Route::post('showCog', 'UploadController@query');
 Route::post('deleteCog', 'UploadController@delete');
@@ -71,4 +71,18 @@ Route::prefix('kget')->namespace('KgetManage')->group(function () {
 	Route::post('deleteKgetCrontabTask', 'KgetController@deleteKgetCrontabTask');
 	Route::get('getQatKgetMoListData', 'KgetController@getQatKgetMoList');
 
+});
+
+// [kgetManage routes]
+Route::prefix('paramCheck')->namespace('KgetManage')->group(function () {
+	Route::get('getQatParamItemData', 'ConsistencyController@getItem');
+	Route::post('getQatParamOperatorData', 'ConsistencyController@getOperator');
+	Route::get('getQatParamProvinceData', 'ConsistencyController@getProvince');
+	Route::post('getQatParamCityData', 'ConsistencyController@getCity');
+	Route::post('getQatParamData', 'ConsistencyController@getParam');
+	Route::post('exportQatParamData', 'ConsistencyController@exportParam');
+	Route::post('getQatParamDetailData', 'ConsistencyController@getParamDetail');
+	Route::post('exportQatParamDetailData', 'ConsistencyController@exportParamDetail');
+	Route::post('uploadWhiteList', 'ConsistencyController@uploadWhiteList');
+	Route::post('exportWhiteList', 'ConsistencyController@exportWhiteList');
 });

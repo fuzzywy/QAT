@@ -55,21 +55,21 @@ class DataBaseConnection
     }//end getDB()
 
     /**
-     * 获取城市中文名
+     * 获取城市英文名
      *@return string
      */
-    public function getConnName($db,$city){
-        if (App::isLocale('en')) {
-            return $city;
-        }
-// var_dump(App::isLocale('en'));exit;
-        $sql = "select connName from city where cityChinese='$city' limit 1";
-        $res = $db->query($sql)->fetchall(PDO::FETCH_ASSOC);
-        foreach ($res as $key => $value) {
-            $connName = $value['connName'];
+    public function getConnName($cityChinese){
+        /*if (App::isLocale('en')) {
+            if (trans('message.city.'.$cityChinese)) {
+                return trans('message.city.'.$cityChinese);
+            }
+        }*/
+        $connName = '';
+        $row      = DB::table('cities')->select('conname')->where('city',$cityChinese)->first();
+        if ($row) {
+            $connName = $row->conname;
         }
         return $connName;
-
     }//end getConnName()
 
     public function getSubnetwork($citys,$dataType,$type)
@@ -126,21 +126,24 @@ class DataBaseConnection
 
         switch($type){
             case "TDD":
-            $result = Databaseconns::select("subNetwork as subnet")->where("cityChinese",$cityChinese)->get()->toArray();
+            $result = Eniq::select("subNetworkTdd as subNet")->where("city",$cityChinese)->get()->toArray();
             break;
             case "FDD":
-            $result = Databaseconns::select("subNetworkFDD as subnet")->where("cityChinese",$cityChinese)->get()->toArray();
+            $result = Eniq::select("subNetworkFdd as subNet")->where("city",$cityChinese)->get()->toArray();
             break;
             case "NBIOT":
-            $result = Databaseconns::select("subNetworkNbiot as subnet")->where("cityChinese",$cityChinese)->get()->toArray();
+            $result = Eniq::select("subNetworkNbiot as subNet")->where("city",$cityChinese)->get()->toArray();
+            break;
+            case "ALL":
+            $result = Eniq::selectRaw("replace(trim(both ',' from concat_ws(',',GROUP_CONCAT(subNetworkTdd),GROUP_CONCAT(subNetworkFdd),GROUP_CONCAT(subNetworkNbiot))), ',,' , ',') as subNet")->where("city",$cityChinese)->get()->toArray();
             break;
         }
 
-        $subnet =array();
+        $subNet =array();
         foreach ($result as $key => $value) {
-            $subnet= array_merge($subnet,explode(",", $value['subnet']));
+            $subNet= array_merge($subNet,explode(",", $value['subNet']));
         }
-        return array_filter($subnet);
+        return array_filter($subNet);
     }
         public function getSubNetsStr($type,$cityChinese){
 
