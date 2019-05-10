@@ -49,6 +49,8 @@
     import TableGroup from './qats/TableGroup.vue';
     import FormKgetGroup from './qats/kget/FormKgetGroup.vue';
     import TableKgetGroup from './qats/kget/TableKgetGroup.vue';
+    import FormCheckGroup from './qats/kget/FormCheckGroup.vue';
+    import TableCheckGroup from './qats/kget/TableCheckGroup.vue';
     
     export default {
         data() {
@@ -62,9 +64,11 @@
         components: {
             DropdownMenu,
             FormGroup,
-            FormKgetGroup,
             TableGroup,
-            TableKgetGroup
+            FormKgetGroup,
+            TableKgetGroup,
+            FormCheckGroup,
+            TableCheckGroup
         },
         mounted() {
             if ( window.location.hash == '#/eniqfdd' ) {
@@ -78,8 +82,16 @@
                 // console.log(types.datasource, types.datatype)
                 switch (this.datasource) {
                     case 'KGET' : 
-                        this.whichFormGroup = 'FormKgetGroup';
-                        this.whichTableGroup = 'TableKgetGroup';
+                        switch (this.datatype) {
+                            case 'Check' :
+                                this.whichFormGroup = 'FormCheckGroup';
+                                this.whichTableGroup = '';
+                            break;
+                            default :
+                                this.whichFormGroup = 'FormKgetGroup';
+                                this.whichTableGroup = 'TableKgetGroup';
+
+                        }
                     break;
                     default :
                         this.whichFormGroup = 'FormGroup';

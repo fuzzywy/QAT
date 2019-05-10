@@ -41,7 +41,7 @@
                         </el-submenu>
                 </el-submenu>
             </el-submenu>
-            <el-submenu index="KGET" disabled>
+            <el-submenu index="KGET">
                 <template slot="title">{{kgetkpi}}</template>
                 <el-menu-item index="ALL">{{$t('messages.kget.QUERY')}}</el-menu-item>
                 <el-menu-item index="Check">{{$t('messages.kget.CHECK')}}</el-menu-item>
