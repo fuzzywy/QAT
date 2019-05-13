@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "968ad8d6_4cca3c39",
+        "filename": "app/Http/Controllers/Common/DataBaseConnection.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-05-13T06:24:19Z",
+      "side": 1,
+      "message": "尽量减少没有必要的局部变量定义\nreutrn $row ? $row-\u003econnname : \u0027\u0027",
+      "revId": "0420a314984446f8ddf2387b209281021f480f80",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1b1e9b8b_dbc26e86",
+        "filename": "app/Http/Controllers/KgetManage/ConsistencyController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-05-13T06:24:19Z",
+      "side": 1,
+      "message": "Laravel中 Eloquent Collections 在返回时会自动转换成json结构。\n所以不需要转换成array, 然后重新encode成jon结构\n\u003d\u003d\u003d\u003d\u003d\n$operatorData \u003d DB::table(\u0027operator\u0027)-\u003eselect(\u0027name as label\u0027,\u0027name as value\u0027)-\u003ewhere(\u0027province\u0027,\u0027\u003d\u0027,$province)-\u003eget();\nreturn $operatorData;",
+      "revId": "0420a314984446f8ddf2387b209281021f480f80",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "67652254_862f4160",
+        "filename": "app/Http/Controllers/KgetManage/ConsistencyController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-05-13T06:24:19Z",
+      "side": 1,
+      "message": "同上",
+      "revId": "0420a314984446f8ddf2387b209281021f480f80",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f16db572_01d9822a",
+        "filename": "app/Http/Controllers/Utils/FileUtil.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-05-13T06:24:19Z",
+      "side": 1,
+      "message": "使用\nstrripos \nsubstr \n以避免循环",
+      "revId": "0420a314984446f8ddf2387b209281021f480f80",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3285d691_d470dcc9",
+        "filename": "resources/assets/js/components/qatOverview/qats/kget/FormCheckGroup.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-05-13T06:24:19Z",
+      "side": 1,
+      "message": "delete the break",
+      "revId": "0420a314984446f8ddf2387b209281021f480f80",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    }
+  ]
+}
