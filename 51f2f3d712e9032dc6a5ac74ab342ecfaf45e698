@@ -1,0 +1,446 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b970a82d_788fece9",
+        "filename": "app/Http/Controllers/TaskManage/LogController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-05-23T09:44:46Z",
+      "side": 1,
+      "message": "使用Laravel提供的Storage服务来重写文件操作。\nFYI\nhttps://laravel.com/docs/5.8/filesystem",
+      "revId": "51f2f3d712e9032dc6a5ac74ab342ecfaf45e698",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "63dff1a0_0461880e",
+        "filename": "app/Http/Controllers/TaskManage/LogController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-05-23T09:44:46Z",
+      "side": 1,
+      "message": "请修改类型，返回为Array",
+      "revId": "51f2f3d712e9032dc6a5ac74ab342ecfaf45e698",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5841938b_8de19865",
+        "filename": "app/Http/Controllers/TaskManage/LogController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-05-23T09:44:46Z",
+      "side": 1,
+      "message": "同上,使用Laravel提供的Storage服务",
+      "revId": "51f2f3d712e9032dc6a5ac74ab342ecfaf45e698",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "96744091_bea7f4c5",
+        "filename": "app/Http/Controllers/TaskManage/LogController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-05-23T09:44:46Z",
+      "side": 1,
+      "message": "修改参数和返回值类型",
+      "revId": "51f2f3d712e9032dc6a5ac74ab342ecfaf45e698",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "88a626bd_2235a2fd",
+        "filename": "app/Http/Controllers/TaskManage/LogController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-05-23T09:44:46Z",
+      "side": 1,
+      "message": "使用Laravel提供的Storage服务",
+      "revId": "51f2f3d712e9032dc6a5ac74ab342ecfaf45e698",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7b2f0986_90532045",
+        "filename": "app/Http/Controllers/TaskManage/LogController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-05-23T09:44:46Z",
+      "side": 1,
+      "message": "使用Laravel提供的ErrorHandler会使我们的开发更高效。\n以这个异常举例\nreport(20000,\u0027导入失败\u0027)。\n\nFYI\nhttps://laravel.com/docs/5.8/filesystem",
+      "revId": "51f2f3d712e9032dc6a5ac74ab342ecfaf45e698",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d1ab2a22_eed48b62",
+        "filename": "app/Http/Controllers/TaskManage/LogController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-05-23T09:44:46Z",
+      "side": 1,
+      "message": "修改参数和返回的注释",
+      "revId": "51f2f3d712e9032dc6a5ac74ab342ecfaf45e698",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1b24cf60_fbf1f09a",
+        "filename": "app/Http/Controllers/TaskManage/LogController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-05-23T09:44:46Z",
+      "side": 1,
+      "message": "同上，使用laravel提供的Storage服务",
+      "revId": "51f2f3d712e9032dc6a5ac74ab342ecfaf45e698",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3f15061b_94bd5301",
+        "filename": "app/Http/Controllers/TaskManage/LogController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-05-23T09:44:46Z",
+      "side": 1,
+      "message": "尽量避免echo的返回方法",
+      "revId": "51f2f3d712e9032dc6a5ac74ab342ecfaf45e698",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "55cef859_13c40052",
+        "filename": "app/Http/Controllers/TaskManage/LogController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-05-23T09:44:46Z",
+      "side": 1,
+      "message": "修改参数和返回的注释",
+      "revId": "51f2f3d712e9032dc6a5ac74ab342ecfaf45e698",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3dcf8281_c1de2dc9",
+        "filename": "app/Http/Controllers/TaskManage/LogController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-05-23T09:44:46Z",
+      "side": 1,
+      "message": "同上，使用laravel提供的Storage服务",
+      "revId": "51f2f3d712e9032dc6a5ac74ab342ecfaf45e698",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0e616303_0b01ddc9",
+        "filename": "app/Http/Controllers/TaskManage/LogController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-05-23T09:44:46Z",
+      "side": 1,
+      "message": "尽量避免echo返回",
+      "revId": "51f2f3d712e9032dc6a5ac74ab342ecfaf45e698",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ff627d0_7c0bb03b",
+        "filename": "app/Http/Controllers/TaskManage/StorageController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-05-23T09:44:46Z",
+      "side": 1,
+      "message": "修改参数注释",
+      "revId": "51f2f3d712e9032dc6a5ac74ab342ecfaf45e698",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "25fb07a3_a3e2bf7f",
+        "filename": "app/Http/Controllers/TaskManage/StorageController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-05-23T09:44:46Z",
+      "side": 1,
+      "message": "使用Laravel提供的Storage服务",
+      "revId": "51f2f3d712e9032dc6a5ac74ab342ecfaf45e698",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e72417fc_ff8167cd",
+        "filename": "app/Http/Controllers/TaskManage/StorageController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-05-23T09:44:46Z",
+      "side": 1,
+      "message": "修改参数和返回注释",
+      "revId": "51f2f3d712e9032dc6a5ac74ab342ecfaf45e698",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ffb94c1_f87820d6",
+        "filename": "app/Http/Controllers/TaskManage/StorageController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-05-23T09:44:46Z",
+      "side": 1,
+      "message": "使用Laravel提供的ErrorHandler服务\nreport(0,\u0027taskNameExists\u0027)",
+      "revId": "51f2f3d712e9032dc6a5ac74ab342ecfaf45e698",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e908addf_007e1040",
+        "filename": "app/Http/Controllers/TaskManage/StorageController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-05-23T09:44:46Z",
+      "side": 1,
+      "message": "注释修改",
+      "revId": "51f2f3d712e9032dc6a5ac74ab342ecfaf45e698",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ecd2073c_f9dd9540",
+        "filename": "app/Http/Controllers/TaskManage/StorageController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-05-23T09:44:46Z",
+      "side": 1,
+      "message": "修改注释",
+      "revId": "51f2f3d712e9032dc6a5ac74ab342ecfaf45e698",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d130e684_10bf6ed3",
+        "filename": "app/Http/Controllers/TaskManage/StorageController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-05-23T09:44:46Z",
+      "side": 1,
+      "message": "使用ErrorHandler服务",
+      "revId": "51f2f3d712e9032dc6a5ac74ab342ecfaf45e698",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ddf3e7b_b83fac4f",
+        "filename": "app/Http/Controllers/TaskManage/StorageController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-05-23T09:44:46Z",
+      "side": 1,
+      "message": "修改注释",
+      "revId": "51f2f3d712e9032dc6a5ac74ab342ecfaf45e698",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62487182_18e30242",
+        "filename": "app/Http/Controllers/TaskManage/StorageController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-05-23T09:44:46Z",
+      "side": 1,
+      "message": "修改注释",
+      "revId": "51f2f3d712e9032dc6a5ac74ab342ecfaf45e698",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1598a8_563c7f2e",
+        "filename": "app/Http/Controllers/TaskManage/StorageController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-05-23T09:44:46Z",
+      "side": 1,
+      "message": "1）IP地址和用户不应该被写死\n2）建议把parser和procedure做成Commnad.这样分离会提高维护效率。\n\nFYI:\nhttps://laravel.com/docs/5.8/artisan#writing-commands\nhttps://laravel.com/docs/5.8/artisan#programmatically-executing-commands",
+      "revId": "51f2f3d712e9032dc6a5ac74ab342ecfaf45e698",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "524767b1_e46805ee",
+        "filename": "app/Http/Controllers/Utils/TaskUtil.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-05-23T09:44:46Z",
+      "side": 1,
+      "message": "修改注释",
+      "revId": "51f2f3d712e9032dc6a5ac74ab342ecfaf45e698",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68138b76_7cff04e1",
+        "filename": "app/Http/Controllers/Utils/TaskUtil.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-05-23T09:44:46Z",
+      "side": 1,
+      "message": "使用Laravel的Storage服务",
+      "revId": "51f2f3d712e9032dc6a5ac74ab342ecfaf45e698",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a438bfe_8585a58d",
+        "filename": "resources/assets/js/components/qatOverview/qats/task/LogUpload.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-05-23T09:44:46Z",
+      "side": 1,
+      "message": "use i18n",
+      "revId": "51f2f3d712e9032dc6a5ac74ab342ecfaf45e698",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3decc088_12398f6b",
+        "filename": "resources/assets/js/components/qatOverview/qats/task/LogUpload.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-05-23T09:44:46Z",
+      "side": 1,
+      "message": "作为data的属性",
+      "revId": "51f2f3d712e9032dc6a5ac74ab342ecfaf45e698",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    }
+  ]
+}
