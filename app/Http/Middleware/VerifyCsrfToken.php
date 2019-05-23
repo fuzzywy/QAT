@@ -12,6 +12,7 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        'paramCheck/uploadWhiteList'
+        'paramCheck/uploadWhiteList',
+        'log/uploadTaskFile'
     ];
 }

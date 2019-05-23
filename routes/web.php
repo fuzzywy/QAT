@@ -86,3 +86,25 @@ Route::prefix('paramCheck')->namespace('KgetManage')->group(function () {
 	Route::post('uploadWhiteList', 'ConsistencyController@uploadWhiteList');
 	Route::post('exportWhiteList', 'ConsistencyController@exportWhiteList');
 });
+
+// [TaskManage routes]
+Route::prefix('log')->namespace('TaskManage')->group(function () {
+	Route::get('getDir', 'LogController@getDir');
+	Route::post('getFileByDir', 'LogController@getFileByDir');
+	Route::post('uploadTaskFile', 'LogController@uploadFile');
+	Route::post('addDir', 'LogController@addDir');
+	Route::post('deleteDir', 'LogController@deleteDir');
+	
+});
+// [TaskManage routes]
+Route::prefix('storage')->namespace('TaskManage')->group(function () {
+	Route::get('getStorageType', 'StorageController@getStorageType');
+	Route::post('getStorageDirByType', 'StorageController@getStorageDirByType');
+	Route::post('saveTask', 'StorageController@saveTask');
+	Route::post('getTask', 'StorageController@getTask');
+	Route::post('deleteTask', 'StorageController@deleteTask');
+	Route::post('runTask', 'StorageController@runTask');
+	Route::post('stopTask', 'StorageController@stopTask');
+
+	
+});

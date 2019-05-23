@@ -51,6 +51,8 @@
     import TableKgetGroup from './qats/kget/TableKgetGroup.vue';
     import FormCheckGroup from './qats/kget/FormCheckGroup.vue';
     import TableCheckGroup from './qats/kget/TableCheckGroup.vue';
+    import LogUpload from './qats/task/LogUpload.vue';
+    import StorageManage from './qats/task/StorageManage.vue';
     
     export default {
         data() {
@@ -68,7 +70,9 @@
             FormKgetGroup,
             TableKgetGroup,
             FormCheckGroup,
-            TableCheckGroup
+            TableCheckGroup,
+            LogUpload,
+            StorageManage
         },
         mounted() {
             if ( window.location.hash == '#/eniqfdd' ) {
@@ -90,6 +94,18 @@
                             default :
                                 this.whichFormGroup = 'FormKgetGroup';
                                 this.whichTableGroup = 'TableKgetGroup';
+
+                        }
+                    break;
+                    case 'TASK' : 
+                        switch (this.datatype) {
+                            case 'Log' :
+                                this.whichFormGroup = 'LogUpload';
+                                this.whichTableGroup = '';
+                            break;
+                            default :
+                                this.whichFormGroup = 'StorageManage';
+                                this.whichTableGroup = '';
 
                         }
                     break;

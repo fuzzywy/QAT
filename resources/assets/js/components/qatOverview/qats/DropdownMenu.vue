@@ -61,6 +61,11 @@
             <el-submenu index="EBM" disabled>
                 <template slot="title">{{ebmkpi}}</template>
             </el-submenu>
+            <el-submenu index="TASK">
+                <template slot="title">{{taskkpi}}</template>
+                <el-menu-item index="Log">{{$t('messages.task.Log')}}</el-menu-item>
+                <el-menu-item index="Storage">{{$t('messages.task.Storage')}}</el-menu-item>
+            </el-submenu>
         </el-menu>
     </div>
 </template>
@@ -80,11 +85,13 @@
                 gsmkpi: "GSM",
                 ltekpi: "LTE",
                 tddkpi: "TDD",
-                fddkpi: "FDD"
+                fddkpi: "FDD",
+                taskkpi: ""
             }
         },
         mounted() {
             this.kgetkpi = this.$t('messages.kget.KGET');
+            this.taskkpi = this.$t('messages.task.TASK');
         },
         methods: {
             handleSelect(key, keyPath) {
@@ -97,6 +104,8 @@
                 this.ctrkpi = "CTR";
                 this.ctumkpi = "CTUM";
                 this.ebmkpi = "EBM";
+                this.alarmkpi = "ALARM";
+                this.taskkpi = this.$t('messages.task.TASK');
                 switch (datasoure)
                 {
                     case 'ENIQ':
@@ -138,6 +147,9 @@
                                  key = keyPath[1]+'-'+keyPath[2];
                                 break;
                         }
+                        break;
+                    case 'TASK':
+                        this.taskkpi = this.taskkpi+'-'+keyPath[1];
                         break;
                     default:
                         this.eniqkpi = ft;
