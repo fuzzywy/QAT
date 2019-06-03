@@ -139,10 +139,7 @@
                         chart.yAxis[0].categories = this.$store.getters.qatParamData.yAxis;
                         chart.series[0].setData(this.$store.getters.qatParamData.series);
                         chart.hideLoading();
-                        var qatExpIsShow = false;
-                        if(this.$store.getters.qatParamData.totalCount > 0){
-                            qatExpIsShow = true;
-                        }
+                        var qatExpIsShow = this.$store.getters.qatParamData.totalCount > 0;
                         this.bus.$emit('qatParamStatus', {qatParamStatus: true ,qatExpIsShow: qatExpIsShow});
                         break;
                     case 3:

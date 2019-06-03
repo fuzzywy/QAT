@@ -309,9 +309,6 @@
                         this.loading.qatItemStatus = false;
                         this.treeData = this.$store.getters.qatParamItemData;
                         break;
-                    case 3:
-                        this.loading.qatItemStatus = false;
-                        break;
                     default:
                         this.loading.qatItemStatus = false;
                         break;
@@ -325,9 +322,6 @@
                     case 2:
                         this.loading.qatOperatorStatus = false;
                         this.operatorOptions = this.$store.getters.qatParamOperatorData;
-                        break;
-                    case 3:
-                        this.loading.qatOperatorStatus = false;
                         break;
                     default:
                         this.loading.qatOperatorStatus = false;
@@ -343,9 +337,6 @@
                         this.loading.qatProvinceStatus = false;
                         this.provinceOptions = this.$store.getters.qatParamProvinceData;
                         break;
-                    case 3:
-                        this.loading.qatProvinceStatus = false;
-                        break;
                     default:
                         this.loading.qatProvinceStatus = false;
                         break;
@@ -360,9 +351,6 @@
                         this.loading.qatCityStatus = false;
                         this.cityOptions = this.$store.getters.qatParamCityData;
                         break;
-                    case 3:
-                        this.loading.qatCityStatus = false;
-                        break;
                     default:
                         this.loading.qatCityStatus = false;
                         break;
@@ -370,17 +358,15 @@
             },
             exportParamData() {
                 switch( this.$store.getters.exportParamDataStatus ) {
-                    case 1:
-                        break;
                     case 2:
                         this.toogle.exportIcon = true;
                         this.loading.qatExportStatus = false;
                         var downloadFile = this.$store.getters.exportParamData;
                         this.download(downloadFile);
                         break;
-                    case 3:
-                        break;
                     default:
+                        this.toogle.exportIcon = true;
+                        this.loading.qatExportStatus = false;
                         break;
                 }
             }

@@ -428,26 +428,9 @@
                         this.loading.qatExportStatus = true;
                         break;
                     case 2:
+                        this.loading.qatExportStatus = false;
                         var downloadFile = this.$store.getters.qatKgetFileData;
-                        var uerAgent = navigator.userAgent.toLowerCase();
-                        var format = /(msie|firefox|chrome|opera|version).*?([\d.]+)/;
-                        var matches = uerAgent.match(format);
-                        var browerInfo = matches[1].replace(/version/, "'safari");
-                        if (browerInfo == "chrome") {
-                            this.download_chrome(downloadFile);
-                            this.$message({
-                                type: 'info',
-                                message: this.$t('messages.common.exportSucc')
-                            }); 
-                            this.loading.qatExportStatus = false;
-                        } else if (browerInfo == "firefox") {
-                            this.download_firefox(downloadFile);
-                            this.$message({
-                                type: 'info',
-                                message: this.$t('messages.common.exportSucc')
-                            });
-                            this.loading.qatExportStatus = false;
-                        }
+                        this.download(downloadFile);
                         break;
                     case 3:
                         this.loading.qatExportStatus = false;

@@ -132,13 +132,10 @@
                     this.loading.qatParamDetailDataStatus = true;
                 }
                 if ( this.$store.getters.qatParamDetailDataStatus == 2 ) {
-                    this.expIsShow = false;
                     this.loading.qatParamDetailDataStatus = false;
                     this.data = this.$store.getters.qatParamDetailData['data'];
                     this.total = this.$store.getters.qatParamDetailData['total'];
-                    if(this.total > 0){
-                        this.expIsShow = true;
-                    }
+                    this.expIsShow = this.total > 0;
                 }
             },
             exportParamDetailData() {

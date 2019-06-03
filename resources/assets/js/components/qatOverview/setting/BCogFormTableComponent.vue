@@ -225,7 +225,6 @@
             },
             addColumn () {
                 this.currentPage = 1;
-                this.modify = [];
                 this.modify = { id: '-1', conn: '', city: '', host: '', port: '', dbName: '', userName: '', password: '', subNetworkTdd: '', subNetworkFdd: '', subNetworkNbiot: '', type: '' };
                 //限制add数量只能是一个
                 this.disabled = false;

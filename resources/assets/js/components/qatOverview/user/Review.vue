@@ -39,7 +39,7 @@
                 </el-col>
             </el-row>
             <div slot="footer" class="dialog-footer">
-                <el-button @click.stop="handleCancel()">{{$t('messages.common.cancel')}}</el-button>
+                <el-button @click.stop="handleClose()">{{$t('messages.common.cancel')}}</el-button>
                 <el-button type="primary" @click.stop="handleUpdate()">{{$t('messages.common.ok')}}</el-button>
             </div>
         </el-dialog>
@@ -145,12 +145,8 @@
                 this.dialogVisible = true;
             },
             //点击关闭dialog
-            handleClose(done) {
+            handleClose() {
                 this.dialogVisible = false;
-            },
-            //点击取消
-            handleCancel() {
-                this.dialogVisible = false;
             },
             //点击更新
             handleUpdate() { 
