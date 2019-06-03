@@ -1,0 +1,174 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d5be69ca_300820d7",
+        "filename": "resources/assets/js/components/qatOverview/qats/kget/FormCheckGroup.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-06-03T04:03:17Z",
+      "side": 1,
+      "message": "case3 是不是可以删掉？",
+      "revId": "aeeae3e9f8025d4d829c176a2217d8cd928a6c68",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "334c18d4_12e6a434",
+        "filename": "resources/assets/js/components/qatOverview/qats/kget/FormCheckGroup.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-06-03T04:03:17Z",
+      "side": 1,
+      "message": "case3是否可删",
+      "revId": "aeeae3e9f8025d4d829c176a2217d8cd928a6c68",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d5c48ee6_a3ed0cad",
+        "filename": "resources/assets/js/components/qatOverview/qats/kget/FormCheckGroup.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-06-03T04:03:17Z",
+      "side": 1,
+      "message": "case3是否可删？",
+      "revId": "aeeae3e9f8025d4d829c176a2217d8cd928a6c68",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "564d7db9_e17bbca8",
+        "filename": "resources/assets/js/components/qatOverview/qats/kget/FormKgetGroup.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-06-03T04:03:17Z",
+      "side": 1,
+      "message": "download方法可以提取成公共方法，因为其它的component可能会用到",
+      "revId": "aeeae3e9f8025d4d829c176a2217d8cd928a6c68",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b426b0c7_e62ee0c7",
+        "filename": "resources/assets/js/components/qatOverview/qats/kget/HighChartCheckGroup.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-06-03T04:03:17Z",
+      "side": 1,
+      "message": "let qatExpIsShow \u003d this.$store.getters.qatParamData.totalCount \u003e 0\n避免非必要的if -- else",
+      "revId": "aeeae3e9f8025d4d829c176a2217d8cd928a6c68",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1ae2473c_65286eeb",
+        "filename": "resources/assets/js/components/qatOverview/qats/kget/TableCheckGroup.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-06-03T04:03:17Z",
+      "side": 1,
+      "message": "this.expIsShow \u003d this.total \u003e 0\n避免没必要的if -- else",
+      "revId": "aeeae3e9f8025d4d829c176a2217d8cd928a6c68",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c5668a0e_fd139b6d",
+        "filename": "resources/assets/js/components/qatOverview/setting/BCogFormTableComponent.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-06-03T04:03:17Z",
+      "side": 1,
+      "message": "删除重复赋值",
+      "revId": "aeeae3e9f8025d4d829c176a2217d8cd928a6c68",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2a1a43a5_57b0bd76",
+        "filename": "resources/assets/js/components/qatOverview/user/Review.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-06-03T04:03:17Z",
+      "side": 1,
+      "message": "done没有用到",
+      "revId": "aeeae3e9f8025d4d829c176a2217d8cd928a6c68",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "00110cf1_7cb15da6",
+        "filename": "resources/assets/js/components/qatOverview/user/Role.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-06-03T04:03:17Z",
+      "side": 1,
+      "message": "done没有用到。\n而且该方法和HandleCancle重复了。",
+      "revId": "aeeae3e9f8025d4d829c176a2217d8cd928a6c68",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0efc6089_da0374da",
+        "filename": "resources/assets/js/components/qatOverview/user/Role.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-06-03T04:03:17Z",
+      "side": 1,
+      "message": "删除重复定义",
+      "revId": "aeeae3e9f8025d4d829c176a2217d8cd928a6c68",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    }
+  ]
+}
