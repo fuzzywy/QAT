@@ -1,50 +1,47 @@
 <style>
-    .dropdown {
-        /*top: 5px;*/
-        text-align: center;
-    }
+    
 </style>
 <template>
     <div id="dropdown" class="dropdown">
         <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
             <el-submenu index="ENIQ">
                 <template slot="title">{{eniqkpi}}</template>
-                <el-menu-item index="ENIQ-TDD">TDD</el-menu-item>
-                <el-menu-item index="ENIQ-FDD">FDD</el-menu-item>
-                <el-menu-item index="ENIQ-GSM">GSM</el-menu-item>
-                <el-menu-item index="ENIQ-NBIOT">NBIOT</el-menu-item>
+                <el-menu-item index="TDD">TDD</el-menu-item>
+                <el-menu-item index="FDD">FDD</el-menu-item>
+                <el-menu-item index="GSM">GSM</el-menu-item>
+                <el-menu-item index="NBIOT">NBIOT</el-menu-item>
             </el-submenu>
             <el-submenu index="NBM">
                 <template slot="title">{{nbmkpi}}</template>
-                <el-menu-item index="NBM-TDD">TDD</el-menu-item>
-                <el-menu-item index="NBM-FDD">FDD</el-menu-item>
-                <el-menu-item index="NBM-NBIOT">NBIOT</el-menu-item>
+                <el-menu-item index=" TDD">TDD</el-menu-item>
+                <el-menu-item index=" FDD">FDD</el-menu-item>
+                <el-menu-item index=" NBIOT">NBIOT</el-menu-item>
             </el-submenu>
             <el-submenu index="ALARM">
                 <template slot="title">{{alarmkpi}}</template>
                 <el-submenu index="GSM">
                     <template slot="title">{{gsmkpi}}</template>
-                    <el-menu-item index="Current">当前告警</el-menu-item>
-                    <el-menu-item index="History">历史告警</el-menu-item>
+                    <el-menu-item index="Current">{{$t('messages.menu.Current')}}</el-menu-item>
+                    <el-menu-item index="History">{{$t('messages.menu.History')}}</el-menu-item>
                 </el-submenu>
                 <el-submenu index="LTE">
                     <template slot="title">{{ltekpi}}</template>
                         <el-submenu index="TDD">
                             <template slot="title">{{tddkpi}}</template>
-                            <el-menu-item index="Current">当前告警</el-menu-item>
-                            <el-menu-item index="History">历史告警</el-menu-item>
+                            <el-menu-item index="Current">{{$t('messages.menu.Current')}}</el-menu-item>
+                            <el-menu-item index="History">{{$t('messages.menu.History')}}</el-menu-item>
                         </el-submenu>
                         <el-submenu index="FDD">
                             <template slot="title">{{fddkpi}}</template>
-                            <el-menu-item index="Current">当前告警</el-menu-item>
-                            <el-menu-item index="History">历史告警</el-menu-item>
+                            <el-menu-item index="Current">{{$t('messages.menu.Current')}}</el-menu-item>
+                            <el-menu-item index="History">{{$t('messages.menu.History')}}</el-menu-item>
                         </el-submenu>
                 </el-submenu>
             </el-submenu>
             <el-submenu index="KGET">
-                <template slot="title">{{kgetkpi}}</template>
-                <el-menu-item index="ALL">{{$t('messages.kget.QUERY')}}</el-menu-item>
-                <el-menu-item index="Check">{{$t('messages.kget.CHECK')}}</el-menu-item>
+                <template slot="title">{{$t('messages.menu.KGET')}}</template>
+                <el-menu-item index="ALL">{{$t('messages.menu.QUERY')}}</el-menu-item>
+                <el-menu-item index="Check">{{$t('messages.menu.CHECK')}}</el-menu-item>
             </el-submenu>
             <el-submenu index="MR" disabled>
                 <template slot="title">{{mrkpi}}</template>
@@ -69,9 +66,9 @@
         data() {
             return {
                 activeIndex: 'ENIQ',
-                eniqkpi: "ENIQ-TDD",
+                eniqkpi: "ENIQ",
                 nbmkpi: "NBM",
-                kgetkpi: "",
+                kgetkpi: '',
                 mrkpi: "MR",
                 ctrkpi: "CTR",
                 ctumkpi: "CTUM",
@@ -80,11 +77,12 @@
                 gsmkpi: "GSM",
                 ltekpi: "LTE",
                 tddkpi: "TDD",
-                fddkpi: "FDD"
+                fddkpi: "FDD",
             }
         },
         mounted() {
-            this.kgetkpi = this.$t('messages.kget.KGET');
+            this.kgetkpi = this.$t('messages.menu.KGET');
+            this.eniqkpi = "ENIQ-TDD";
         },
         methods: {
             handleSelect(key, keyPath) {
@@ -92,11 +90,12 @@
                 var datasoure = keyPath[0];
                 this.eniqkpi = 'ENIQ';
                 this.nbmkpi = 'NBM';
-                this.kgetkpi = this.$t('messages.kget.KGET');
+                this.kgetkpi = this.$t('messages.menu.KGET');
                 this.mrkpi = "MR";
                 this.ctrkpi = "CTR";
                 this.ctumkpi = "CTUM";
                 this.ebmkpi = "EBM";
+                this.alarmkpi = "ALARM";
                 switch (datasoure)
                 {
                     case 'ENIQ':

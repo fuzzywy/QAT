@@ -1,7 +1,5 @@
 <style>
     .form {
-        position: relative;
-        top: 10px;
         text-align: center;
         z-index: 999;
         padding-bottom: 15px;
@@ -26,10 +24,10 @@
       <el-row :gutter="20">
         <el-col :span="8">
           <el-select 
-            :disabled="bool.kpitemplate"
+          	:disabled="bool.kpitemplate"
             class="full-width"
             filterable
-            remote
+    		    remote
             v-loading="loading.qatTemplateStatus"
             v-model="template"
             :showData="getTemplateData"
@@ -391,13 +389,13 @@
               return !((this.dataSource == 'ENIQ' &&  this.dataType == 'GSM') || (this.dataSource == "NBM") || (this.dataSource == "ALARM"));
             },
             isDisableTime() {
-              return !(this.$store.state.qatData.alarmTime == "Current" && this.dataSource == 'ALARM' );
+              return !(this.$store.state.qatData.alarmTime == "Current" && this.dataSource == 'ALARM');
             },
             isDisableTemplate() {
-              return !(this.dataSource == "ALARM");
+            	return !(this.dataSource == "ALARM");
             },
             change_city: function(citys) {
-                this.city = this.processMutiplySelect(citys, this.cityGroup, this.city);
+              this.city = this.processMutiplySelect(citys, this.cityGroup, this.city);
             },
             change_subnet: function(subnets) {
                 this.subnet = this.processMutiplySelect(subnets, this.subnetGroup, this.subnet);
@@ -461,10 +459,10 @@
                     case 'city':
                     case 'subnet':
                     case 'subnetGroup':
-                      this.baseStation = '';
-                      this.cell = '';
-                      this.bool.baseStation = true;
-                      this.bool.cell = true;
+                        this.baseStation = '';
+                        this.cell = '';
+                        this.bool.baseStation = true;
+                        this.bool.cell = true;
                     break;
                     case 'baseStation':
                     case 'baseStationGroup':
@@ -474,9 +472,9 @@
                     break;
                     case 'BSC':
                     case 'BSCGroup':
-                      this.cell = '';
-                      this.bool.baseStation = false;
-                      this.bool.cell = true;
+                        this.cell = '';
+                        this.bool.baseStation = false;
+                        this.bool.cell = true;
                     break;
                     case 'cell':
                       this.baseStation = '';
@@ -498,7 +496,6 @@
             },
             //查询主函数
             toggleStartIcon(event) {
-              this.downloadfiles = '';
               if ( !(this.template || this.dataSource == "ALARM")) {
                 this.$message({
                   showClose: true,
@@ -652,6 +649,7 @@
                 });
                 this.loading.qatExport = false;
               }
+              this.downloadfiles = '';
             }
         },
         computed: {
@@ -664,8 +662,8 @@
             this.bool.kpitemplate = !this.isDisableTemplate();
             this.bool.chooseTime = !this.isDisableTime();
             if (!this.bool.kpitemplate) {
-              this.processLoadTemplate(this.dataSource, this.dataType);
-              this.loading.qatTemplateStatus = true;
+            	this.processLoadTemplate(this.dataSource, this.dataType);
+            	this.loading.qatTemplateStatus = true;
             }
             this.processLoadCitys(this.dataSource, this.dataType);
             this.processLoadTime(this.dataSource, this.dataType);

@@ -1,103 +1,109 @@
 <style>
-    .qatbox {
-        top: 49px;
-        min-height: -webkit-fill-available;
-        border-radius: 1px;
-        background-color: #fff;
-        width: 100%;
-        position: absolute;
-        z-index: 1;
+    .el-main{
+        padding: 0 0 0 0;
     }
-    .qatheader {
-        position: relative;
-        /*height: 50px;*/
-        /*margin-bottom: 5px;*/
+    .el-form-item{
+        margin-bottom: 0px;
     }
-    .qatbody {
-        position: relative;
-        /*padding: 0 0 15px 0;*/
-        width: 100%;
-        /*border: 1px solid #dcdfe6;*/
-        margin: auto;
+    .el-card__body{
+        padding-right: 0px;
+        padding-left: 0px;
     }
-    .qattable {
-        position: relative;
-        height: 100%;
-        width: 100%;
+    .el-container_{
+        height: 580px;
+    }
+    .box-card_{
+        min-height: 580px;
     }
 </style>
 <template>
-    <div class="qatbox">
-        <div class="qatheader">
-            <dropdown-menu></dropdown-menu>
-        </div>
-        <div class="qatbody">
-            <component :is="whichFormGroup" :dataSource="datasource" :dataType="datatype"></component>
-            <!--<form-group :dataSource="datasource" :dataType="datatype"></form-group>-->
-        </div>
-        <!--<br />-->
-        <div class="qattable">
-            <component :is="whichTableGroup"></component>
-            <!--<table-group></table-group>-->
-        </div>
-    </div>
+    <el-container class="el-container_" style="margin-top: 25px;">
+        <el-aside width="200px">
+            <el-card class="box-card_">
+                <aside-menu></aside-menu>
+            </el-card>
+        </el-aside>
+        <el-main>
+            <component :is="whichFormGroup" :dataSource="dataSource" :dataType="dataType"></component>
+        </el-main>
+    </el-container>
 </template>
 
 <script>
-    import DropdownMenu from './qats/DropdownMenu.vue';
-    import FormGroup from './qats/FormGroup.vue';
-    import TableGroup from './qats/TableGroup.vue';
-    import FormKgetGroup from './qats/kget/FormKgetGroup.vue';
-    import TableKgetGroup from './qats/kget/TableKgetGroup.vue';
-    import FormCheckGroup from './qats/kget/FormCheckGroup.vue';
-    import TableCheckGroup from './qats/kget/TableCheckGroup.vue';
-    
+    import AsideMenu from './qats/AsideMenu.vue';
+    import BCogFormTableComponent from './setting/BCogFormTableComponent.vue';
+    import QatTemplateViewComponent from './template/QatTemplateViewComponent.vue';
+    import QatCrontabViewComponent from './crontab/QatCrontabViewComponent.vue';
+    //import LogUpload from './qats/task/LogUpload.vue';
+    //import StorageManage from './qats/task/StorageManage.vue';
+    import QatKgetCrontab from './crontab/QatKgetCrontab.vue';
+    import QatQueryComponent from './QatQueryComponent.vue';
+    import QatUserComponent from './user/QatUserComponent.vue';
+
+
     export default {
         data() {
             return {
-                datasource: 'ENIQ',
-                datatype: 'TDD',
-                whichFormGroup: 'FormGroup',
-                whichTableGroup: 'TableGroup'
+                dataSource: 'ENIQ',
+                dataType: 'TDD',
+                whichFormGroup: 'QatQueryComponent',
             }
         },
         components: {
-            DropdownMenu,
-            FormGroup,
-            TableGroup,
-            FormKgetGroup,
-            TableKgetGroup,
-            FormCheckGroup,
-            TableCheckGroup
+            AsideMenu,
+            QatQueryComponent,
+            BCogFormTableComponent,
+            QatTemplateViewComponent,
+            QatCrontabViewComponent,
+            //LogUpload,
+            //StorageManage,
+            QatKgetCrontab,
+            QatUserComponent
         },
         mounted() {
-            if ( window.location.hash == '#/eniqfdd' ) {
-                // console.log(window.location.hash)
-                this.datasource = 'ENIQ';
-                this.dataType = 'FDD';
-            }
-            this.bus.$on('dataTypes', types=> {
-                this.datasource = types.datasource
-                this.datatype = types.datatype
-                // console.log(types.datasource, types.datatype)
-                switch (this.datasource) {
-                    case 'KGET' : 
-                        switch (this.datatype) {
-                            case 'Check' :
-                                this.whichFormGroup = 'FormCheckGroup';
-                                this.whichTableGroup = '';
+            this.bus.$on('asideNav', types=> {
+                this.dataSource = types.dataSource;
+                this.dataType = types.dataType;
+                switch (this.dataSource) {
+                    case 'Query' : 
+                        this.whichFormGroup = 'QatQueryComponent';
+                    break;
+                    /*case 'Task' : 
+                        switch (this.dataType) {
+                            case 'Log' :
+                                this.whichFormGroup = 'LogUpload';
                             break;
                             default :
-                                this.whichFormGroup = 'FormKgetGroup';
-                                this.whichTableGroup = 'TableKgetGroup';
+                                this.whichFormGroup = 'StorageManage';
 
                         }
+                    break;*/
+                    case 'Setting' : 
+                        this.whichFormGroup = 'BCogFormTableComponent';
+                    break;
+                    case 'Template' : 
+                        this.whichFormGroup = 'QatTemplateViewComponent';
+                    break;
+                    case 'Schedule' : 
+                        switch (this.dataType) {
+                            case 'KGET' :
+                                this.dataSource = 'KGET';
+                                this.dataType = "ALL";
+                                this.whichFormGroup = 'QatKgetCrontab';
+                            break;
+                            default :
+                                this.whichFormGroup = 'QatCrontabViewComponent';
+                        }
+                    break;
+                    case 'User' : 
+                        this.whichFormGroup = 'QatUserComponent';
                     break;
                     default :
-                        this.whichFormGroup = 'FormGroup';
-                        this.whichTableGroup = 'TableGroup';
+                        this.whichFormGroup = 'QatQueryComponent';
                 }
             });
         }
+
     }
+
 </script>

@@ -3,7 +3,6 @@
         <el-table
             v-loading="loading.qatDataStatus"
             :data="data.slice((currentPage-1)*pagesize,currentPage*pagesize)"
-            max-height="500"
             border
             :options="getdata"
             style="margin: auto;">
@@ -19,7 +18,6 @@
           layout="total, sizes, prev, pager, next, jumper"
           :total="total">
         </el-pagination>
-
     </div>
 </template>
 <style>

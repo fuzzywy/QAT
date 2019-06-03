@@ -1,24 +1,18 @@
 <style scoped>
-    .top {
-        top: 30px;
-    }
+    
 </style>
 <template>
-    <!-- <el-scrollbar :native="false" wrapStyle="" wrapClass="" viewClass="" viewStyle="" noresize="false" tag="section"> -->
-        <div style="margin-bottom: 100px;">
-            <el-row :gutter="20"  class="top">
-                <el-col :span="6">
-                    <template-manage :datasource="datasource" :datatype="datatype"></template-manage>
-                </el-col>
-                <el-col :span="6">
-                    <kpi-list></kpi-list>
-                </el-col>
-                <el-col :span="12">
-                    <formula-manage></formula-manage>
-                </el-col>   
-            </el-row>
-        </div>
-    <!-- </el-scrollbar> -->
+    <el-row >
+        <el-col :span="6">
+            <template-manage :datasource="datasource" :datatype="datatype"></template-manage>
+        </el-col>
+        <el-col :span="6">
+            <kpi-list></kpi-list>
+        </el-col>
+        <el-col :span="12">
+            <formula-manage></formula-manage>
+        </el-col>   
+    </el-row>
 </template>
 <script>
     import TemplateManage from './TemplateManage.vue';

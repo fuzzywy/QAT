@@ -16,7 +16,9 @@
                             type: 'heatmap',
                             marginTop: 40,
                             marginBottom: 80,
-                            plotBorderWidth: 1
+                            plotBorderWidth: 1,
+                            height:350, 
+                            width:930
                     },
                     loading: {
                         hideDuration: 100,
@@ -25,7 +27,7 @@
                         style: {"position": "absolute", "backgroundColor": "#ffffff", "opacity": 0.5, "textAlign": "center"}
                     },
                     title: {
-                            text: '检查项数量分布'
+                            text: ''
                     },
                     xAxis: {
                             categories: [],
@@ -100,6 +102,7 @@
         },
         created() {
             var _this = this;
+            _this.option.title.text = this.$t('messages.kget.checkTitle');
             _this.option.plotOptions = {
                 heatmap: {
                     events: {
@@ -109,7 +112,7 @@
                             _this.postData.subItem = subItem;
                             _this.postData.city = city;
                             _this.$store.dispatch( 'loadQatParamDetailData', _this.postData);
-                            _this.bus.$emit('loadQatParamDetailData', {postData: _this.postData});
+                            _this.bus.$emit('loadQatParamDetailData', {isShow:true,postData: _this.postData});
                         }
                     }
                 }
@@ -136,7 +139,11 @@
                         chart.yAxis[0].categories = this.$store.getters.qatParamData.yAxis;
                         chart.series[0].setData(this.$store.getters.qatParamData.series);
                         chart.hideLoading();
-                        this.bus.$emit('qatParamStatus', {qatParamStatus: true });
+                        var qatExpIsShow = false;
+                        if(this.$store.getters.qatParamData.totalCount > 0){
+                            qatExpIsShow = true;
+                        }
+                        this.bus.$emit('qatParamStatus', {qatParamStatus: true ,qatExpIsShow: qatExpIsShow});
                         break;
                     case 3:
                         break;

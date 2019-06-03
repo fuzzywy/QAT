@@ -18,6 +18,10 @@ import { qatTime } from './modules/qat/getQatTime.js'
 import { qatLocation } from './modules/qat/getQatLocation.js'
 import { qatData } from './modules/qat/getQatData.js'
 import { qatKget } from './modules/qat/getQatKget.js'
+import { qatParam } from './modules/qat/getQatParam.js'
+import { qatTask } from './modules/qat/getQatTask.js'
+import { qatUser } from './modules/qat/getQatUser.js'
+
 /**
  * Export the data store.
  */
@@ -30,6 +34,10 @@ export default new Vuex.Store({
         qatTime,
         qatLocation,
         qatData,
-        qatKget
+        qatKget,
+        qatParam,
+        qatTask,
+        qatUser
+
     }
 });

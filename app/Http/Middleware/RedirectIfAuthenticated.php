@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
+use App\RegisterProcess;
 
 class RedirectIfAuthenticated
 {
@@ -19,7 +20,9 @@ class RedirectIfAuthenticated
     {
         if (Auth::guard($guard)->check()) {
             return redirect('/home');
-        }
+        } elseif ($request->only('email') && RegisterProcess::where('email',$request->only('email')['email'])->where('status','ongoing')->count()) {
+           return redirect('/waitReview');
+        } 
 
         return $next($request);
     }

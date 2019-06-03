@@ -1,7 +1,6 @@
 <template>
-    <div>
-      <input style="display: none;" :loadTemplateData="computedLoadTemplateData">
-      <el-card class="box-card" shadow="hover">
+    <el-card class="box-card_">
+        <input style="display: none;" :loadTemplateData="computedLoadTemplateData">
         <div slot="header" class="clearfix">
           <span>模板</span>
             <el-button 
@@ -75,7 +74,6 @@
             </div>
         </el-scrollbar>
       </el-card>
-    </div>
 </template>
 <script>
   import {common} from '../../../mixin/common/commonTemplate.js';

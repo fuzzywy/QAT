@@ -1,21 +1,12 @@
 <style>
-   	.el-form-item{
-        margin-bottom: 0px;
-    }
-    .el-col-2{
-        padding-right: 10px;
-        padding-left: 10px;
-    }
-    .form {
-		padding-bottom: 0px;
-	}
+   
 </style>
 <template>
-    <el-container>
-	  	<el-aside width="200px">
-	  		<el-card class="box-card">
+    <el-container id="check" class="el-container_kget">
+	  	<el-aside width="20%">
+	  		<el-card class="box-card_kget">
 		  		<div slot="header" class="clearfix">
-		    		<span>检查项</span>
+		    		<span>{{$t('messages.kget.item')}}</span>
 		  		</div>
 			  	<div class="text item">
 			    	<el-tree
@@ -34,140 +25,125 @@
 			  	</div>
 			</el-card>
 	  	</el-aside>
-	  	<el-container style="height: 520px;">
-	    	<el-header style="height: 100px;">
-	    		<div class="form">
-	    			<el-form label-width="80px">
-		    			<el-row>
-		    				<el-col :span="6">
-		                    	<el-form-item horizontal label="省：">
-			                        <el-select
-			                        	class="full-width"
-			                            v-model="province"
-			                            filterable
-			                            remote
-			                            reserve-keyword
-			                            placeholder="省"
-			                            :loading="loading.qatProvinceStatus"
-			                            :showData="getProvinceData"
-			                            @visible-change="visible_change_province">
-			                            <el-option
-			                              v-for="item in provinceOptions"
-			                              :key="item.value"
-			                              :label="item.label"
-			                              :value="item.value">
-			                            </el-option>
-			                        </el-select>
-			                    </el-form-item>
-		                    </el-col>
-		                    <el-col :span="6">
-		                    	<el-form-item horizontal label="运营商：">
-			                        <el-select
-			                        	class="full-width"
-			                            v-model="operator"
-			                            filterable
-			                            remote
-			                            reserve-keyword
-			                            placeholder="运营商"
-			                            :loading="loading.qatOperatorStatus"
-			                            :showData="getOperatorData"
-			                            >
-			                            <el-option
-			                              v-for="item in operatorOptions"
-			                              :key="item.value"
-			                              :label="item.label"
-			                              :value="item.value">
-			                            </el-option>
-			                        </el-select>
-			                    </el-form-item>
-		                    </el-col>
-		                    <el-col :span="6">
-		                    	<el-form-item horizontal label="市：">
-			                        <el-select
-			                        	class="full-width"
-			                            v-model="cities"
-			                            filterable
-			                            remote
-			                            multiple
-			                            collapse-tags
-			                            reserve-keyword
-			                            placeholder="市"
-			                            @change="change_city"
-			                            :loading="loading.qatCityStatus"
-			                            :showData="getCityData">
-			                            <el-option
-			                              v-for="item in cityOptions"
-			                              :key="item.value"
-			                              :label="item.label"
-			                              :value="item.value">
-			                            </el-option>
-			                        </el-select>
-			                    </el-form-item>
-		                    </el-col>
-		                    <el-col :span="6">
-		                    	<el-form-item horizontal label="日期：">
-			                        <el-date-picker
-			                          class="full-width"
-								      v-model="date"
-								      type="date"
-								      placeholder="日期"
-								      format="yyyy-MM-dd"
-								      value-format="yyyy-MM-dd">
-								    </el-date-picker>
-			                    </el-form-item>
-	                    	</el-col>
-	                    </el-row>
-	                    <el-row >
-		                    <el-col :span="6">
-		                    	<el-form-item horizontal label="基站：">
-			                        <el-input
-							            class="full-width"
-							            placeholder="基站,英文逗号隔开"
-							            v-model="baseStation"
-							            clearable>
-							        </el-input>
-			                    </el-form-item>
-		            		</el-col>
-		            		<el-col :span="2" :offset="12">
-		                        <el-button 
-		                          style="width: -webkit-fill-available"
-		                          @click.stop="toggleStartIcon($event)"
-		                          :loading="loading.qatStartStatus"
-		                          type="primary">
-		                            <span :class="toogle.startIcon">查询</span>
-		                        </el-button>
-		                    </el-col>
-		                    <el-col :span="2">
-		                        <el-button 
-		                          style="width: -webkit-fill-available"
-		                          @click.stop="cancellation()"   
-		                          type="primary">
-		                            <span>停止</span>
-		                        </el-button>
-		                    </el-col>
-		                    <el-col :span="2">
-		                        <el-button 
-		                          style="width: -webkit-fill-available"
-		                          @click.stop="toggleExportIcon($event)"
-		                          :loading="loading.qatExportStatus"
+        <el-main>
+            <el-card class="box-card_kget">
+                    <el-form label-width="80px">
+                        <el-row>
+                            <el-col :span="8">
+                                <el-form-item horizontal :label="this.$t('messages.common.province')">
+                                    <el-select
+                                        class="full-width"
+                                        v-model="province"
+                                        filterable
+                                        remote
+                                        reserve-keyword
+                                        :placeholder="this.$t('messages.common.province')"
+                                        :loading="loading.qatProvinceStatus"
+                                        :showData="getProvinceData"
+                                        @visible-change="visible_change_province">
+                                        <el-option
+                                          v-for="item in provinceOptions"
+                                          :key="item.value"
+                                          :label="item.label"
+                                          :value="item.value">
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
+                            </el-col>
+                            <el-col :span="8">
+                                <el-form-item horizontal :label="this.$t('messages.common.operator')">
+                                    <el-select
+                                        class="full-width"
+                                        v-model="operator"
+                                        filterable
+                                        remote
+                                        reserve-keyword
+                                        :placeholder="this.$t('messages.common.operator')"
+                                        :loading="loading.qatOperatorStatus"
+                                        :showData="getOperatorData"
+                                        >
+                                        <el-option
+                                          v-for="item in operatorOptions"
+                                          :key="item.value"
+                                          :label="item.label"
+                                          :value="item.value">
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
+                            </el-col>
+                            <el-col :span="8">
+                                <el-form-item horizontal :label="this.$t('messages.common.city')">
+                                    <el-select
+                                        class="full-width"
+                                        v-model="cities"
+                                        filterable
+                                        remote
+                                        multiple
+                                        collapse-tags
+                                        reserve-keyword
+                                        :placeholder="this.$t('messages.common.city')"
+                                        @change="change_city"
+                                        :loading="loading.qatCityStatus"
+                                        :showData="getCityData">
+                                        <el-option
+                                          v-for="item in cityOptions"
+                                          :key="item.value"
+                                          :label="item.label"
+                                          :value="item.value">
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
+                            </el-col>
+                        </el-row>
+                        <el-row >
+                            <el-col :span="8">
+                                <el-form-item horizontal :label="this.$t('messages.common.date')">
+                                    <el-date-picker
+                                      v-model="date"
+                                      type="date"
+                                      :placeholder="this.$t('messages.common.date')"
+                                      format="yyyy-MM-dd"
+                                      value-format="yyyy-MM-dd">
+                                    </el-date-picker>
+                                </el-form-item>
+                            </el-col>
+                            <el-col :span="8">
+                                <el-form-item horizontal :label="this.$t('messages.common.baseStation')">
+                                    <el-input
+                                        :placeholder="this.$t('messages.common.baseStationPlaceholder')"
+                                        v-model="baseStation"
+                                        clearable>
+                                    </el-input>
+                                </el-form-item>
+                            </el-col>
+                            <el-col :span="2" :offset="4">
+                                <el-button 
+                                  style="width: -webkit-fill-available"
+                                  @click.stop="toggleStartIcon($event)"
+                                  :loading="loading.qatStartStatus"
+                                  type="primary">
+                                    <span :class="toogle.startIcon">{{this.$t('messages.common.query')}}</span>
+                                </el-button>
+                            </el-col>
+                            <el-col :span="2">
+                                <el-button 
+                                  v-show="qatExpIsShow"
+                                  style="width: -webkit-fill-available"
+                                  @click.stop="toggleExportIcon($event)"
+                                  :loading="loading.qatExportStatus"
                                   :option="exportParamData"
-		                          type="primary">
-		                            <span :class="toogle.exportIcon">导出</span>
-		                        </el-button>
-		                    </el-col>
-	                    </el-row>
+                                  type="primary">
+                                    <span :class="toogle.exportIcon">{{this.$t('messages.common.export')}}</span>
+                                </el-button>
+                            </el-col>
+                        </el-row>
                     </el-form>
-	    		</div>
-	    	</el-header>
-	    	<el-main>
-	    		<div>
-	    			<highChartCheck-group></highChartCheck-group>
-	    		</div>
-	    		<div >
-	            	<tableCheck-group></tableCheck-group>
-	        	</div>
-	    	</el-main>
-	  	</el-container>
+                <div class="text item">
+                    <highChartCheck-group></highChartCheck-group>
+                    <tableCheck-group v-show="isShow"></tableCheck-group>
+                </div>
+            </el-card>
+        </el-main>
 	</el-container>
 </template>
 <script>
@@ -222,12 +198,21 @@
 				cities: [],
 				cityOptions: [],
 				date: '',
-				baseStation: ''
+				baseStation: '',
+                postData: [],
+
+                isShow: false,
+                qatExpIsShow: false
 			}
 		},
 		methods : {
 			handleNodeClick (data) {
+                this.qatExpIsShow = false;
+                this.isShow = false;
                 this.item = data.label;
+                if(this.postData.province){
+                    this.toggleStartIcon();
+                }
             },
             change_city: function(citys) {
                 this.cities = this.processMutiplySelect(citys, this.cityOptions, this.cities);
@@ -239,95 +224,61 @@
                 	this.cities = [];
                 	this.cityOptions = [];
                 	this.loading.qatOperatorStatus = true;
-                	this.province.length == 0 ? this.processLoadNull(this.$message, '省份') : this.processLoadOperator({'province':this.province});
+                	this.province.length == 0 ? this.processLoadNull(this.$message, 'Province') : this.processLoadOperator({'province':this.province});
                     this.loading.qatCityStatus = true;
                     this.province.length == 0 ? 
-                    this.loading.qatCityStatus = this.processLoadNull(this.$message, '省份')
+                    this.loading.qatCityStatus = this.processLoadNull(this.$message, 'Province')
                     : this.processLoadCity({'province':this.province});
                 }    
             },
             //查询
             toggleStartIcon(event) {
             	if ( !this.item ) {
-                    this.processLoadNull(this.$message, '检查项');
+                    this.processLoadNull(this.$message, 'Item');
                     return;
                 }
                 if ( !this.operator ) {
-                    this.processLoadNull(this.$message, '运营商');
+                    this.processLoadNull(this.$message, 'Operator');
                     return;
                 }
                 if ( !this.province ) {
-                    this.processLoadNull(this.$message, '省份');
+                    this.processLoadNull(this.$message, 'Province');
                     return;
                 }
                 if ( this.cities.length == 0 ) {
-                    this.processLoadNull(this.$message, '城市');
+                    this.processLoadNull(this.$message, 'City');
                     return;
                 }
                 if ( !this.date ) {
-                    this.processLoadNull(this.$message, '日期');
+                    this.processLoadNull(this.$message, 'Date');
                     return;
                 }
                 this.toogle.startIcon = false;
                 this.loading.qatStartStatus = true;
-                var postData = {item:this.item,province:this.province,operator:this.operator,cities:this.cities,date:this.date,baseStation: this.baseStation};
-                this.$store.dispatch( 'loadQatParamData', postData);
-                this.bus.$emit('loadQatParamData', {postData:postData});
-            },
-            //停止
-            cancellation() {
-                if(this.toogle.startIcon && this.toogle.exportIcon) {
-                    this.$message({
-                      type: 'info',
-                      message: '没有正在执行的进程！'
-                    });
-                    return; 
-                }
-                this.$confirm('此操作将停止当前查询, 是否继续?', '提示', {
-                    confirmButtonText: '是',
-                    cancelButtonText: '否',
-                    type: 'warning'
-                    }).then(() => {
-                        this.$message({
-                            type: 'success',
-                            message: '已经停止!'
-                        });
-                        this.$store.dispatch( 'cancel' );
-                        if(!this.toogle.startIcon) {
-                            this.toogle.startIcon = true;
-                            this.loading.qatStartStatus = false;
-                        } else if(!this.toogle.exportIcon) {
-                            this.toogle.exportIcon = true;
-                            this.loading.qatExportStatus = false;
-                        }
-                        
-                    }).catch(() => {
-                        this.$message({
-                            type: 'info',
-                            message: '已取消停止'
-                        });          
-                    });
+                this.postData = {item:this.item,province:this.province,operator:this.operator,cities:this.cities,date:this.date,baseStation: this.baseStation};
+                this.$store.dispatch( 'loadQatParamData', this.postData);
+                this.bus.$emit('loadQatParamData', {postData:this.postData});
             },
             //导出
             toggleExportIcon(event) {
             	if ( !this.item ) {
-                    this.processLoadNull(this.$message, '检查项');
+                    this.processLoadNull(this.$message, 'Item');
                     return;
                 }
                 if ( !this.operator ) {
-                    this.processLoadNull(this.$message, '运营商');
+                    this.processLoadNull(this.$message, 'Operator');
                     return;
                 }
                 if ( !this.province ) {
-                    this.processLoadNull(this.$message, '省份');
+                    this.processLoadNull(this.$message, 'Province');
                     return;
                 }
                 if ( this.cities.length == 0 ) {
-                    this.processLoadNull(this.$message, '城市');
+                    this.processLoadNull(this.$message, 'City');
                     return;
                 }
                 if ( !this.date ) {
-                    this.processLoadNull(this.$message, '日期');
+                    this.processLoadNull(this.$message, 'Date');
                     return;
                 }
                 this.toogle.exportIcon = false;
@@ -342,6 +293,10 @@
             this.bus.$on('qatParamStatus', data=> {
                 this.toogle.startIcon = data.qatParamStatus;
                 this.loading.qatStartStatus = false;
+                this.qatExpIsShow = data.qatExpIsShow;
+            });
+            this.bus.$on('loadQatParamDetailData', data=> {
+                this.isShow = data.isShow;
             });
         },
         computed: {
@@ -355,6 +310,8 @@
                         this.treeData = this.$store.getters.qatParamItemData;
                         break;
                     case 3:
+                        this.loading.qatItemStatus = false;
+                        break;
                     default:
                         this.loading.qatItemStatus = false;
                         break;
@@ -370,6 +327,8 @@
                         this.operatorOptions = this.$store.getters.qatParamOperatorData;
                         break;
                     case 3:
+                        this.loading.qatOperatorStatus = false;
+                        break;
                     default:
                         this.loading.qatOperatorStatus = false;
                         break;
@@ -385,6 +344,8 @@
                         this.provinceOptions = this.$store.getters.qatParamProvinceData;
                         break;
                     case 3:
+                        this.loading.qatProvinceStatus = false;
+                        break;
                     default:
                         this.loading.qatProvinceStatus = false;
                         break;
@@ -400,6 +361,8 @@
                         this.cityOptions = this.$store.getters.qatParamCityData;
                         break;
                     case 3:
+                        this.loading.qatCityStatus = false;
+                        break;
                     default:
                         this.loading.qatCityStatus = false;
                         break;
@@ -416,6 +379,7 @@
                         this.download(downloadFile);
                         break;
                     case 3:
+                        break;
                     default:
                         break;
                 }

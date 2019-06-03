@@ -15,7 +15,7 @@
 <template>
     <div>
         <input style="display: none;" id="input" :getFormulaData="loadQatFormulaData" :filterFormula="filterFormula">
-        <el-card class="box-card" shadow="hover">
+        <el-card shadow="hover" class="box-card_">
             <div slot="header" class="clearfix">
                 <span>公式</span>
                 <el-button 

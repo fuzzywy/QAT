@@ -1,6 +1,6 @@
 <template>
     <div>
-        <el-card class="box-card" shadow="hover">
+        <el-card class="box-card_" shadow="hover">
             <div slot="header" class="clearfix">
               <span>指标 {{templateName}}</span>
             </div>

@@ -1,7 +1,7 @@
  <template>
     <div>
-        <el-button size="small" type="primary" style="float:right" @click="exportQatParamDetail" :exportParamDetailData="exportParamDetailData" :loading="loading.qatExportStatus">导出</el-button>
-        <el-button v-show="isShow" size="small" type="primary" style="float:right;margin-right: 20px;" @click="exportParamWhiteList" :exportParamWhiteListData="exportParamWhiteListData" :loading="loading.qatExportWhiteListStatus">导出白名单</el-button>
+        <el-button v-show="expIsShow" size="small" type="primary" style="float:right;margin-right: 20px;" @click="exportQatParamDetail" :exportParamDetailData="exportParamDetailData" :loading="loading.qatExportStatus">{{$t('messages.common.export')}}</el-button>
+        <el-button v-show="isShow" size="small" type="primary" style="float:right;margin-right: 20px;" @click="exportParamWhiteList" :exportParamWhiteListData="exportParamWhiteListData" :loading="loading.qatExportWhiteListStatus">{{$t('messages.kget.exportWhiteList')}}</el-button>
         <el-upload 
             v-show="isShow"
             style="float:right"
@@ -9,19 +9,18 @@
             accept=".csv"
             :data="myData"
             :before-upload="onBeforeUpload"
-            :limit="1"
+            :limit="2"
             :on-exceed="handleExceed"
             :on-success="handleSuccess"
             :headers="myHeader"
             :file-list="fileList">
-            <el-button size="small" type="primary">导入白名单</el-button>
-            <div slot="tip" class="el-upload__tip">请上传csv格式文件</div>
+            <el-button size="small" type="primary">{{$t('messages.kget.importWhiteList')}}</el-button>
+            <div slot="tip" class="el-upload__tip">{{$t('messages.kget.importTip')}}</div>
         </el-upload>
 
         <el-table
             v-loading="loading.qatParamDetailDataStatus"
             :data="data"
-            max-height="320"
             border
             :options="getData"
             style="margin: auto;">
@@ -61,7 +60,8 @@
 
                 fileList: [],
                 myData:{},
-                isShow: false
+                isShow: false,
+                expIsShow: false
             }
         },
         methods: {
@@ -81,7 +81,7 @@
                 if( this.postData.length == 0){
                     this.$message({
                         type: 'warning',
-                        message: '请先选中具体检查项！'
+                        message: this.$t('messages.kget.itemTip')
                     }); 
                     return;
                 }
@@ -93,7 +93,7 @@
                 //const isLt1M = file.size / 1024 / 1024 < 1;
 
                 if (!isCsvOrTxt) {
-                    this.$message.error('上传文件只能是csv格式!');
+                    this.$message.error(this.$t('messages.kget.itemTip'));
                 }
                 //if (!isLt1M) {
                     //this.$message.error('上传文件大小不能超过 1MB!');
@@ -102,12 +102,12 @@
                 return isCsvOrTxt;
             },
             handleExceed(files, fileList) {
-                this.$message.warning(`当前限制选择 1 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+                this.$message.warning(this.$t('messages.kget.fileLimitTip'));
             },
             handleSuccess(res,file,fileList) {
                 if(res.code===20000){
                     this.$message({
-                        message: '上传成功！',
+                        message: this.$t('messages.common.uploadSucc'),
                         type: 'success'
                     });
                 }else {
@@ -132,9 +132,13 @@
                     this.loading.qatParamDetailDataStatus = true;
                 }
                 if ( this.$store.getters.qatParamDetailDataStatus == 2 ) {
+                    this.expIsShow = false;
                     this.loading.qatParamDetailDataStatus = false;
                     this.data = this.$store.getters.qatParamDetailData['data'];
                     this.total = this.$store.getters.qatParamDetailData['total'];
+                    if(this.total > 0){
+                        this.expIsShow = true;
+                    }
                 }
             },
             exportParamDetailData() {
