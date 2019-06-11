@@ -35,7 +35,7 @@
     import QatTemplateViewComponent from './template/QatTemplateViewComponent.vue';
     import QatCrontabViewComponent from './crontab/QatCrontabViewComponent.vue';
     //import LogUpload from './qats/task/LogUpload.vue';
-    //import StorageManage from './qats/task/StorageManage.vue';
+    import StorageManage from './task/StorageManage.vue';
     import QatKgetCrontab from './crontab/QatKgetCrontab.vue';
     import QatQueryComponent from './QatQueryComponent.vue';
     import QatUserComponent from './user/QatUserComponent.vue';
@@ -56,7 +56,7 @@
             QatTemplateViewComponent,
             QatCrontabViewComponent,
             //LogUpload,
-            //StorageManage,
+            StorageManage,
             QatKgetCrontab,
             QatUserComponent
         },
@@ -78,6 +78,9 @@
 
                         }
                     break;*/
+                    case 'Task' :
+                        this.whichFormGroup = 'StorageManage';
+                    break;
                     case 'Setting' : 
                         this.whichFormGroup = 'BCogFormTableComponent';
                     break;

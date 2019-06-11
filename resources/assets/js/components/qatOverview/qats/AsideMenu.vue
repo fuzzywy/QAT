@@ -11,16 +11,20 @@
             <i class="el-icon-edit-outline"></i>
             <span slot="title">Template</span>
         </el-menu-item>
-        <el-submenu index="Task">
+        <!--<el-submenu index="Task">
             <template slot="title"><i class="el-icon-document"></i>Task</template>
             <el-menu-item index="Log">{{$t('messages.menu.Log')}}</el-menu-item>
             <el-menu-item index="Storage">{{$t('messages.menu.Storage')}}</el-menu-item>
-        </el-submenu>
-        <!--<el-submenu index="Schedule">
+        </el-submenu>-->
+        <el-menu-item index="Task">
+            <i class="el-icon-document"></i>
+            <span slot="title">Task</span>
+        </el-menu-item>
+        <el-submenu index="Schedule">
             <template slot="title"><i class="el-icon-time"></i>Schedule</template>
             <el-menu-item index="ENIQ">ENIQ</el-menu-item>
             <el-menu-item index="KGET">KGET</el-menu-item>
-        </el-submenu>-->
+        </el-submenu>
         <el-menu-item v-show="isShow" index="Setting">
             <i class="el-icon-setting"></i>
             <span slot="title">Setting</span>
