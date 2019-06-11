@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "97e430c7_8875512c",
+        "filename": "app/Http/Controllers/TaskManage/StorageController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-06-11T07:58:39Z",
+      "side": 1,
+      "message": "修改参数注释",
+      "revId": "8bf9ed4329d4a5fd37aca41b555cc6a596e8bbc0",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "187fd176_77b0b036",
+        "filename": "app/Http/Controllers/TaskManage/StorageController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-06-11T07:58:39Z",
+      "side": 1,
+      "message": "修改参数注释",
+      "revId": "8bf9ed4329d4a5fd37aca41b555cc6a596e8bbc0",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9fb13ee8_a27a5ed4",
+        "filename": "app/Http/Controllers/TaskManage/StorageController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-06-11T07:58:39Z",
+      "side": 1,
+      "message": "我想这里如果save失败应该会自动抛出Exception，如果throw的Exception能被前端捕获到，就不需要catch块了。需要测试",
+      "revId": "8bf9ed4329d4a5fd37aca41b555cc6a596e8bbc0",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "77fb04c4_46edd721",
+        "filename": "app/Http/Controllers/TaskManage/StorageController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-06-11T07:58:39Z",
+      "side": 1,
+      "message": "请使用Artisan Facade.\nArtisan::call(\u0027mparser\u0027,[\u0027type\u0027 \u003d\u003e xxx, \u0027path\u0027\u003d\u003e \u0027xxx\u0027....])\n或者\nArtisan:queue(\u0027mparser\u0027,[.... 同上])\n\n注意Call代表马上执行，Queue则是异步执行。\n最好的情况是异步返回，在Command执行的代码逻辑里面更新任务状态。\n比如任务开始(Handle方法)时，更新为running,结束时更细为complete.\n这样就会避免大量阻塞的前后台连接（如果有超过10个task同时run的情况）\n\nFYI:\nhttps://laravel.com/docs/5.8/artisan#programmatically-executing-commands",
+      "revId": "8bf9ed4329d4a5fd37aca41b555cc6a596e8bbc0",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "441892ff_cacb16ad",
+        "filename": "resources/assets/js/components/qatOverview/task/StorageManage.vue",
+        "patchSetId": 1
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-06-11T07:58:39Z",
+      "side": 1,
+      "message": "建议用able和disable来限制用户的行为，是不是更简洁？",
+      "revId": "8bf9ed4329d4a5fd37aca41b555cc6a596e8bbc0",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d353daa_ea40e3cf",
+        "filename": "resources/views/errors/2000.blade.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-06-11T07:58:39Z",
+      "side": 1,
+      "message": "abort方法会自动redirect吗，前端能否收到response?",
+      "revId": "8bf9ed4329d4a5fd37aca41b555cc6a596e8bbc0",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    }
+  ]
+}
