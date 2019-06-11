@@ -29,6 +29,7 @@ const cn = {
             'delete': '删除',
             'upload': '上传',
             'uploadSucc':'上传成功',
+            'uploadFailed':'上传失败',
             'Undelete':'已取消删除',
             'deleteConfirm':'确定删除',
             'deleteSuccess':'删除成功',
@@ -57,8 +58,9 @@ const cn = {
             'fail':'失败',
             'modify':'编辑',
             'modifySucc':'修改成功',
-            'modifyFailed':'删除失败'
-
+            'modifyFailed':'删除失败',
+            'selectFile':'选择文件',
+            'uploadPlaceholder':'点击上传文件'
         },
     	kget: {
     		'moTip':'请选择MO',
@@ -77,11 +79,12 @@ const cn = {
             'pushTimeTip':'请选择推送时间'
     	},
     	task: {
-            'StorageType':'入库类型',
+            'storageType': '任务类型',
             'fileList':'文件列表',
             'dirPrompt':'请输入正确的目录',
             'inputErrorMessage':'目录格式不正确',
             'deleteDirTip':'此操作将永久删除该目录',
+            'taskTypeTip':'请先选择任务类型',
             'taskName':'任务名称',
             'taskInfo':'任务信息',
             'taskNamePlaceholder': '只能包含数字，字母，$和_',
@@ -90,21 +93,18 @@ const cn = {
             'storageDirTip':'请选择目录',
             'saveTaskSuccTip':'任务添加成功',
             'saveTaskFailTip':'任务添加失败',
-            'deleteWarning':'不能删除一个正在运行的任务',
             'deleteConfirm':'确定删除任务',
-            'taskTip':'请先选择任务',
-            'runTip':'不能启动一个正在执行或者执行完毕的任务',
-            'stopTip':'只能停止正在运行的任务',
             'TaskDirTip':'无数据，请先进行数据上传',
             'isGZ':'上传文件只能是 gz 格式!',
             'isLt':'上传文件大小不能超过 10MB!',
-            'uploadTip':'只能上传gz文件，且不超过10MB'
+            'uploadTip':'只能上传gz文件，且不超过10MB',
     	},
         user: {
             'reviewTip':'请先选择待审核项',
             'reviewSucc':'已审核',
             'reviewFailed':'审核失败',
-            'userTip':'请先选择用户'
+            'userTip':'请先选择用户',
+            'roleTip':'请先选择用户角色'
         },
         setting: {
             'connTip':'请填写conn',

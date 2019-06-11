@@ -29,6 +29,7 @@ const en = {
             'delete': 'delete',
             'upload': 'upload',
             'uploadSucc':'Upload success',
+            'uploadFailed':'Upload failed',
             'Undelete':'Undelete',
             'deleteConfirm':'confirm delete',
             'deleteSuccess':'delete successfully',
@@ -57,7 +58,9 @@ const en = {
             'fail':'failure',
             'modify':'modify',
             'modifySucc':'Successfully modified',
-            'modifyFailed':'failed to delete'
+            'modifyFailed':'failed to delete',
+            'selectFile':'Select file',
+            'uploadPlaceholder':'Click upload file'
         },
     	kget: {
     		'moTip':'Please select MO',
@@ -76,13 +79,13 @@ const en = {
             'pushTimeTip':'Please select a push time',
     	},
     	task: {
-            'StorageType': 'StorageType',
+            'storageType': 'storageType',
             'fileList':'fileList',
             'dirPrompt':'Please enter the correct directory',
             'inputErrorMessage':'Directory format is incorrect',
             'deleteDirTip':'This action will permanently delete the directory',
             'fileLimitTip':'Current limit selection 10 files',
-            'taskTypeTip':'Please select the type of storage first',
+            'taskTypeTip':'Please select the type of task first',
             'taskName':'taskName',
             'taskInfo':'taskInformation',
             'taskNamePlaceholder':'Can only contain numbers, letters, $ and _',
@@ -91,21 +94,18 @@ const en = {
             'storageDirTip':'Please select a directory',
             'saveTaskSuccTip':'Task added successfully',
             'saveTaskFailTip':'Task addition failed',
-            'deleteWarning':'Cannot delete a ongoing task',
             'deleteConfirm':'Determine delete task',
-            'taskTip':'Please select a task first',
-            'runTip':'Cannot start a task that is ongoing or complete',
-            'stopTip':'Can only stop ongoing task',
             'TaskDirTip':'No log data, please upload log first',
             'isGZ':'Upload files can only be in gz format!',
             'isLt':'The upload file size cannot exceed 10MB!',
-            'uploadTip':'Can only upload gz files, and no more than 10MB'
+            'uploadTip':'Can only upload gz files, and no more than 10MB',
     	},
         user: {
             'reviewTip':'Please select the item to be reviewed first',
             'reviewSucc':'Successful review',
             'reviewFailed':'Review failed',
-            'userTip':'Please select a user first'
+            'userTip':'Please select a user first',
+            'roleTip':'Please select a role first'
 
         },
         setting: {

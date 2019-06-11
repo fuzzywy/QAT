@@ -47,7 +47,7 @@ Route::prefix('template')->namespace('TemplateManage')->group(function () {
 });
 
 // [ReportManage routes]
-Route::prefix('report')->namespace('ReportManage')->group(function () {
+/*Route::prefix('report')->namespace('ReportManage')->group(function () {
     Route::post('add', 'ReportController@add');
     Route::post('del', 'ReportController@del');
     Route::post('mod', 'ReportController@mod');
@@ -55,7 +55,7 @@ Route::prefix('report')->namespace('ReportManage')->group(function () {
     Route::post('stop', 'ReportController@stop');
     Route::get('list', 'ReportController@list');
     Route::get('list', 'ReportController@list');
-});
+});*/
 
 // [kgetManage routes]
 Route::prefix('kget')->namespace('KgetManage')->group(function () {
@@ -85,4 +85,33 @@ Route::prefix('paramCheck')->namespace('KgetManage')->group(function () {
 	Route::post('exportQatParamDetailData', 'ConsistencyController@exportParamDetail');
 	Route::post('uploadWhiteList', 'ConsistencyController@uploadWhiteList');
 	Route::post('exportWhiteList', 'ConsistencyController@exportWhiteList');
+});
+
+// [TaskManage routes]
+Route::prefix('storage')->namespace('TaskManage')->group(function () {
+	Route::get('getStorageType', 'StorageController@getStorageType');
+	Route::post('saveTask', 'StorageController@saveTask');
+	Route::get('getTask', 'StorageController@getTask');
+	Route::post('deleteTask', 'StorageController@deleteTask');
+	Route::post('runTask', 'StorageController@runTask');
+	Route::post('stopTask', 'StorageController@stopTask');
+	Route::post('uploadTaskFile', 'StorageController@uploadFile');
+});
+
+// [UserManage routes]
+Route::get('/waitReview', function () {
+    return view('auth/waitReview');
+});
+
+Route::prefix('user')->namespace('UserManage')->group(function () {
+	Route::get('getUser', 'UserController@getUser');
+	Route::get('showReview', 'UserController@getReviews');
+	Route::get('getRoles', 'UserController@getRoles');
+	Route::post('reviewUser', 'UserController@reviewUser');
+	Route::get('showUser', 'UserController@getUsers');
+	Route::post('modifyUser', 'UserController@modifyUser');
+	Route::post('deleteUser', 'UserController@deleteUser');
+	Route::get('showRole', 'UserController@getRoleData');
+	Route::post('modifyRole', 'UserController@modifyRole');
+	Route::post('deleteRole', 'UserController@deleteRole');
 });

@@ -21,27 +21,27 @@
                 <template slot="title">{{alarmkpi}}</template>
                 <el-submenu index="GSM">
                     <template slot="title">{{gsmkpi}}</template>
-                    <el-menu-item index="Current">{{$t('messages.menu.Current')}}</el-menu-item>
-                    <el-menu-item index="History">{{$t('messages.menu.History')}}</el-menu-item>
+                    <el-menu-item index="Current">Current</el-menu-item>
+                    <el-menu-item index="History">History</el-menu-item>
                 </el-submenu>
                 <el-submenu index="LTE">
                     <template slot="title">{{ltekpi}}</template>
                         <el-submenu index="TDD">
                             <template slot="title">{{tddkpi}}</template>
-                            <el-menu-item index="Current">{{$t('messages.menu.Current')}}</el-menu-item>
-                            <el-menu-item index="History">{{$t('messages.menu.History')}}</el-menu-item>
+                            <el-menu-item index="Current">Current</el-menu-item>
+                            <el-menu-item index="History">History</el-menu-item>
                         </el-submenu>
                         <el-submenu index="FDD">
                             <template slot="title">{{fddkpi}}</template>
-                            <el-menu-item index="Current">{{$t('messages.menu.Current')}}</el-menu-item>
-                            <el-menu-item index="History">{{$t('messages.menu.History')}}</el-menu-item>
+                            <el-menu-item index="Current">Current</el-menu-item>
+                            <el-menu-item index="History">History</el-menu-item>
                         </el-submenu>
                 </el-submenu>
             </el-submenu>
             <el-submenu index="KGET">
-                <template slot="title">{{$t('messages.menu.KGET')}}</template>
-                <el-menu-item index="ALL">{{$t('messages.menu.QUERY')}}</el-menu-item>
-                <el-menu-item index="Check">{{$t('messages.menu.CHECK')}}</el-menu-item>
+                <template slot="title">KGET</template>
+                <el-menu-item index="ALL">QUERY</el-menu-item>
+                <el-menu-item index="Check">CHECK</el-menu-item>
             </el-submenu>
             <el-submenu index="MR" disabled>
                 <template slot="title">{{mrkpi}}</template>
