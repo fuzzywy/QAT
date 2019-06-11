@@ -44,8 +44,8 @@
         }
         /*解决滚动条抖动问题*/
         html {
-          overflow-x: hidden;
-          overflow-y: hidden;
+          //overflow-x: hidden;
+          //overflow-y: hidden;
         }
     </style>
 </head>
@@ -53,7 +53,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel header">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ url('/home') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -73,14 +73,14 @@
                                 <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                             </li>
                         @else
-                        @can('Set interface')
+                        <!--@can('Set interface')
                             @section('cog')
                             @show
                         @endcan
                         @section('template')
                         @show
                         @section('crontab')
-                        @show
+                        @show-->
 
                             <!-- <li class="nav-item dropdown">
                                 <a id="locale" href="#" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
