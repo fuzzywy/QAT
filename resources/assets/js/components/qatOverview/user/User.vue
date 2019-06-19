@@ -13,8 +13,8 @@
             <el-col :span="8" :offset="4">
                 <el-form label-width="150px">
                     <el-form-item horizontal>
-                        <el-button type="primary" @click.stop="handleEdit()">{{$t('messages.common.modify')}}</el-button>
-                        <el-button type="danger" @click.stop="handleDelete()">{{$t('messages.common.delete')}}</el-button>
+                        <el-button type="primary" @click.stop="handleEdit()" :disabled="disabledEdit">{{$t('messages.common.modify')}}</el-button>
+                        <el-button type="danger" @click.stop="handleDelete()" :disabled="disabledEdit">{{$t('messages.common.delete')}}</el-button>
                     </el-form-item>
                 </el-form>
             </el-col>
@@ -43,7 +43,7 @@
                 </el-col>
             </el-row>
             <div slot="footer" class="dialog-footer">
-                <el-button @click.stop="handleCancel()">{{$t('messages.common.cancel')}}</el-button>
+                <el-button @click.stop="handleClose()">{{$t('messages.common.cancel')}}</el-button>
                 <el-button type="primary" @click.stop="handleUpdate()">{{$t('messages.common.ok')}}</el-button>
             </div>
         </el-dialog>
@@ -94,7 +94,9 @@
                 roles: [],
                 modify: [],
                 dialogVisible: false,
-                delete:[]
+                delete:[],
+
+                disabledEdit: true
             }
         },
         watch: {
@@ -110,6 +112,7 @@
         },
         methods: {
             handleCurrentChange(val) {
+                this.disabledEdit = val ? false : true;
                 this.modify = val;
                 this.delete = val;
             },
@@ -145,29 +148,17 @@
                     break;
                 }
             },
-            //点击编辑
             handleEdit() {
-                if(this.modify.length == 0){
-                    this.$message.warning(this.$t('messages.user.userTip'));
-                    return;
-                }
                 this.dialogVisible = true;
             },
-            //点击关闭dialog
             handleClose(done) {
                 this.dialogVisible = false;
             },
-            //点击取消
-            handleCancel() {
-                this.dialogVisible = false;
-            },
-            //点击更新
             handleUpdate() { 
                 var _this = this;
-                this.$store.dispatch('modifyUser', this.modify).then(function(){
+                this.$store.dispatch('modifyUser', {'email':this.modify.email,'type':this.modify.type}).then(function(){
                     _this.modifyUser();
                 });
-                
             },
             modifyUser() {
                 switch (this.$store.getters.modifyUserStatus) {
@@ -177,23 +168,26 @@
                         this.filter = '';
                         this.$message.success(this.$t('messages.common.modifySucc'));
                     break;
+                    case 3 :
+                        this.$message({
+                            showClose: true,
+                            message: this.$store.getters.modifyUser,
+                            type: 'error'
+                          });
+                    break;
                     default:
                         this.$message.error(this.$t('messages.common.modifyFailed'));
                     break;
                 }
             },
             handleDelete() {
-                if(this.delete.length == 0){
-                    this.$message.warning(this.$t('messages.user.userTip'));
-                    return;
-                }
                 this.$confirm("<pre>"+JSON.stringify(this.delete, null, 2)+"</pre>", this.$t('messages.common.deleteConfirm'), {
                     confirmButtonText: this.$t('messages.common.ok'),
                     cancelButtonText: this.$t('messages.common.cancel'),
                     dangerouslyUseHTMLString: true
                 }).then(() => {
                     var _this = this;
-                    this.$store.dispatch('deleteUser', this.delete).then(function(){
+                    this.$store.dispatch('deleteUser', {'email':this.delete.email}).then(function(){
                         _this.deleteUser();
                     });
                     
@@ -210,6 +204,13 @@
                         this.$store.dispatch('showUser');
                         this.$message.success(this.$t('messages.common.deleteSuccess'));
                     break;
+                    case 3 :
+                        this.$message({
+                            showClose: true,
+                            message: this.$store.getters.deleteUser,
+                            type: 'error'
+                          });
+                    break;
                     default:
                         this.$message.error(this.$t('messages.common.deleteFailed'));
                     break;
@@ -223,10 +224,19 @@
                         this.loading.showUserDataStatus = true;
                     break;
                     case 2 :
+                        this.loading.showUserDataStatus = false;
                         tableData =  this.$store.getters.showUserData;
                         this.tableData = tableData;
                         this.total = tableData.length;
                         this.currentPage = 1;
+                        break;
+                    case 3 :
+                        this.$message({
+                            showClose: true,
+                            message: this.$store.getters.showUserData,
+                            type: 'error'
+                          });
+                    break;
                     default:
                          this.loading.showUserDataStatus = false;
                     break;
@@ -239,6 +249,14 @@
                     break;
                     case 2 :
                         this.roles =  this.$store.getters.getRoleData;
+                    break;
+                    case 3 :
+                        this.$message({
+                            showClose: true,
+                            message: this.$store.getters.getRoleData,
+                            type: 'error'
+                          });
+                    break;
                     default:
                          this.loading.getRoleDataStatus = false;
                     break;

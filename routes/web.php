@@ -114,4 +114,14 @@ Route::prefix('user')->namespace('UserManage')->group(function () {
 	Route::get('showRole', 'UserController@getRoleData');
 	Route::post('modifyRole', 'UserController@modifyRole');
 	Route::post('deleteRole', 'UserController@deleteRole');
+	Route::post('showPermission', 'UserController@getPermissionData');
+});
+
+// [SiteManage routes]
+Route::prefix('site')->namespace('SiteManage')->group(function () {
+	
+	Route::post('loadSiteData', 'SiteController@query');
+	Route::post('uploadSiteFile', 'SiteController@upload');
+	Route::post('exportSiteData', 'SiteController@export');
+	
 });

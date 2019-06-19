@@ -13,6 +13,7 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         'paramCheck/uploadWhiteList',
-        'storage/uploadTaskFile'
+        'storage/uploadTaskFile',
+        'site/uploadSiteFile'
     ];
 }

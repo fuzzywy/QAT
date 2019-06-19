@@ -60,7 +60,10 @@ const cn = {
             'modifySucc':'修改成功',
             'modifyFailed':'删除失败',
             'selectFile':'选择文件',
-            'uploadPlaceholder':'点击上传文件'
+            'uploadPlaceholder':'点击上传文件',
+            'template':'模板',
+            'apend':'新增',
+            'replace':'替换'
         },
     	kget: {
     		'moTip':'请选择MO',
@@ -104,11 +107,14 @@ const cn = {
             'reviewSucc':'已审核',
             'reviewFailed':'审核失败',
             'userTip':'请先选择用户',
-            'roleTip':'请先选择用户角色'
+            'roleExists': '用户角色已存在'
         },
         setting: {
             'connTip':'请填写conn',
             'typeTip':'请填写type',
+        },
+        site: {
+            'importType':'导入方式'
         }
 
     },

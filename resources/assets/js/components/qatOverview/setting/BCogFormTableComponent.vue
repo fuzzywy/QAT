@@ -1,24 +1,26 @@
 <template>
-    <el-card style="height: 100%;">
-        <el-row :gutter="20">
-            <el-col :span="12">
-                <el-form label-width="80px">
-                    <el-form-item horizontal label="Filter">
-                    <!-- <el-input v-model="filter" placeholder="Type to Search" @change="onFiltered"> -->
-                        <el-input v-model="filter" placeholder="Type to Search">
-                            <template slot="append"><el-button :disabled="!filter" @click.stop="clearFilter">Clear</el-button></template>
-                        </el-input>
-                    </el-form-item>
-                </el-form>
-            </el-col>
-            <el-col :span="12">
-                <el-form label-width="150px">
-                    <el-form-item horizontal label="Add host address" class="mb-0">
-                        <el-button type="primary" @click.stop="addColumn">Add</el-button>
-                    </el-form-item>
-                </el-form>
-            </el-col>
-        </el-row>
+    <el-card class="box-card_template">
+        <div slot="header" class="clearfix">
+            <el-row :gutter="20">
+                <el-col :span="12">
+                    <el-form label-width="80px">
+                        <el-form-item horizontal label="Filter">
+                        <!-- <el-input v-model="filter" placeholder="Type to Search" @change="onFiltered"> -->
+                            <el-input v-model="filter" placeholder="Type to Search">
+                                <template slot="append"><el-button :disabled="!filter" @click.stop="clearFilter">Clear</el-button></template>
+                            </el-input>
+                        </el-form-item>
+                    </el-form>
+                </el-col>
+                <el-col :span="12">
+                    <el-form label-width="150px">
+                        <el-form-item horizontal label="Add host address" class="mb-0">
+                            <el-button type="primary" @click.stop="addColumn">Add</el-button>
+                        </el-form-item>
+                    </el-form>
+                </el-col>
+            </el-row>
+        </div>
 
         <el-dialog title="add/modify"
             :visible.sync="modifyVisible"
@@ -26,7 +28,6 @@
             :before-close="handleClose"
             :modal-append-to-body="false"
             >
-
             <el-row class="mb-2" v-for="(value,key) in modify" :key="key" v-if="key !== 'id'">
                 <el-col :span="6" class="text-sm-right"><b>{{ key }}:</b></el-col>
                 <el-col :span="15" :offset="1">

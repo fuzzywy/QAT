@@ -7,117 +7,114 @@
     }
 </style>
 <template>
-    <el-container style="height: 100%;">
-  		<el-main style="max-height: 100%;border: 1px solid #eee">
-  			<el-dialog :title="this.$t('messages.common.add')"
-            :visible.sync="addTaskVisible"
-            :close-on-click-modal="false"
-            :before-close="handleClose"
-            :modal-append-to-body="false"
-            :append-to-body="true"
-            width="80%"
-            :center="true"
-            >
-            	<el-form label-width="100px">
-            		<el-row>
-            			<el-col>
-	                    	<el-form-item horizontal :label="this.$t('messages.task.storageType')">
-		                        <el-select
-                                    class="full-width"
-                                    v-model="storageType"
-                                    filterable
-                                    remote
-                                    reserve-keyword
-                                    :placeholder="this.$t('messages.task.storageType')"
-                                    :remote-method="remoteMethod"
-                                    :loading="loading.storageTypeStatus"
-                                    :showData="getStorageType">
-                                    <el-option
-                                      v-for="item in storageTypeOptions"
-                                      :key="item.value"
-                                      :label="item.label"
-                                      :value="item.value">
-                                    </el-option>
-                                </el-select>
-		                    </el-form-item>
-		                </el-col>
-                    </el-row>
-                    <el-row>
-                        <el-col>
-	                    	<el-form-item horizontal :label="this.$t('messages.task.taskName')">
-		                        <el-input
-		                        	type="text"
-						            class="full-width"
-						            :placeholder="this.$t('messages.task.taskNamePlaceholder')"
-						            v-model="taskName"
-						            maxlength="18"
-						            show-word-limit
-						            >
-						        </el-input>
-		                    </el-form-item>
-		                </el-col>
-                    </el-row>
-                    <el-row>
-		                <el-col>
-		                    <el-form-item horizontal :label="this.$t('messages.common.selectFile')">
-		                    	<el-upload
-						            ref="upload"
-						            accept=".gz"
-						            :action="uploadTaskFileUrl"
-						            :data="myData"
-						            :before-upload="onBeforeUpload"
-						            :multiple="true"
-						            :on-success="handleSuccess"
-                                    :auto-upload="false"
-						            :headers="myHeader"
-						            :show-file-list=true
-						            :file-list="fileList">
-						            <!--<el-button size="small" type="primary">{{$t('messages.common.upload')}}</el-button>-->
-                                    <el-input type="text"
-                                    :placeholder="this.$t('messages.common.uploadPlaceholder')">
-                                    </el-input>
-			                        <div slot="tip" class="el-upload__tip">{{$t('messages.task.uploadTip')}}</div>
-						        </el-upload>
-		                    </el-form-item>
-                    	</el-col>
-                    </el-row>
-            	</el-form>
-	            <span slot="footer" class="dialog-footer">
-				    <el-button @click="addTaskVisible = false">{{$t('messages.common.cancel')}}</el-button>
-				    <el-button type="primary" @click="saveTask" >{{$t('messages.common.ok')}}</el-button>
-				</span>
-            </el-dialog>
-  			<el-card class="box-card" style="height: 100%;">
-			  	<div slot="header" class="clearfix">
-			    	<span>{{$t('messages.task.taskInfo')}}</span>
-			    	<el-button size="small" type="primary" style="float:right;margin-left: 10px;" @click="stopTask" :disabled="stopDisabled">{{$t('messages.common.stop')}}</el-button>
-			    	<el-button size="small" type="primary" style="float:right" @click="runTask" :runTaskData="runTaskData" :disabled="runDisabled">{{$t('messages.common.run')}}</el-button>
-			    	<el-button size="small" type="primary" style="float:right" @click="deleteTask" :loading="loading.deleteTaskStatus" :disabled="delDisabled">{{$t('messages.common.delete')}}</el-button>
-                	<el-button size="small" type="primary" style="float:right" @click="addTask">{{$t('messages.common.add')}}</el-button>
-			  	</div>
-			  	<el-table
-		            v-loading="loading.qatTaskDataStatus"
-		            :data="tasks.slice((currentPage-1)*pageSize,currentPage*pageSize)"
-		            border
-		            highlight-current-row
-		            @current-change="handleCurrentChange"
-		            :options="getTaskData"
-		            style="margin: auto;">
-		            <el-table-column v-for="(value, key) in tasks[0]" min-width="180" :key="key" :prop="key" :label="key" show-overflow-tooltip>
-		            </el-table-column >
-		        </el-table>
-		        <el-pagination
-		            @size-change="size_change"
-		            @current-change="current_change"
-		            :current-page="currentPage"
-		            :page-sizes="[5, 10, 50, 100]"
-		            :page-size="5"
-		            layout="total, sizes, prev, pager, next, jumper"
-		            :total="total">
-		        </el-pagination>
-			</el-card>
-  		</el-main>
-	</el-container>
+    <el-card class="box-card_template">
+    	<el-dialog :title="this.$t('messages.common.add')"
+        :visible.sync="addTaskVisible"
+        :close-on-click-modal="false"
+        :before-close="handleClose"
+        :modal-append-to-body="false"
+        :append-to-body="true"
+        width="80%"
+        :center="true"
+        >
+    	<el-form label-width="100px">
+    		<el-row>
+    			<el-col>
+                	<el-form-item horizontal :label="this.$t('messages.task.storageType')">
+                        <el-select
+                            class="full-width"
+                            v-model="storageType"
+                            filterable
+                            remote
+                            reserve-keyword
+                            :placeholder="this.$t('messages.task.storageType')"
+                            :remote-method="remoteMethod"
+                            :loading="loading.storageTypeStatus"
+                            :showData="getStorageType">
+                            <el-option
+                              v-for="item in storageTypeOptions"
+                              :key="item.value"
+                              :label="item.label"
+                              :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            <el-row>
+                <el-col>
+                	<el-form-item horizontal :label="this.$t('messages.task.taskName')">
+                        <el-input
+                        	type="text"
+				            class="full-width"
+				            :placeholder="this.$t('messages.task.taskNamePlaceholder')"
+				            v-model="taskName"
+				            maxlength="18"
+				            show-word-limit
+				            >
+				        </el-input>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            <el-row>
+                <el-col>
+                    <el-form-item horizontal :label="this.$t('messages.common.selectFile')">
+                    	<el-upload
+				            ref="upload"
+				            accept=".gz"
+				            :action="uploadTaskFileUrl"
+				            :data="myData"
+				            :before-upload="onBeforeUpload"
+				            :multiple="true"
+				            :on-success="handleSuccess"
+                            :auto-upload="false"
+				            :headers="myHeader"
+				            :show-file-list=true
+				            :file-list="fileList">
+				            <!--<el-button size="small" type="primary">{{$t('messages.common.upload')}}</el-button>-->
+                            <el-input type="text"
+                            :placeholder="this.$t('messages.common.uploadPlaceholder')">
+                            </el-input>
+	                        <div slot="tip" class="el-upload__tip">{{$t('messages.task.uploadTip')}}</div>
+				        </el-upload>
+                    </el-form-item>
+            	</el-col>
+            </el-row>
+    	</el-form>
+        <span slot="footer" class="dialog-footer">
+		    <el-button @click="addTaskVisible = false">{{$t('messages.common.cancel')}}</el-button>
+		    <el-button type="primary" @click="saveTask" >{{$t('messages.common.ok')}}</el-button>
+		</span>
+    </el-dialog>
+		
+	  	<div slot="header" class="clearfix">
+	    	<span>{{$t('messages.task.taskInfo')}}</span>
+	    	<el-button size="small" type="primary" style="float:right;margin-left: 10px;" @click="stopTask" :disabled="stopDisabled">{{$t('messages.common.stop')}}</el-button>
+	    	<el-button size="small" type="primary" style="float:right" @click="runTask" :runTaskData="runTaskData" :disabled="runDisabled">{{$t('messages.common.run')}}</el-button>
+	    	<el-button size="small" type="primary" style="float:right" @click="deleteTask" :loading="loading.deleteTaskStatus" :disabled="delDisabled">{{$t('messages.common.delete')}}</el-button>
+        	<el-button size="small" type="primary" style="float:right" @click="addTask">{{$t('messages.common.add')}}</el-button>
+	  	</div>
+	  	<el-table
+            v-loading="loading.qatTaskDataStatus"
+            :data="tasks.slice((currentPage-1)*pageSize,currentPage*pageSize)"
+            border
+            highlight-current-row
+            @current-change="handleCurrentChange"
+            :options="getTaskData"
+            style="margin: auto;">
+            <el-table-column v-for="(value, key) in tasks[0]" min-width="180" :key="key" :prop="key" :label="key" show-overflow-tooltip>
+            </el-table-column >
+        </el-table>
+        <el-pagination
+            @size-change="size_change"
+            @current-change="current_change"
+            :current-page="currentPage"
+            :page-sizes="[5, 10, 50, 100]"
+            :page-size="5"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="total">
+        </el-pagination>
+	</el-card>
 </template>
 <script>
 	export default {
@@ -228,8 +225,8 @@
             saveTaskData () {
             	switch( this.$store.getters.saveTaskDataStatus ) {
                     case 2:
-                        this.$refs.upload.submit();
                     	this.$store.dispatch( 'loadQatTaskData');
+                        this.$refs.upload.submit();
                     break;
                     case 3:
                         this.$message({
@@ -295,12 +292,6 @@
                         this.currentRow.status = 'abort';
                         break;
                     case 3:
-                        this.$message({
-                            showClose: true,
-                            message: this.$store.getters.stopTaskData,
-                            type: 'error'
-                          });
-                        break;
                     default:
                         break;
                 }
@@ -374,11 +365,12 @@
                 if (this.currentRow) {
                     if(this.$store.getters.getUserData.type == 'admin' || this.$store.getters.getUserData.name == this.currentRow.owner ) {
                         return this.currentRow.status;
+                    } else {
+                        this.stopDisabled = true;
+                        this.runDisabled = true;
+                        this.delDisabled = true;
                     }
                 }
-                this.stopDisabled = true;
-                this.runDisabled = true;
-                this.delDisabled = true;
             },
 	        getTaskData () {
 	        	switch( this.$store.getters.qatTaskDataStatus ) {
@@ -387,12 +379,6 @@
                         this.total = this.tasks.length;
                         break;
                     case 3:
-                        this.$message({
-                            showClose: true,
-                            message: this.$store.getters.qatTaskData,
-                            type: 'error'
-                          });
-                        break;
                     default:
                         break;
 	            }
@@ -401,13 +387,6 @@
 	        	switch( this.$store.getters.runTaskDataStatus ) {
                     case 2:
                         this.$store.dispatch( 'loadQatTaskData');
-                        break;
-                    case 3:
-                        this.$message({
-                            showClose: true,
-                            message: this.$store.getters.runTaskData,
-                            type: 'error'
-                          });
                         break;
                     default:
                         break;
@@ -422,13 +401,6 @@
                         this.loading.storageTypeStatus = false;
                         this.storageTypeList = this.$store.getters.qatTaskStorageTypeData;
                         this.storageTypeOptions = this.storageTypeList;
-                        break;
-                    case 3:
-                        this.$message({
-                            showClose: true,
-                            message: this.$store.getters.qatTaskStorageTypeData,
-                            type: 'error'
-                          });
                         break;
                     default:
                         this.loading.storageTypeStatus = false;

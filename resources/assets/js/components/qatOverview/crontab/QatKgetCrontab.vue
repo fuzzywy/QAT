@@ -4,268 +4,244 @@
     }
 </style>
 <template>
-   <el-container class="el-container_">
-        <!--<el-aside width="300px">
-            <el-card id="moTree" class="box-card_">
-                <el-input v-model="filterText" placeholder="Filter keyword">
-                    <template slot="append"><el-button :disabled="!filterText" :options="getDataByFilter" @click.stop="clearFilter">Clear</el-button></template>
-                </el-input>
-                <el-tree
-                  v-loading="loading.kgetMoLoading"
-                  class="filter-tree"
-                  :data="treeData"
-                  :props="defaultProps"
-                  node-key="id"
-                  default-expand-all
-                  highlight-current
-                  :expand-on-click-node="false"
-                  ref="tree"
-                  :options="getData"
-                  @node-click="handleNodeClick">
-                </el-tree>
-            </el-card>
-        </el-aside>-->
-        <el-main>
-            <el-card class="box-card_">
-                <el-row>
-                    <el-col :span="6">
-                        <el-form label-width="90px">
-                            <el-form-item horizontal :label="this.$t('messages.task.taskName')">
-                                <el-input
-                                    style="width:201px"
-                                    class="full-width"
-                                    v-model="taskName"
-                                    @change="change_taskName"
-                                    :options="checkKgetTaskName"
-                                    :disabled="taskNameDisabled"
-                                    >
-                                </el-input>
-                                <el-input
-                                    style="display: none;"
-                                    class="full-width"
-                                    v-model="taskId"
-                                    >
-                                </el-input>
-                            </el-form-item>
-                        </el-form>
-                    </el-col>
-                    <el-col :span="6">
-                        <el-form label-width="70px">
-                            <el-form-item horizontal label="MO">
-                                <el-select
-                                    style="width:201px"
-                                    class="full-width"
-                                    v-model="moName"
-                                    filterable
-                                    remote
-                                    reserve-keyword
-                                    placeholder="MO"
-                                    :disabled="moNameDisabled"
-                                    :remote-method="moRemoteMethod"
-                                    :loading="loading.qatKgetMoListStatus"
-                                    :showData="getKgetMoListData"
-                                    @change="change_moName">
-                                    <el-option
-                                      v-for="item in kgetMoListOptions"
-                                      :key="item.value"
-                                      :label="item.label"
-                                      :value="item.value">
-                                    </el-option>
-                                </el-select>
-                            </el-form-item>
-                        </el-form>
-                    </el-col>
-                    <el-col :span="6">
-                        <el-form label-width="70px">
-                            <el-form-item horizontal :label="this.$t('messages.common.date')">
-                                <el-select
-                                    style="width:201px"
-                                    class="full-width"
-                                    v-model="kgetTaskValue"
-                                    filterable
-                                    remote
-                                    reserve-keyword
-                                    :placeholder="this.$t('messages.common.date')"
-                                    :remote-method="remoteMethod"
-                                    @change="change_task"
-                                    :loading="loading.qatKgetTaskStatus"
-                                    :showData="getKgetTask">
-                                    <el-option
-                                      v-for="item in kgetTaskOptions"
-                                      :key="item.value"
-                                      :label="item.label"
-                                      :value="item.value">
-                                    </el-option>
-                                </el-select>
-                            </el-form-item>
-                        </el-form>
-                    </el-col>
-                    <el-col :span="6">
-                        <el-form label-width="70px">
-                            <el-form-item horizontal :label="this.$t('messages.common.city')">
-                                <el-select
-                                    style="width:201px"
-                                    class="full-width"
-                                    v-model="city"
-                                    :showData="getCityData"
-                                    @change="change_city"
-                                    @visible-change="visible_change_city"
-                                    multiple
-                                    collapse-tags
-                                    :placeholder="this.$t('messages.common.city')">
-                                    <el-option
-                                      v-for="item in cityGroup"
-                                      :key="item.value"
-                                      :label="item.label"
-                                      :value="item.value">
-                                    </el-option>
-                                </el-select>
-                            </el-form-item>
-                        </el-form>
-                    </el-col>
-                </el-row>
-                <el-row>
-                    <el-col :span="6">
-                        <el-form label-width="90px">
-                            <el-form-item horizontal :label="this.$t('messages.common.subNet')">
-                                <el-select
-                                    style="width:201px"
-                                    class="full-width"
-                                    v-model="subNet"
-                                    multiple
-                                    collapse-tags
-                                    :placeholder="this.$t('messages.common.subNet')"
-                                    :showData="getSubNetData"
-                                    @change="change_subNet">
-                                    <el-option
-                                      v-for="item in subNetGroup"
-                                      :key="item.value"
-                                      :label="item.label"
-                                      :value="item.value">
-                                    </el-option>
-                                </el-select>
-                            </el-form-item>
-                        </el-form>
-                    </el-col>
-                    <el-col :span="6">
-                        <el-form label-width="70px">
-                            <el-form-item horizontal :label="this.$t('messages.common.baseStation')">
-                                <el-input
-                                    style="width:201px"
-                                    class="full-width"
-                                    v-model="baseStation"
-                                    clearable>
-                                </el-input>
-                            </el-form-item>
-                        </el-form>
-                    </el-col>
-                    <el-col :span="6">
-                        <el-form label-width="70px">
-                            <el-form-item horizontal :label="this.$t('messages.common.parameter')">
-                                <el-select
-                                    style="width:201px"
-                                    class="full-width"
-                                    v-model="kgetParamValue"
-                                    multiple
-                                    filterable
-                                    remote
-                                    reserve-keyword
-                                    collapse-tags
-                                    :placeholder="this.$t('messages.common.parameter')"
-                                    :showData="getKgetParam"
-                                    :remote-method="remoteParamMethod"
-                                    @change="change_param">
-                                    <el-option
-                                      v-for="item in kgetParamOptions"
-                                      :key="item.value"
-                                      :label="item.label"
-                                      :value="item.value">
-                                    </el-option>
-                                </el-select>
-                            </el-form-item>
-                        </el-form>
-                    </el-col>
-                    <el-col :span="6">
-                        <el-form label-width="70px">
-                            <el-form-item horizontal label="Email">
-                                <el-input
-                                    style="width:201px"
-                                    class="full-width"
-                                    v-model="email"
-                                    @change="checkEmail"
-                                    >
-                                </el-input>
-                            </el-form-item>
-                        </el-form>
-                    </el-col>
-                </el-row>
-                <el-row>
-                    <el-col :span="6">
-                        <el-form label-width="90px">
-                            <el-form-item horizontal :label="this.$t('messages.kget.pushTime')">
-                                <el-date-picker
-                                  style="width:201px"
-                                  class="full-width"
-                                  v-model="pushTime"
-                                  type="datetime"
-                                  :placeholder="this.$t('messages.kget.pushTime')"
-                                  default-time="12:00:00"
-                                  value-format="yyyy-MM-dd HH:mm:ss">
-                                </el-date-picker>
-                            </el-form-item>
-                        </el-form>
-                    </el-col>
-                    <el-col :span="6">
-                        <el-form label-width="70px">
-                            <el-form-item horizontal :label="this.$t('messages.common.status')">
-                                <el-switch
-                                    v-model="status"
-                                    active-color="#13ce66"
-                                    inactive-color="#ff4949"
-                                    active-text="ON"
-                                    inactive-text="OFF">
-                                </el-switch>
-                            </el-form-item>
-                        </el-form>
-                    </el-col>
-                    <el-col :span="4" :offset="8">
-                        <el-button type="primary" @click.stop="addCrontab()" >{{$t('messages.common.init')}}</el-button>
-                        <el-button type="primary" @click.stop="handleCrontab()" >{{$t('messages.common.ok')}}</el-button>
-                    </el-col>
-                </el-row>
-                
-                <el-table
-                    v-loading="loading.qatKgetCrontabTaskDataStatus"
-                    :data="kgetCrontabTaskdata"
-                    border
-                    :options="getKgetCrontabTask"
-                    style="margin: auto;">
-                    <el-table-column v-for="(value, key) in kgetCrontabTaskdata[0]" min-width="180" :key="key" :prop="key" :label="key" show-overflow-tooltip>
-                    </el-table-column >
-                    <el-table-column align="center" width="180" v-if="total > 0">
-                        <template slot="header" slot-scope="scope" >
-                            Actions
-                        </template>
-                        <template slot-scope="scope">
-                            <el-button size="mini"
-                                @click="handleEdit(scope.$index, scope.row)" :options="insertKgetCrontabTask">modify</el-button>
-                            <el-button size="mini" type="danger"
-                                @click="handleDelete(scope.$index, scope.row)" :options="deleteKgetCrontabTask">delete</el-button>
-                        </template>
-                    </el-table-column>
-                </el-table>
-                <el-pagination
-                    @size-change="size_change"
-                    @current-change="current_change"
-                    :current-page="currentPage"
-                    :page-sizes="[5, 10, 50, 100]"
-                    :page-size="5"
-                    layout="total, sizes, prev, pager, next, jumper"
-                    :total="total">
-                </el-pagination>
-            </el-card>
-        </el-main>
-   </el-container>
+    <div>
+        <el-row>
+            <el-col :span="6">
+                <el-form label-width="90px">
+                    <el-form-item horizontal :label="this.$t('messages.task.taskName')">
+                        <el-input
+                            style="width:201px"
+                            class="full-width"
+                            v-model="taskName"
+                            @change="change_taskName"
+                            :options="checkKgetTaskName"
+                            :disabled="taskNameDisabled"
+                            >
+                        </el-input>
+                        <el-input
+                            style="display: none;"
+                            class="full-width"
+                            v-model="taskId"
+                            >
+                        </el-input>
+                    </el-form-item>
+                </el-form>
+            </el-col>
+            <el-col :span="6">
+                <el-form label-width="70px">
+                    <el-form-item horizontal label="MO">
+                        <el-select
+                            style="width:201px"
+                            class="full-width"
+                            v-model="moName"
+                            filterable
+                            remote
+                            reserve-keyword
+                            placeholder="MO"
+                            :disabled="moNameDisabled"
+                            :remote-method="moRemoteMethod"
+                            :loading="loading.qatKgetMoListStatus"
+                            :showData="getKgetMoListData"
+                            @change="change_moName">
+                            <el-option
+                              v-for="item in kgetMoListOptions"
+                              :key="item.value"
+                              :label="item.label"
+                              :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+                </el-form>
+            </el-col>
+            <el-col :span="6">
+                <el-form label-width="70px">
+                    <el-form-item horizontal :label="this.$t('messages.common.date')">
+                        <el-select
+                            style="width:201px"
+                            class="full-width"
+                            v-model="kgetTaskValue"
+                            filterable
+                            remote
+                            reserve-keyword
+                            :placeholder="this.$t('messages.common.date')"
+                            :remote-method="remoteMethod"
+                            @change="change_task"
+                            :loading="loading.qatKgetTaskStatus"
+                            :showData="getKgetTask">
+                            <el-option
+                              v-for="item in kgetTaskOptions"
+                              :key="item.value"
+                              :label="item.label"
+                              :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+                </el-form>
+            </el-col>
+            <el-col :span="6">
+                <el-form label-width="70px">
+                    <el-form-item horizontal :label="this.$t('messages.common.city')">
+                        <el-select
+                            style="width:201px"
+                            class="full-width"
+                            v-model="city"
+                            :showData="getCityData"
+                            @change="change_city"
+                            @visible-change="visible_change_city"
+                            multiple
+                            collapse-tags
+                            :placeholder="this.$t('messages.common.city')">
+                            <el-option
+                              v-for="item in cityGroup"
+                              :key="item.value"
+                              :label="item.label"
+                              :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+                </el-form>
+            </el-col>
+        </el-row>
+        <el-row>
+            <el-col :span="6">
+                <el-form label-width="90px">
+                    <el-form-item horizontal :label="this.$t('messages.common.subNet')">
+                        <el-select
+                            style="width:201px"
+                            class="full-width"
+                            v-model="subNet"
+                            multiple
+                            collapse-tags
+                            :placeholder="this.$t('messages.common.subNet')"
+                            :showData="getSubNetData"
+                            @change="change_subNet">
+                            <el-option
+                              v-for="item in subNetGroup"
+                              :key="item.value"
+                              :label="item.label"
+                              :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+                </el-form>
+            </el-col>
+            <el-col :span="6">
+                <el-form label-width="70px">
+                    <el-form-item horizontal :label="this.$t('messages.common.baseStation')">
+                        <el-input
+                            style="width:201px"
+                            class="full-width"
+                            v-model="baseStation"
+                            clearable>
+                        </el-input>
+                    </el-form-item>
+                </el-form>
+            </el-col>
+            <el-col :span="6">
+                <el-form label-width="70px">
+                    <el-form-item horizontal :label="this.$t('messages.common.parameter')">
+                        <el-select
+                            style="width:201px"
+                            class="full-width"
+                            v-model="kgetParamValue"
+                            multiple
+                            filterable
+                            remote
+                            reserve-keyword
+                            collapse-tags
+                            :placeholder="this.$t('messages.common.parameter')"
+                            :showData="getKgetParam"
+                            :remote-method="remoteParamMethod"
+                            @change="change_param">
+                            <el-option
+                              v-for="item in kgetParamOptions"
+                              :key="item.value"
+                              :label="item.label"
+                              :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+                </el-form>
+            </el-col>
+            <el-col :span="6">
+                <el-form label-width="70px">
+                    <el-form-item horizontal label="Email">
+                        <el-input
+                            style="width:201px"
+                            class="full-width"
+                            v-model="email"
+                            @change="checkEmail"
+                            >
+                        </el-input>
+                    </el-form-item>
+                </el-form>
+            </el-col>
+        </el-row>
+        <el-row>
+            <el-col :span="6">
+                <el-form label-width="90px">
+                    <el-form-item horizontal :label="this.$t('messages.kget.pushTime')">
+                        <el-date-picker
+                          style="width:201px"
+                          class="full-width"
+                          v-model="pushTime"
+                          type="datetime"
+                          :placeholder="this.$t('messages.kget.pushTime')"
+                          default-time="12:00:00"
+                          value-format="yyyy-MM-dd HH:mm:ss">
+                        </el-date-picker>
+                    </el-form-item>
+                </el-form>
+            </el-col>
+            <el-col :span="6">
+                <el-form label-width="70px">
+                    <el-form-item horizontal :label="this.$t('messages.common.status')">
+                        <el-switch
+                            v-model="status"
+                            active-color="#13ce66"
+                            inactive-color="#ff4949"
+                            active-text="ON"
+                            inactive-text="OFF">
+                        </el-switch>
+                    </el-form-item>
+                </el-form>
+            </el-col>
+            <el-col :span="4" :offset="8">
+                <el-button type="primary" @click.stop="addCrontab()" >{{$t('messages.common.init')}}</el-button>
+                <el-button type="primary" @click.stop="handleCrontab()" >{{$t('messages.common.ok')}}</el-button>
+            </el-col>
+        </el-row>
+        
+        <el-table
+            v-loading="loading.qatKgetCrontabTaskDataStatus"
+            :data="kgetCrontabTaskdata"
+            border
+            :options="getKgetCrontabTask"
+            style="margin: auto;">
+            <el-table-column v-for="(value, key) in kgetCrontabTaskdata[0]" min-width="180" :key="key" :prop="key" :label="key" show-overflow-tooltip>
+            </el-table-column >
+            <el-table-column align="center" width="180" v-if="total > 0">
+                <template slot="header" slot-scope="scope" >
+                    Actions
+                </template>
+                <template slot-scope="scope">
+                    <el-button size="mini"
+                        @click="handleEdit(scope.$index, scope.row)" :options="insertKgetCrontabTask">modify</el-button>
+                    <el-button size="mini" type="danger"
+                        @click="handleDelete(scope.$index, scope.row)" :options="deleteKgetCrontabTask">delete</el-button>
+                </template>
+            </el-table-column>
+        </el-table>
+        <el-pagination
+            @size-change="size_change"
+            @current-change="current_change"
+            :current-page="currentPage"
+            :page-sizes="[5, 10, 50, 100]"
+            :page-size="5"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="total">
+        </el-pagination>
+    </div>
 </template>
 <script>
     import {Common} from '../../../mixin/common/Common.js';

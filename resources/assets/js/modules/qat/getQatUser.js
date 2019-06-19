@@ -30,6 +30,9 @@ export const qatUser = {
 
         deleteRole: [],
         deleteRoleStatus: 0,
+
+        showPermissionData: [],
+        showPermissionDataStatus: 0
     },
     actions: {
         getUser( { commit } ) {
@@ -226,6 +229,23 @@ export const qatUser = {
                     commit( 'deleteRoleStatus', 3 );
                 });
             });
+        },
+        showPermission( { commit }, data) {
+            commit( 'showPermissionDataStatus', 1 );
+            QatUserAPI.showPermission(data)
+            .then( (response) => {
+                if ( response.data != undefined ) {
+                    commit( 'showPermissionData', response.data );
+                    commit( 'showPermissionDataStatus', 2 );
+                }else {
+                    commit( 'showPermissionData', [ response ] );
+                    commit( 'showPermissionDataStatus', 3 );
+                }
+            } )
+            .catch( function() {
+                commit( 'showPermissionData', [ 'Connection failed' ] );
+                commit( 'showPermissionDataStatus', 3 );
+            } )
         }
     },
     mutations: {
@@ -288,6 +308,12 @@ export const qatUser = {
         },
         deleteRole( state, deleteRole ) {
             state.deleteRole = deleteRole
+        },
+        showPermissionDataStatus( state, status ) {
+            state.showPermissionDataStatus = status;
+        },
+        showPermissionData( state, showPermissionData ) {
+            state.showPermissionData = showPermissionData
         }
 
     },
@@ -351,6 +377,12 @@ export const qatUser = {
         },
         deleteRole( state ){
             return state.deleteRole;
+        },
+        showPermissionDataStatus( state ){
+            return state.showPermissionDataStatus;
+        },
+        showPermissionData( state ){
+            return state.showPermissionData;
         }
     }
 }

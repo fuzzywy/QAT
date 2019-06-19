@@ -1,0 +1,2 @@
+ecgi,ECI,cellName,cellNameChinese,siteName,siteNameChinese,duplexMode,rsi,tac,longitudeBD,latitudeBD,longitude,latitude,dir,pci,earfcn,siteType,cellType,tiltM,tiltE,antHeight,dualBandNetwork,CANetwork,address,band,channelBandWidth,noofTxAntennas(Site),highTraffic,highInterference,HST,cluster,subNetwork,currentOSS,覆盖属性,是否在网
+4600-341505-1,87425281,LF33A13A,奥林匹克花园LF1,LDF33A13,奥林匹克花园LF,TDD,170,20798,\N,\N,119.934,31.8528,40,299,38400,Erbs,Outdoor-macro-sector,10,6,39,yes,no,100.93.139.149,F,20000,8,,,yes,0519-0001-CZ,CZ2_Changzhou_g1tdd2,,高速公路,yes

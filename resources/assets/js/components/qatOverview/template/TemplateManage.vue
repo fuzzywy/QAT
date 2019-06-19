@@ -1,14 +1,14 @@
 <template>
-    <el-card class="box-card_">
+    <el-card class="box-card_template" shadow="hover">
         <input style="display: none;" :loadTemplateData="computedLoadTemplateData">
-        <div slot="header" class="clearfix">
-          <span>模板</span>
-            <el-button 
-                  style="float: right; padding: 3px 0"
-                  type="text" 
-                  @click="dialogFormVisible = true"
-              ><i class="el-icon-plus"></i>
-            </el-button>
+            <div slot="header" class="clearfix">
+                <span>模板</span>
+                <el-button 
+                    style="float: right; padding: 3px 0"
+                    type="text" 
+                    @click="dialogFormVisible = true">
+                    <i class="el-icon-plus"></i>
+                </el-button>
             <el-dialog title="新建模板" :visible.sync="dialogFormVisible">
                 <el-form :model="form">
                     <el-form-item label="名称" :label-width="formLabelWidth">
@@ -19,7 +19,6 @@
                             <el-option label="TDD" value="tdd"></el-option>
                             <el-option label="FDD" value="fdd"></el-option>
                             <el-option label="NBIOT" value="nbiot"></el-option>
-                            <el-option label="GSM" value="gsm"></el-option>
                         </el-select>
                     </el-form-item>
                 </el-form>
@@ -30,33 +29,11 @@
             </el-dialog>
         </div>
         <el-scrollbar :native="false" wrapStyle="" wrapClass="" viewClass="" viewStyle="" tag="section">
-            <div style="max-height: -webkit-fill-available;">
+            <div style="max-height: 495px;">
                 <el-input
                   placeholder="输入关键字进行过滤"
                   v-model="filterText">
                 </el-input>
-        <!-- <el-tree 
-          accordion
-          :user="getLoginUser"
-          :data="treeData"
-          @node-click="nodeClick"
-          node-key="id"
-          :expand-on-click-node="false"
-          :default-expand-all="false"
-          :filter-node-method="filterNode"
-          ref="tree"
-          :highlight-current="true"
-          >
-          <span class="custom-tree-node" style="width: -webkit-fill-available" slot-scope="{ node, data }">
-            <span style="float: left;">{{ node.label }}</span>
-            <span style="float: right;">
-              <el-button v-show="data.showRemove" type="text" size="mini" @click="() => remove(node, data)">
-                <i class="el-icon-delete"></i>
-              </el-button>
-            </span>
-          </span>
-        </el-tree> -->
-        
                 <el-tree
                     v-loading="templateLoading"
                     accordion
@@ -73,147 +50,147 @@
                 </el-tree>
             </div>
         </el-scrollbar>
-      </el-card>
+    </el-card>
 </template>
 <script>
-  import {common} from '../../../mixin/common/commonTemplate.js';
-  let id = -1;
-  export default {
-    props: {
-      datasource: {
-        type: String,
-        default: "ENIQ"
-      },
-      datatype: {
-        type: String,
-        default: "TDD"
-      }
-    },
-    mixins: [
-      common
-    ],
-    data() {
-      const data = [{
-        id: 1,
-        label: '通用模板',
-        showRemove: false,
-        children: [{
-          id: 4,
-          label: 'test4'
-        }]
-      }, {
-        id: 3,
-        label: '系统模板',
-        showRemove: false,
-        children: [{
-          id: 7,
-          label: 'test7'
-        }, {
-          id: 8,
-          label: 'test8'
-        }]
-      }];
-      return {
-        filterText: '',
-        treeData: [],
-        dialogFormVisible: false,
-        form: {
-          name: '',
-          mode: 'TDD'
+    import {common} from '../../../mixin/common/commonTemplate.js';
+    let id = -1;
+    export default {
+        props: {
+            datasource: {
+                type: String,
+                default: "ENIQ"
+            },
+            datatype: {
+                type: String,
+                default: "TDD"
+            }
         },
-        formLabelWidth: '50px',
-        addFlag: 0,
-        templateLoading: false
-      };
+        mixins: [
+            common
+        ],
+        data() {
+            const data = [{
+                    id: 1,
+                    label: '通用模板',
+                    showRemove: false,
+                    children: [{
+                        id: 4,
+                        label: 'test4'
+                    }]
+                }, {
+                    id: 3,
+                    label: '系统模板',
+                    showRemove: false,
+                    children: [{
+                    id: 7,
+                    label: 'test7'
+                }, {
+                    id: 8,
+                    label: 'test8'
+                }]
+            }];
+        return {
+            filterText: '',
+            treeData: [],
+            dialogFormVisible: false,
+            form: {
+                name: '',
+                mode: 'TDD'
+            },
+            formLabelWidth: '50px',
+            addFlag: 0,
+            templateLoading: false
+        };
     },
     watch: {
-      filterText(val) {
-        this.$refs.tree.filter(val);
-      },
-      addFlag() {
-        if(this.addFlag == 1) {
-          this.addFlag = 0;
-          this.processLoadTemplateData(this.$store.state.qatData.qatDataSource, this.$store.state.qatData.qatDataStyle);
+        filterText(val) {
+            this.$refs.tree.filter(val);
+        },
+        addFlag() {
+            if(this.addFlag == 1) {
+                this.addFlag = 0;
+                this.processLoadTemplateData(this.$store.state.qatData.qatDataSource, this.$store.state.qatData.qatDataStyle);
+            }
         }
-      }
     },
     computed: {
-      getLoginUser() {
-        this.processLoadingLoginUser();
-      },
-      computedLoadTemplateData() {
+        getLoginUser() {
+            this.processLoadingLoginUser();
+        },
+        computedLoadTemplateData() {
         //显示
-        switch( this.$store.getters.qatTemplateDataStatus ) {
-            case 1:
-                this.templateLoading = true;
-                break;
-            case 2:
-                this.templateLoading = false;
-                this.treeData = this.$store.getters.qatTemplateData;
-                break;
-            case 3:
-                this.templateLoading = false;
-                break;
-            default:
-                this.templateLoading = false;
-                break;
+            switch( this.$store.getters.qatTemplateDataStatus ) {
+                case 1:
+                    this.templateLoading = true;
+                    break;
+                case 2:
+                    this.templateLoading = false;
+                    this.treeData = this.$store.getters.qatTemplateData;
+                    break;
+                case 3:
+                    this.templateLoading = false;
+                    break;
+                default:
+                    this.templateLoading = false;
+                    break;
+            }
+            //增加
+            switch(this.$store.getters.addQatTemplateStatus) {
+                case 1:
+                case 2:
+                    break;
+                case 3:
+                    break;
+                default:
+                    break;
+            }
+            //插入
+            /*switch( this.$store.getters.insertTemplateNameStatus ) {
+                case 1:
+                    break;
+                case 2:
+                    this.treeData = this.$store.getters.insertTemplateName;
+                    break;
+                case 3:
+                    break;
+                default:
+                    break;
+            }*/
+            //删除
+            switch( this.$store.getters.removeTemplateNameStatus ) {
+                case 1:
+                    break;
+                case 2:
+                    this.treeData = this.$store.getters.removeTemplateName;
+                    break;
+                case 3:
+                    break;
+                default:
+                    break;
+            }
         }
-        //增加
-        switch(this.$store.getters.addQatTemplateStatus) {
-          case 1:
-          case 2:
-              break;
-          case 3:
-              break;
-          default:
-              break;
-        }
-        //插入
-        /*switch( this.$store.getters.insertTemplateNameStatus ) {
-            case 1:
-                break;
-            case 2:
-                this.treeData = this.$store.getters.insertTemplateName;
-                break;
-            case 3:
-                break;
-            default:
-                break;
-        }*/
-        //删除
-        switch( this.$store.getters.removeTemplateNameStatus ) {
-            case 1:
-                break;
-            case 2:
-                this.treeData = this.$store.getters.removeTemplateName;
-                break;
-            case 3:
-                break;
-            default:
-                break;
-        }
-      }
     },
     mounted() {
         this.processLoadTemplateData(this.$store.state.qatData.qatDataSource, this.$store.state.qatData.qatDataStyle);
     },
     methods: {
-      renderContent(h, { node, data, store }) {
-        return h('span', {
-            style: {
-                color: "",
-                width: '-webkit-fill-available',
-                float: 'left'
-            },
-            on: {
-                'mouseenter': () => {
-                  data.showRemove = true;
+        renderContent(h, { node, data, store }) {
+            return h('span', {
+                style: {
+                    color: "",
+                    width: '-webkit-fill-available',
+                    float: 'left'
                 },
-                'mouseleave': () => {
-                  data.showRemove = false;
+                on: {
+                    'mouseenter': () => {
+                      data.showRemove = true;
+                    },
+                    'mouseleave': () => {
+                      data.showRemove = false;
+                    }
                 }
-            }
-        }, [
+            }, [
                 h('span', {
                 }, node.label),
                 h('span', {
@@ -239,10 +216,10 @@
                 ]),
             ]);
         },
-      filterNode(value, data) {
-        if (!value) return true;
-        return data.label.indexOf(value) !== -1;
-      },
+        filterNode(value, data) {
+            if (!value) return true;
+            return data.label.indexOf(value) !== -1;
+        },
       /*append(data) {
         //如果用户目录下没有模板
         if ( data.label === '通用模板' || this.treeData.length <= 2 ) {
@@ -290,55 +267,55 @@
           });       
         });
       },*/
-      remove(node, data) {
-        const parent = node.parent;
-        const children = parent.data.children || parent.data;
-        const index = children.findIndex(d => d.id === data.id);
-        this.$confirm('此操作将永久删除 '+ data.label +' 模板, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          this.processremoveTemplateName(this.$store.getters.qatLoginUser, data.label, data.id, this.$store.state.qatData.qatDataSource);
-          children.splice(index, 1);
-          // if ( this.treeData.length <= 2 ) {
-          //   this.treeData[0]['showAppend'] = true
-          // }
-          this.$message({
-            type: 'success',
-            message: '删除成功!'
-          });
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消删除'
-          });          
-        });
-      },
-      nodeClick(node, data, self) {
+        remove(node, data) {
+            const parent = node.parent;
+            const children = parent.data.children || parent.data;
+            const index = children.findIndex(d => d.id === data.id);
+            this.$confirm('此操作将永久删除 '+ data.label +' 模板, 是否继续?', '提示', {
+              confirmButtonText: '确定',
+              cancelButtonText: '取消',
+              type: 'warning'
+            }).then(() => {
+                this.processremoveTemplateName(this.$store.getters.qatLoginUser, data.label, data.id, this.$store.state.qatData.qatDataSource);
+                children.splice(index, 1);
+              // if ( this.treeData.length <= 2 ) {
+              //   this.treeData[0]['showAppend'] = true
+              // }
+                this.$message({
+                    type: 'success',
+                    message: '删除成功!'
+                });
+            }).catch(() => {
+                this.$message({
+                    type: 'info',
+                    message: '已取消删除'
+                });          
+            });
+        },
+        nodeClick(node, data, self) {
         // console.log(node, this.treeData)
-        if( !node.hasOwnProperty('children') ) {
-          this.bus.$emit('templateName', 
-          { 
-            templateName: node.label, 
-            parent: data.parent.data.label,
-            grandparent: data.parent.parent.data.label,
-            flag: 1
-          });
-          this.processloadElementData( node.label, data.parent.data.label, data.parent.parent.data.label, this.$store.getters.qatLoginUser, this.$store.state.qatData.qatDataSource );
-        } else {
-          this.$message({
-            type: 'warning',
-            message: '请选择子目录！'
-          });
-          return;
+            if( !node.hasOwnProperty('children') ) {
+                this.bus.$emit('templateName', 
+                { 
+                    templateName: node.label, 
+                    parent: data.parent.data.label,
+                    grandparent: data.parent.parent.data.label,
+                    flag: 1
+                });
+                this.processloadElementData( node.label, data.parent.data.label, data.parent.parent.data.label, this.$store.getters.qatLoginUser, this.$store.state.qatData.qatDataSource );
+            } else {
+                this.$message({
+                    type: 'warning',
+                    message: '请选择子目录！'
+                });
+                return;
+            }
+        },
+        newTemplate() {
+            this.dialogFormVisible = false;
+            this.addFlag = 1;
+            this.processAddTempalte(this.form.name, this.form.mode, this.$store.state.qatData.qatDataSource);
         }
-      },
-      newTemplate() {
-        this.dialogFormVisible = false;
-        this.addFlag = 1;
-        this.processAddTempalte(this.form.name, this.form.mode, this.$store.state.qatData.qatDataSource);
-      }
     }
-  };
+};
 </script>

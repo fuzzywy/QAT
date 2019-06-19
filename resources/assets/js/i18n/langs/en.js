@@ -60,7 +60,10 @@ const en = {
             'modifySucc':'Successfully modified',
             'modifyFailed':'failed to delete',
             'selectFile':'Select file',
-            'uploadPlaceholder':'Click upload file'
+            'uploadPlaceholder':'Click upload file',
+            'template':'Template',
+            'apend':'Apend',
+            'replace':'Replace'
         },
     	kget: {
     		'moTip':'Please select MO',
@@ -105,12 +108,14 @@ const en = {
             'reviewSucc':'Successful review',
             'reviewFailed':'Review failed',
             'userTip':'Please select a user first',
-            'roleTip':'Please select a role first'
-
+            'roleExists': 'User role already exists'
         },
         setting: {
             'connTip':'Please fill in conn',
             'typeTip':'Please fill in type',
+        },
+        site: {
+            'importType':'ImportType'
         }
         
     },

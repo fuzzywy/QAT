@@ -1,67 +1,63 @@
 <style scoped>
-    .top {
-        margin-top: 30px;
-    }
+  
 </style>
 <template>
-    <div class="top">
-        <el-table v-bind:data="tableData">
-            <el-table-column>
-                <template slot="header" slot-scope="scope">
-                    <el-button @click="addRow" icon="el-icon-plus">新增</el-button>
-                </template>
-                <template slot-scope="scope">
-                    <el-button @click="delRow(scope.$index)" size="mini" icon="el-icon-delete" circle></el-button>
-                    <el-button @click="run(scope.row)" v-if="scope.row.status=='Stopped'" size="mini"
-                               icon="el-icon-caret-right"
-                               circle></el-button>
-                    <el-button @click="run(scope.row)" v-else size="mini" icon="el-icon-close"
-                               circle></el-button>
-                </template>
-            </el-table-column>
-            <el-table-column prop='create' label="CreateTime">
-                <template slot-scope="scope">
-                    <i class="el-icon-time"></i>
-                    <span>{{scope.row.create}}</span>
-                </template>
-            </el-table-column>
-            <el-table-column prop='taskName' label="TaskName">
-            </el-table-column>
-            <el-table-column prop='schedule' label="Schedule">
-                <template slot-scope="scope">
-                    <el-select v-model="scope.row.schedule">
-                        <el-option key="Daily" value="每天"></el-option>
-                        <el-option key="Weekly" value="每周"></el-option>
-                        <el-option key="Monthly" value="每月"></el-option>
-                    </el-select>
-                </template>
-            </el-table-column>
-            <el-table-column label="Template">
-                <template slot-scope="scope">
-                    <el-select v-model="scope.row.template">
-                        <el-option key="template01" value="模板1"></el-option>
-                        <el-option key="template02" value="模板2"></el-option>
-                        <el-option key="template03" value="模板3"></el-option>
-                    </el-select>
-                </template>
-            </el-table-column>
-            <el-table-column width="245" prop="executeTime" label="ExecuteTime">
-                <template slot-scope="scope">
-                    <el-date-picker v-model="scope.row.executeTime" width="18" type="datetime">
-                    </el-date-picker>
-                </template>
-            </el-table-column>
-            <el-table-column prop='notify' label="Notify">
-                <template slot-scope="scope">
-                    <el-select v-model="scope.row.notify">
-                        <el-option key="yang" value="yang"></el-option>
-                        <el-option key="leon" value="leon"></el-option>
-                    </el-select>
-                </template>
-            </el-table-column>
-        </el-table>
-        {{JSON.stringify(tableData)}}
-    </div>
+    <el-table v-bind:data="tableData">
+        <el-table-column>
+            <template slot="header" slot-scope="scope">
+                <el-button @click="addRow" icon="el-icon-plus">新增</el-button>
+            </template>
+            <template slot-scope="scope">
+                <el-button @click="delRow(scope.$index)" size="mini" icon="el-icon-delete" circle></el-button>
+                <el-button @click="run(scope.row)" v-if="scope.row.status=='Stopped'" size="mini"
+                           icon="el-icon-caret-right"
+                           circle></el-button>
+                <el-button @click="run(scope.row)" v-else size="mini" icon="el-icon-close"
+                           circle></el-button>
+            </template>
+        </el-table-column>
+        <el-table-column prop='create' label="CreateTime">
+            <template slot-scope="scope">
+                <i class="el-icon-time"></i>
+                <span>{{scope.row.create}}</span>
+            </template>
+        </el-table-column>
+        <el-table-column prop='taskName' label="TaskName">
+        </el-table-column>
+        <el-table-column prop='schedule' label="Schedule">
+            <template slot-scope="scope">
+                <el-select v-model="scope.row.schedule">
+                    <el-option key="Daily" value="每天"></el-option>
+                    <el-option key="Weekly" value="每周"></el-option>
+                    <el-option key="Monthly" value="每月"></el-option>
+                </el-select>
+            </template>
+        </el-table-column>
+        <el-table-column label="Template">
+            <template slot-scope="scope">
+                <el-select v-model="scope.row.template">
+                    <el-option key="template01" value="模板1"></el-option>
+                    <el-option key="template02" value="模板2"></el-option>
+                    <el-option key="template03" value="模板3"></el-option>
+                </el-select>
+            </template>
+        </el-table-column>
+        <el-table-column width="245" prop="executeTime" label="ExecuteTime">
+            <template slot-scope="scope">
+                <el-date-picker v-model="scope.row.executeTime" width="18" type="datetime">
+                </el-date-picker>
+            </template>
+        </el-table-column>
+        <el-table-column prop='notify' label="Notify">
+            <template slot-scope="scope">
+                <el-select v-model="scope.row.notify">
+                    <el-option key="yang" value="yang"></el-option>
+                    <el-option key="leon" value="leon"></el-option>
+                </el-select>
+            </template>
+        </el-table-column>
+    </el-table>
+    <!--{{JSON.stringify(tableData)}}-->
 </template>
 <script>
     export default {
