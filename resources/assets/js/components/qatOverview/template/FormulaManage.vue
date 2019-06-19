@@ -15,7 +15,7 @@
 <template>
     <div>
         <input style="display: none;" id="input" :getFormulaData="loadQatFormulaData" :filterFormula="filterFormula">
-        <el-card shadow="hover" class="box-card_">
+        <el-card shadow="hover" class="box-card_template">
             <div slot="header" class="clearfix">
                 <span>公式</span>
                 <el-button 
@@ -50,7 +50,7 @@
                 </el-dialog>
             </div>
             <el-scrollbar :native="false" wrapStyle="" wrapClass="" viewClass="" viewStyle="" tag="section">
-                <div style="max-height: -webkit-fill-available;">
+                <div style="max-height: 495px;">
                     <el-table
                         v-loading="formulaLoading"
                         :data="tableData"

@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Artisan;
 use Config;
 use PDO;
 use Exception;
-use App\Models\Task;
+use App\Models\Mongs\Task;
 use App\Models\USERS;
 
 

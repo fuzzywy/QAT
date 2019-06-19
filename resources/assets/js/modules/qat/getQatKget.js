@@ -127,19 +127,24 @@ export const qatKget = {
             this.cancelToken = axios.CancelToken.source();
             data['cancelToken'] = this.cancelToken;
             commit( 'qatKgetDataStatus', 1 );
-            QatKgetAPI.getKgetData(data)
-            .then( function( response ){
-                if ( response.data != undefined ) {
-                    commit( 'qatKgetData', response.data );
-                    commit( 'qatKgetDataStatus', 2 );
-                }else {
-                    commit( 'qatKgetData', [ response ] );
-                    commit( 'qatKgetDataStatus' , 3 ); 
-                }
-            })
-            .catch( function(){
-                commit( 'qatKgetData', [ 'Connection failed' ] );
-                commit( 'qatKgetDataStatus', 3 );
+            return new Promise(function(resolve, reject){
+                QatKgetAPI.getKgetData(data)
+                .then(function(response){
+                    setTimeout(function(){
+                        if (response.data != undefined) {
+                            commit( 'qatKgetData', response.data );
+                            commit( 'qatKgetDataStatus', 2 );
+                        } else {
+                            commit( 'qatKgetData', [ response ] );
+                            commit( 'qatKgetDataStatus' , 3 ); 
+                        }
+                        resolve();
+                    }, 1000);                                           
+                })
+                .catch( function(){
+                    commit( 'qatKgetData', [ 'Connection failed' ] );
+                    commit( 'qatKgetDataStatus', 3 );
+                });
             });
         },
         cancel() {
@@ -147,19 +152,24 @@ export const qatKget = {
         },
         qatKgetFileData( {commit}, data) {
             commit( 'qatKgetFileDataStatus', 1 );
-            QatKgetAPI.exportKgetFile(data)
-            .then( function( response ){
-                if ( response.data != undefined ) {
-                    commit( 'qatKgetFileData', response.data );
-                    commit( 'qatKgetFileDataStatus', 2 );
-                }else {
-                    commit( 'qatKgetFileData', [ response ] );
-                    commit( 'qatKgetFileDataStatus' , 3 ); 
-                }
-            })
-            .catch( function(){
-                commit( 'qatKgetFileData', [ 'Connection failed' ] );
-                commit( 'qatKgetFileDataStatus', 3 );
+            return new Promise(function(resolve, reject){
+                QatKgetAPI.exportKgetFile(data)
+                .then(function(response){
+                    setTimeout(function(){
+                        if (response.data != undefined) {
+                            commit( 'qatKgetFileData', response.data );
+                            commit( 'qatKgetFileDataStatus', 2 );
+                        } else {
+                            commit( 'qatKgetFileData', [ response ] );
+                            commit( 'qatKgetFileDataStatus' , 3 ); 
+                        }
+                        resolve();
+                    }, 1000);                                           
+                })
+                .catch( function(){
+                    commit( 'qatKgetFileData', [ 'Connection failed' ] );
+                    commit( 'qatKgetFileDataStatus', 3 );
+                });
             });
         },
         insertKgetCrontabTask( {commit}, data) {

@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class SiteLte extends Model
+class USERS extends Model
 {
     public 	  $timestamps = false;
-    protected $connection = "mongs";
-    protected $table      = "siteLte";
+    protected $connection = "Qat";
+    protected $table      = "users";
 }

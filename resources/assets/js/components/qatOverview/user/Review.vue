@@ -12,7 +12,7 @@
                 </el-form>
             </el-col>
             <el-col :span="4" :offset="8">
-                <el-button type="primary" @click.stop="review">{{$t('messages.menu.Review')}}</el-button>
+                <el-button type="primary" @click.stop="review" :disabled="disabledReview">{{$t('messages.menu.Review')}}</el-button>
             </el-col>
         </el-row>
 
@@ -86,8 +86,9 @@
                 filter:'',
                 currentRow: [],
                 roles: [],
-                disabled:true,
+                disabled: true,
                 dialogVisible: false,
+                disabledReview: true
             }
         },
         watch: {
@@ -103,6 +104,7 @@
         },
         methods: {
             handleCurrentChange(val) {
+                this.disabledReview = val ? false : true;
                 this.currentRow = val;
             },
             current_change: function(currentPage) {
@@ -138,20 +140,14 @@
                 }
             },
             review() {
-                if ( this.currentRow.length == 0){
-                    this.$message.warning(this.$t('messages.user.reviewTip'));
-                    return;
-                }
                 this.dialogVisible = true;
             },
-            //点击关闭dialog
             handleClose() {
                 this.dialogVisible = false;
             },
-            //点击更新
             handleUpdate() { 
                 var _this = this;
-                this.$store.dispatch('reviewUser', this.currentRow).then(function(){
+                this.$store.dispatch('reviewUser', {'email':this.currentRow.email,'type':this.currentRow.type,'name':this.currentRow.name,'password':this.currentRow.password}).then(function(){
                     _this.reviewUser();
                 });
             },
@@ -161,6 +157,13 @@
                         this.dialogVisible = false;
                         this.$store.dispatch('showReview');
                         this.$message.success(this.$t('messages.user.reviewSucc'));
+                    break;
+                    case 3 :
+                        this.$message({
+                            showClose: true,
+                            message: this.$store.getters.reviewUser,
+                            type: 'error'
+                          });
                     break;
                     default:
                         this.$message.success(this.$t('messages.user.reviewFailed'));
@@ -175,12 +178,22 @@
                         this.loading.showReviewDataStatus = true;
                     break;
                     case 2 :
+                        this.loading.showReviewDataStatus = false;
                         tableData =  this.$store.getters.showReviewData;
                         this.tableData = tableData;
                         this.total = tableData.length;
                         this.currentPage = 1;
+                    break;
+                    case 3 :
+                        this.loading.showReviewDataStatus = false;
+                        this.$message({
+                            showClose: true,
+                            message: this.$store.getters.showReviewData,
+                            type: 'error'
+                          });
+                    break;
                     default:
-                         this.loading.showReviewDataStatus = false;
+                        this.loading.showReviewDataStatus = false;
                     break;
                 }
             },
@@ -190,9 +203,18 @@
                         this.loading.getRoleDataStatus = true;
                     break;
                     case 2 :
+                        this.loading.getRoleDataStatus = false;
                         this.roles =  this.$store.getters.getRoleData;
+                    break;
+                    case 3 :
+                        this.$message({
+                            showClose: true,
+                            message: this.$store.getters.getRoleData,
+                            type: 'error'
+                          });
+                    break;
                     default:
-                         this.loading.getRoleDataStatus = false;
+                        this.loading.getRoleDataStatus = false;
                     break;
                 }
             }

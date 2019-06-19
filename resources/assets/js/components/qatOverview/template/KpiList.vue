@@ -1,27 +1,11 @@
 <template>
     <div>
-        <el-card class="box-card_" shadow="hover">
+        <el-card class="box-card_template" shadow="hover">
             <div slot="header" class="clearfix">
               <span>指标 {{templateName}}</span>
             </div>
-            <!-- <el-tree 
-                :data="elementData" 
-                @node-click="handleNodeClick" 
-                :getElementData="getElementData"
-                @node-drag-end="handleDragEnd"
-                :draggable="draggable"
-                >
-                <span class="custom-tree-node" style="width: -webkit-fill-available" slot-scope="{ node, data }">
-                    <span style="float: left;">{{ node.label }}</span>
-                    <span style="float: right;">
-                      <el-button v-show="data.showRemove" type="text" size="mini" @click="() => remove(node, data)">
-                        <i class="el-icon-delete"></i>
-                      </el-button>
-                    </span>
-                </span>
-            </el-tree> -->
             <el-scrollbar :native="false" wrapStyle="" wrapClass="" viewClass="" viewStyle="" tag="section">
-                <div style="max-height: -webkit-fill-available;">
+                <div style="max-height:495px;">
                     <el-tree
                         v-loading="elementLoading"
                         :data="elementData" 
@@ -34,7 +18,6 @@
                 </div>
             </el-scrollbar>
         </el-card>
-        
     </div>
 </template>
 <script>

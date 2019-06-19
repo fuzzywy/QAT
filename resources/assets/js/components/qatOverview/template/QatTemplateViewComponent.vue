@@ -2,17 +2,17 @@
     
 </style>
 <template>
-    <el-row >
-        <el-col :span="6">
+    <el-container>
+        <el-aside width="25%">
             <template-manage :datasource="datasource" :datatype="datatype"></template-manage>
-        </el-col>
-        <el-col :span="6">
+        </el-aside>
+        <el-aside width="25%">
             <kpi-list></kpi-list>
-        </el-col>
-        <el-col :span="12">
+        </el-aside>
+        <el-aside width="50%">
             <formula-manage></formula-manage>
-        </el-col>   
-    </el-row>
+        </el-aside>
+    </el-container>
 </template>
 <script>
     import TemplateManage from './TemplateManage.vue';
@@ -21,8 +21,10 @@
     export default {
         data() {
             return {
-                datasource: this.$route.query.datasource,
-                datatype: this.$route.query.datatype,
+                //datasource: this.$route.query.datasource,
+                //datatype: this.$route.query.datatype,
+                datasource: 'ENIQ',
+                dataType: 'TDD',
                 templateName: '',
                 parent: '',
                 grandparent: ''
