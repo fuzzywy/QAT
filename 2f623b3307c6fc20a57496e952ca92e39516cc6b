@@ -1,0 +1,191 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0fc52a10_8a0dbcc0",
+        "filename": "app/Http/Controllers/SiteManage/SiteController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-06-27T09:38:39Z",
+      "side": 1,
+      "message": "修改注释",
+      "revId": "2f623b3307c6fc20a57496e952ca92e39516cc6b",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4415e520_e7ce561b",
+        "filename": "app/Http/Controllers/SiteManage/SiteController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-06-27T09:38:39Z",
+      "side": 1,
+      "message": "修改注释",
+      "revId": "2f623b3307c6fc20a57496e952ca92e39516cc6b",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "014a3d56_d354902b",
+        "filename": "app/Http/Controllers/SiteManage/SiteController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-06-27T09:38:39Z",
+      "side": 1,
+      "message": "能用DB:statement来替代PDO的exec操作吗？",
+      "revId": "2f623b3307c6fc20a57496e952ca92e39516cc6b",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "868eb0e3_ab946d1d",
+        "filename": "app/Http/Controllers/SiteManage/SiteController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-06-27T09:38:39Z",
+      "side": 1,
+      "message": "修改注释",
+      "revId": "2f623b3307c6fc20a57496e952ca92e39516cc6b",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bac57f8a_d5e8d690",
+        "filename": "app/Http/Controllers/SiteManage/SiteController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-06-27T09:38:39Z",
+      "side": 1,
+      "message": "文件输出目录应该在config文件中配置。",
+      "revId": "2f623b3307c6fc20a57496e952ca92e39516cc6b",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "922ce25b_1d698926",
+        "filename": "app/Http/Controllers/SiteManage/SiteController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-06-27T09:38:39Z",
+      "side": 1,
+      "message": "同上",
+      "revId": "2f623b3307c6fc20a57496e952ca92e39516cc6b",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ef2df735_fd5a2c51",
+        "filename": "app/Http/Controllers/UserManage/UserController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-06-27T09:38:39Z",
+      "side": 1,
+      "message": "修改注释，和方法定义里的参数以及返回值保持一致",
+      "revId": "2f623b3307c6fc20a57496e952ca92e39516cc6b",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "94f03290_7fe4d5c0",
+        "filename": "app/Http/Controllers/UserManage/UserController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-06-27T09:38:39Z",
+      "side": 1,
+      "message": "修改注释",
+      "revId": "2f623b3307c6fc20a57496e952ca92e39516cc6b",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c191dde3_fab2a739",
+        "filename": "app/Http/Controllers/UserManage/UserController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-06-27T09:38:39Z",
+      "side": 1,
+      "message": "修改注释",
+      "revId": "2f623b3307c6fc20a57496e952ca92e39516cc6b",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "14350a5b_612075b7",
+        "filename": "app/Http/Controllers/UserManage/UserController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-06-27T09:38:39Z",
+      "side": 1,
+      "message": "修改注释",
+      "revId": "2f623b3307c6fc20a57496e952ca92e39516cc6b",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9f3b80e7_4ed5b7db",
+        "filename": "app/Http/Controllers/UserManage/UserController.php",
+        "patchSetId": 1
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-06-27T09:38:39Z",
+      "side": 1,
+      "message": "修改注释，注意这里是和方法定义保持一致的。该方法没有参数。",
+      "revId": "2f623b3307c6fc20a57496e952ca92e39516cc6b",
+      "serverId": "f8e000e2-6046-4ea1-b337-da5e5d5bd44d",
+      "unresolved": false
+    }
+  ]
+}
